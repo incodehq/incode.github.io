@@ -1,0 +1,24 @@
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Apache Isis Add-ons
+tagline:          Reusable business modules for Apache Isis.
+url:              http://incodehq.github.io
+#url:              http://catalog.incode.org
+paginate:         1
+baseurl:          /
+author:
+  name:           Dan Haywood
+  url:            https://twitter.com/dkhaywood
+  email:          dhaywood@incode.org
+
+# Custom vars
+# version:          1.0.0
+# github:
+#   repo:           https://github.com/incodehq/incodehq.github.io
+  

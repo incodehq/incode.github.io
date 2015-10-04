@@ -1,0 +1,93 @@
+---
+layout: default
+title: Home
+---
+
+        <div class="repos">
+
+            <p>
+                This site catalogs a number of modules for <a href="http://isis.apache.org">Apache Isis</a> for you to use
+                either "out of the box", or as a starting point to modify and adapt
+                to your own requirements.  Each add-on has its own repo.  All add-ons use the <code>org.incode</code> package.
+            </p>
+            <table>
+
+                <tr>
+                    <th>Module</th>
+                    <th>Description</th>
+                    <th style="min-width:50px;">Build</th>
+                </tr>
+
+                {% for repo in site.github.public_repositories %}
+                {% if repo.fork == false %}
+                {% if repo.name contains '-module-' %}
+
+                <tr>
+                    <td>
+                        <a href="{{repo.html_url}}" target="_blank">{{ repo.name }}</a>
+                        {% if repo.name contains 'note' or repo.name contains 'commchannel' %}
+                            <br/>
+                            <span class="WIP">WIP</span>
+                        {% endif %}
+
+                    </td>
+                    <td>
+                        {{repo.description}}
+                    </td>
+                    <td>
+                        <a href="https://travis-ci.org/incodehq/{{ repo.name }}" target="_blank">
+                            <img src="https://travis-ci.org/incodehq/{{ repo.name }}.png?branch=master"></img>
+                        </a>
+                        {% if false %}
+                        <a href='https://estatio.ci.cloudbees.com/job/github=incodehq={{ repo.name }}%20(master)/'>
+                            <img src='https://estatio.ci.cloudbees.com/job/github=incodehq={{ repo.name }}%20(master)/badge/icon'>
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                    
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                   
+
+            </table>
+
+            <p class="WIP">'WIP' indicates the add-on is still work-in-progress and hasn't yet been released.</p>
+
+        </div>
+
+            <h3>"Out-of-the-box"</h3>
+            <p>
+                All add-ons are released as a Maven artifact into the 
+                <a href="http://search.maven.org">Maven central repo</a>; just add the relevant dependencies to your 
+                project <code>pom.xml</code>, and (where required) register new domain services either using an
+                <code>AppManifest#getModules()</code> or in Isis' <code>isis.properties</code> configuration files.  
+                The README for each add-on contains full details 
+                on how to do this.
+            </p>
+            
+
+            <h3>Forking the module</h3>
+            <p>
+                Alternatively, if you do need to modify/adapt the provided functionality, then fork the entire repo.
+                This way you also have fixtures and tests to ensure that your changes are properly tested.
+            </p>
+            <p>
+                The <code>incode-module-xxx</code> modules have the following structure:
+            </p>
+            <ul>
+                <li><code>app</code> - demo app's app manifest</li>
+                <li><code>dom</code> - domain object module  (released to <a href="http://search.maven.org">Maven central</a>)</li>
+                <li><code>fixture</code> - demo app fixtures</li>
+                <li><code>integtests</code> - demo app's integration tests</li>
+                <li><code>webapp</code> - demo app's webapp</li>
+            </ul>
+
+            <h3>Contributing back</h3>
+            <p>
+                If you fork an add-on and think others would benefit from your changes, please raise a pull request so
+                that we can review and fold those changes back into the original.
+            </p>
+
+
