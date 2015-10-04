@@ -6,7 +6,7 @@ pygments:         true
 permalink:        pretty
 
 # Setup
-title:            Apache Isis Add-ons
+title:            Incode Modules
 tagline:          Reusable business modules for Apache Isis.
 url:              http://incodehq.github.io
 #url:              http://catalog.incode.org
