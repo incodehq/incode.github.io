@@ -1,0 +1,555 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Audit SPI Implementation</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   spi-audit
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="spi-audit.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Audit SPI Implementation</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/spi/audit/spi-audit.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/spi/audit/spi-audit.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/spi/audit/spi-audit.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/spi/audit/spi-audit.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/spi/audit/spi-audit.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>isis-module-audit</code>) provides an implementation of Isis' <code>AuditerService</code> SPI (introduced in <code>1.13.0</code>, replacing the earlier <code>AuditingService3</code> SPI). The implementation persists audit entries using Isis' own (JDO) objectstore. Typically this will be to a relational database; the module’s <code>AuditEntry</code> entity is mapped to the "isisaudit.AuditEntry" table.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_screenshots">Screenshots</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomSpiAuditAppManifest</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>A home page is displayed when the app is run:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/010-install-fixtures.png"><img src="images/010-install-fixtures.png" alt="010 install fixtures" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="admonitionblock note"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>The remaining screenshots below <strong>do</strong> demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_object_with_initial_creation_audit_entries">Object with initial (creation) audit entries</h3> 
+         <div class="paragraph"> 
+          <p>Because the example entity is annotated with <code>@DomainObject(auditing = Auditing.ENABLED)</code>, the initial creation of that object already results in some audit entries:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/020-first-object-with-initial-audit-entries.png"><img src="images/020-first-object-with-initial-audit-entries.png" alt="020 first object with initial audit entries" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>As the screenshot shows, the demo app lists the audit entries for the example entity (a polymorphic association utilizing the <code>BookmarkService</code>).</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_audit_entry_for_each_changed_property">Audit Entry for each changed property</h3> 
+         <div class="paragraph"> 
+          <p>Changing two properties on an object:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/030-changing-two-properties-on-object.png"><img src="images/030-changing-two-properties-on-object.png" alt="030 changing two properties on object" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which results in <em>two</em> audit entries created, one for each property:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/040-two-audit-entries-created.png"><img src="images/040-two-audit-entries-created.png" alt="040 two audit entries created" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_audit_entry">Audit entry</h3> 
+         <div class="paragraph"> 
+          <p>The audit entry is an immutable record, can also inspect other audit entries created in the same transaction:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/050-navigate-to-audit-entry-see-other-audit-entries.png"><img src="images/050-navigate-to-audit-entry-see-other-audit-entries.png" alt="050 navigate to audit entry see other audit entries" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>It is of course also possible to navigate back to audited object:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/060-navigate-back-to-audited-object.png"><img src="images/060-navigate-back-to-audited-object.png" alt="060 navigate back to audited object" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_configure_use">How to Configure/Use</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your project’s <code>dom</code> module’s <code>pom.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.audit<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>isis-module-audit-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|isis-module-audit-dom">Maven Central Repo</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
+    <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
+            ...
+            org.isisaddons.module.audit.AuditModule.class,
+    );
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_configuration_properties">Configuration Properties</h3> 
+         <div class="paragraph"> 
+          <p>For audit entries to be created when an object is changed, some configuration is required. This can be either on a case-by-case basis, or globally:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>by default no object is treated as being audited unless it has explicitly annotated using <code>@Audited</code>. This is the option used in the example app described above.</p> </li> 
+           <li> <p>alternatively, auditing can be globally enabled by adding a key to <code>isis.properties</code>:<br></p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="ini">isis.services.audit.objects=all</code></pre> 
+             </div> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>An individual entity can then be explicitly excluded from being audited using <code>@Audited(disabled=true)</code>.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_api">API</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The <code>AuditerService</code> defines the following API:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Programmatic</span>
+<span class="directive">public</span> <span class="type">void</span> audit(
+        <span class="directive">final</span> <span class="predefined-type">UUID</span> transactionId,
+        <span class="directive">final</span> <span class="type">int</span> sequence,
+        <span class="directive">final</span> <span class="predefined-type">String</span> targetClass,
+        <span class="directive">final</span> Bookmark target,
+        <span class="directive">final</span> <span class="predefined-type">String</span> memberIdentifier,
+        <span class="directive">final</span> <span class="predefined-type">String</span> propertyId,
+        <span class="directive">final</span> <span class="predefined-type">String</span> preValue,
+        <span class="directive">final</span> <span class="predefined-type">String</span> postValue,
+        <span class="directive">final</span> <span class="predefined-type">String</span> user,
+        <span class="directive">final</span> java.sql.Timestamp timestamp);</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Isis will automatically call this method on the service implementation if configured. The method is called often, once for every individual property of a domain object that is changed.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_implementation">Implementation</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The <code>AuditerService</code> SPI is implemented in this module by the <code>org.isisaddons.module.audit.AuditerServiceUsingJdo</code> class. This implementation simply persists an audit entry (<code>AuditEntry</code>) each time it is called. This results in a fine-grained audit trail.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>AuditEntry</code> properties directly correspond to parameters of the <code>AuditerService</code> <code>audit()</code> API:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">AuditEntry</span>
+    ...
+    private <span class="predefined-type">UUID</span> transactionId;
+    <span class="directive">private</span> <span class="type">int</span> sequence;
+    <span class="directive">private</span> <span class="predefined-type">String</span> targetClass;
+    <span class="directive">private</span> <span class="predefined-type">String</span> targetStr;
+    <span class="directive">private</span> <span class="predefined-type">String</span> memberIdentifier;
+    <span class="directive">private</span> <span class="predefined-type">String</span> propertyId;
+    <span class="directive">private</span> <span class="predefined-type">String</span> preValue;
+    <span class="directive">private</span> <span class="predefined-type">String</span> postValue;
+    <span class="directive">private</span> <span class="predefined-type">String</span> user;
+    <span class="directive">private</span> <span class="predefined-type">Timestamp</span> timestamp;
+    ...
+}</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>where:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>transactionId</code> is a unique identifier (a GUID) of the transaction in which this audit entry was persisted.</p> </li> 
+          <li> <p><code>timestamp</code> is the timestamp for the transaction</p> </li> 
+          <li> <p><code>targetClass</code> holds the class of the audited object, eg <code>com.mycompany.myapp.Customer</code></p> </li> 
+          <li> <p><code>targetStr</code> stores a serialized form of the <code>Bookmark</code>, in other words a provides a mechanism to look up the audited object, eg <code>CUS:1234</code> to identify customer with id 1234. ("CUS" corresponds to the <code>@ObjectType</code> annotation/facet).</p> </li> 
+          <li> <p><code>memberIdentifier</code> is the fully-qualified class and property Id, similar to the way that Javadoc words, eg <code>com.mycompany.myapp.Customer#firstName</code></p> </li> 
+          <li> <p><code>propertyId</code> is the property identifier, eg <code>firstName</code></p> </li> 
+          <li> <p><code>preValue</code> holds a string representation of the property’s value prior to it being changed. If the object has been created then it holds the value "[NEW]". If the string is too long, it will be truncated with ellipses '…'.</p> </li> 
+          <li> <p><code>postValue</code> holds a string representation of the property’s value after it was changed. If the object has been deleted then it holds the value "[DELETED]". If the string is too long, it will be truncated with ellipses '…'.</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The combination of <code>transactionId</code>, <code>targetStr</code> and <code>propertyId</code> make up an alternative key to uniquely identify an audit entry. However, there is (deliberately) no uniqueness constraint to enforce this rule.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>AuditEntry</code> entity is designed such that it can be rendered on an Isis user interface if required.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_supporting_services_and_mixins">Supporting Services and Mixins</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>As well as the <code>AuditingService</code> service (that implements the <code>AuditingService3</code> API), the module also provides two further domain services:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>The <code>AuditingServiceMenu</code> provides actions to search for `AuditEntry`s, underneath an 'Activity' menu on the secondary menu bar.</p> </li> 
+          <li> <p><code>AuditingServiceRepository</code> provides the ability to search for persisted (<code>AuditEntry</code>) audit entries. None of its actions are visible in the user interface (they are all <code>@Programmatic</code>) and so this service is automatically registered.</p> </li> 
+          <li> <p><code>HasTransactionId_auditEntries</code> mixin contribues the <code>auditEntries</code> collection to the <code>HasTransactionId</code> interface. This will therefore display all audit entries that occurred in a given transaction, in other words whenever a command, a published event or another audit entry is displayed.</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>(As of 1.8.x and later) these services are automatically registered, meaning that any UI functionality they provide will appear in the user interface. If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@DomainService</span>(nature = NatureOfService.DOMAIN)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HideIsisAddonsAuditingFunctionality</span> <span class="directive">extends</span> AbstractSubscriber {
+    <span class="annotation">@Programmatic</span> <span class="annotation">@Subscribe</span>
+    <span class="directive">public</span> <span class="type">void</span> on(<span class="directive">final</span> AuditingModule.ActionDomainEvent&lt;?&gt; event) { event.hide(); }
+}</code></pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>In <code>1.6.0</code> through <code>1.9.x</code> a call to <code>DomainObjectContainer#flush()</code> is required in order that any newly created objects are populated.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Note that Apache Isis automatically performs a flush prior to any repository call, so in many cases there may not be any need to call flush explicitly.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_related_modules_services">Related Modules/Services</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>As well as defining the <code>AuditingService3</code> API, Isis' applib also defines several other closely related services. Implementations of these services are referenced by the <a href="http://www.isisaddons.org">Isis Add-ons</a> website.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>CommandContext</code> defines the <code>Command</code> class which provides request-scoped information about an action invocation. Commands can be thought of as being the cause of an action; they are created "before the fact". Some of the parameters passed to <code>AuditingService3</code> - such as <code>target</code>, <code>user</code>, and <code>timestamp</code> - correspond exactly to the <code>Command</code> class.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>CommandService</code> service is an optional service that acts as a <code>Command</code> factory and allows <code>Command`s to be persisted. `CommandService’s API introduces the concept of a `transactionId</code>; once again this is the same value as is passed to the <code>AuditingService3</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>PublishingService</code> is another optional service that allows an event to be published when either an object has changed or an actions has been invoked. There are some similarities between publishing to auditing; they both occur "after the fact". However the publishing service’s primary use case is to enable inter-system co-ordination (in DDD terminology, between bounded contexts). As such, publishing is much coarser-grained than auditing, and not every change need be published. Publishing also uses the <code>transactionId</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>CommandService</code> and <code>PublishingService</code> are optional; as with the <code>AuditingService3</code>, Apache Isis will automatically use call each if the service implementation if discovered on the classpath.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>If all these services are configured - such that commands, audit entries and published events are all persisted, then the <code>transactionId</code> that is common to all enables seamless navigation between each. (This is implemented through contributed actions/properties/collections; <code>AuditEntry</code> implements the <code>HasTransactionId</code> interface in Isis' applib, and it is this interface that each module has services that contribute to).</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/spi/audit/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding Apache Isis itself, returns no direct compile/runtime dependencies.</p> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

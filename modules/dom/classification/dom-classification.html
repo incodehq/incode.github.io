@@ -1,0 +1,1095 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Classification Subdomain</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   dom-classification
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="dom-classification.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Classification Subdomain</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/dom/classification/dom-classification.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/dom/classification/dom-classification.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/dom/classification/dom-classification.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/dom/classification/dom-classification.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/dom/classification/dom-classification.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>incode-module-classification</code>) provides the ability to classify any (arbitrary) domain entity as belonging to a pre-defined <code>Category</code> within a particular <code>Taxonomy</code>. A given domain object can only be associated with one <code>Category</code> per <code>Taxonomy</code>, but each <code>Category</code> can optionally have child (sub-) categories.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Not every <code>Taxonomy</code> is applicable to every domain object. Instead, the <code>Taxonomy</code> is qualified by both the domain object’s type and also its application tenancy (eg country within a multi-tenancy environment).</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>There are <em>no</em> requirements for those domain objects implement any interfaces. A subclass of the <code>Classification</code> abstract class is required; this acts as the "glue" between the <code>Category</code> and the "classified" domain object. In total about 50 lines of boilerplate are required, details below.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This module expects that application tenancy path is hierarchical (so for example "/ITA/MIL" resides within both "/ITA" and "/"). This allows <code>Taxonomy</code>s to be declared as applicable at one level (eg "/ITA") and to be considered applicable for domain objects at that level and sub-levels (eg "/ITA/MIL"). The value of the application tenancy path of a domain object is provided through the <code>ApplicationTenancyService</code> SPI.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_domain_model">Domain Model</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The following class diagram highlights the main concepts:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <img src="images/class-diagram.png" alt="class diagram" width="1111" height="685"> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>(The colours used in the diagram are - approximately - from <a href="https://en.wikipedia.org/wiki/Object_Modeling_in_Color">Object Modeling in Color</a>).</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__code_taxonomy_code_and_code_category_code"><code>Taxonomy</code> and <code>Category</code></h3> 
+         <div class="paragraph"> 
+          <p>The <code>Taxonomy</code> entity defines a hierarchy of <code>Category</code>s, with the <code>Taxonomy</code> itself acting as the root of each such hierarchy. In many cases the <code>Taxonomy</code> will be only two levels deep, in effect defining a enum, eg:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>"Italian Colours" root classification, with children:</p> 
+            <div class="ulist"> 
+             <ul> 
+              <li> <p>"Italian Colours/Red"</p> </li> 
+              <li> <p>"Italian Colours/White"</p> </li> 
+              <li> <p>"Italian Colours/Green"</p> </li> 
+             </ul> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>However, deeper <code>Taxonomy</code>s are possible, eg:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>"Sizes`</p> 
+            <div class="ulist"> 
+             <ul> 
+              <li> <p>"Sizes/Small"</p> 
+               <div class="ulist"> 
+                <ul> 
+                 <li> <p>"Sizes/Small/Smallest"</p> </li> 
+                 <li> <p>"Sizes/Small/Smaller"</p> </li> 
+                 <li> <p>"Sizes/Small/Small"</p> </li> 
+                </ul> 
+               </div> </li> 
+              <li> <p>"Sizes/Medium"</p> </li> 
+              <li> <p>"Sizes/Large"</p> 
+               <div class="ulist"> 
+                <ul> 
+                 <li> <p>"Sizes/Large/Large"</p> </li> 
+                 <li> <p>"Sizes/Large/Larger"</p> </li> 
+                 <li> <p>"Sizes/Large/Largest"</p> </li> 
+                </ul> 
+               </div> </li> 
+             </ul> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>There can be many such taxonomies; any given domain object can only have one <code>Classification</code> per <code>Taxonomy</code> hierarchy (but not more than one classification per hierarchy). Thus, a domain object might be classified as both "Italian Colours/Red" and "Sizes/Medium", but it isn’t possible to classify as both "Italian Colours/Red" and "Italian Colours/Green".</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__code_applicability_code_and_code_applicationtenancyservice_code"><code>Applicability</code> and <code>ApplicationTenancyService</code></h3> 
+         <div class="paragraph"> 
+          <p>Not every domain object can be classified with respect to every <code>Taxonomy</code>. Instead, the available set is restricted by the <code>Applicability</code> entity. This identifies which <code>Taxonomy</code>(s) can be associated with domain object types. This is further qualified by the application tenancy of the domain object (for multi-tenanted applications).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>ApplicationTenancyService</code> SPI service is used to obtain the application tenancy of each domain object.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__code_classification_code"><code>Classification</code></h3> 
+         <div class="paragraph"> 
+          <p>The <code>Classification</code> is the tuple that associates a particular domain object with a particular <code>Category</code> in some <code>Taxonomy</code>. This must be with respect to some <code>Applicability</code>. <code>Classification</code> itself is an <code>abstract</code> class; for each domain object to be classified, a subclass of <code>Classification</code> is required, providing a type-safe (referential integrity) connection between the two entities.</p> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>The module does <em>not</em> prevent an <code>Applicability</code> from being removed, even if there are existing <code>Classification</code>s that rely upon that <code>Applicability</code>.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_screenshots">Screenshots</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomDomClassificationAppManifest</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This sets up a small hierarchy of app tenancies, namely "/" (global), "/ITA" (Italy)", "/FRA" (France) and two sub-tenancies of Italy and France, "/ITA/MIL" (Milan) and "/FRA/PAR" (Paris).</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>There are two separate domain object types, <code>DemoObject</code> and <code>OtherObject</code>. There are five instances of each, in the various app tenancies.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>There are also three example taxonomies: "Sizes", "Italian Colours" and also "French Colours". These are set up so that "Sizes" is applicable globally, while the two different "colour" taxonomies apply only to their respective app tenancies.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To demonstrate that domain type is significant, the "Sizes" and "French Colours" taxonomies apply to <code>DemoObject</code> but do <em>not</em> apply to the <code>OtherObject</code>. The "Italian Colour" taxonomy on the other hand applies to both <code>DemoObject</code> and to <code>OtherObject</code>.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_taxonomies_reference_data">Taxonomies (reference data)</h3> 
+         <div class="paragraph"> 
+          <p>A home page is displayed when the app is run:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/010-run-fixture-script.png"><img src="images/010-run-fixture-script.png" alt="010 run fixture script" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>We can then list the taxonomies:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/030-list-taxonomies.png"><img src="images/030-list-taxonomies.png" alt="030 list taxonomies" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which returns the three demo taxonomies, "Size", "Italian Colours" and "French Colours":</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/040-view-taxonomy.png"><img src="images/040-view-taxonomy.png" alt="040 view taxonomy" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "French Colours" <code>Taxonomy</code> contains three <code>Category</code>s, namely "Red", "White" and "Blue":</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/050-french-colour-taxonomy.png"><img src="images/050-french-colour-taxonomy.png" alt="050 french colour taxonomy" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>while the "Italian Colours" <code>Taxonomy</code> contains three different <code>Category</code>s, "Red", "White" and "Green":</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/060-italian-colour-taxonomy.png"><img src="images/060-italian-colour-taxonomy.png" alt="060 italian colour taxonomy" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note that the "French Colours"' "Red" is different from the "Italian Colours"' "Red", also for "White". These are two different <code>Category</code>s in two different <code>Taxonomy</code>s that just happen to have the same (local) name.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Also note (as can be guessed from their names) that the "French Colours" <code>Taxonomy</code> only applies to the "/FRA" app tenancy, while the "Italian Colours" <code>Taxonomy</code> applies only to the "/ITA" app tenancy. The former also only to the <code>DemoObject</code> domain type, while the latter apples to both <code>DemoObject</code> and also <code>OtherObject</code> domain types.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The final <code>Taxonomy</code> is "Size":</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/070-size-taxonomy.png"><img src="images/070-size-taxonomy.png" alt="070 size taxonomy" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In contrast to the two "colour" taxonomies, the "Size" taxonomy is defined globally (for the "/" app tenancy). However, it only applies to the <code>DemoObject</code> domain type, not to the <code>OtherObject</code> domain type.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "Size" taxonomy is also more complex than the other two taxonomies, in that contains categories and sub-categories:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/080-size-taxonomy-hierarchy.png"><img src="images/080-size-taxonomy-hierarchy.png" alt="080 size taxonomy hierarchy" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The table below summarizes the various taxonomies and their applicability:</p> 
+         </div> 
+         <table class="tableblock frame-all grid-all spread"> 
+          <caption class="title">
+           Table 1. Taxonomy applicability
+          </caption> 
+          <colgroup> 
+           <col style="width: 20%;"> 
+           <col style="width: 20%;"> 
+           <col style="width: 20%;"> 
+           <col style="width: 20%;"> 
+           <col style="width: 20%;"> 
+          </colgroup> 
+          <thead> 
+           <tr> 
+            <th class="tableblock halign-left valign-top">Domain type</th> 
+            <th class="tableblock halign-left valign-top">App tenancy</th> 
+            <th class="tableblock halign-left valign-top">"Italian Colours"<br> taxonomy</th> 
+            <th class="tableblock halign-left valign-top">"French Colours"<br> taxonomy</th> 
+            <th class="tableblock halign-left valign-top">"Size"<br> taxonomy</th> 
+           </tr> 
+          </thead> 
+          <tbody> 
+           <tr> 
+            <td class="tableblock halign-left valign-top" rowspan="5">
+             <div>
+              <div class="paragraph"> 
+               <p><code>DemoObject</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/ITA</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/FRA</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/ITA/MIL</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/FRA/PAR</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top" rowspan="5">
+             <div>
+              <div class="paragraph"> 
+               <p><code>OtherObject</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/ITA</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/FRA</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/ITA/MIL</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>Yes</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p><code>/FRA/PAR</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-top">
+             <div>
+              <div class="paragraph"> 
+               <p>No</p> 
+              </div>
+             </div></td> 
+           </tr> 
+          </tbody> 
+         </table> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_domain_object_data">Domain Object Data</h3> 
+         <div class="paragraph"> 
+          <p>The example app creates 5 instances of <code>DemoObject</code>, each in a different app tenancy:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/090-view-demo-foo.png"><img src="images/090-view-demo-foo.png" alt="090 view demo foo" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "foo" <code>DemoObject</code> is in the "/ITA" app tenancy, which means that the "Italian Colours" and "Sizes" taxonomies both apply. The example seed data adds <code>Classification</code>s for this object in each of these taxonomies. As the screenshot shows, no further <code>Classification</code>s can be added:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/100-demo-foo-cannot-classify.png"><img src="images/100-demo-foo-cannot-classify.png" alt="100 demo foo cannot classify" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "bar" <code>DemoObject</code> is in the "/FRA" app tenancy, which means that the "French Colours" and "Sizes" taxonomies both apply. The example seed data adds a <code>Classification</code> for the "Sizes" taxonomy, which means that the object can still be classified (in the "French Colours" taxonomy):</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/110-demo-bar-can-classify.png"><img src="images/110-demo-bar-can-classify.png" alt="110 demo bar can classify" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Since there is only one applicable taxonomy ("French Colours"), this is automatically defaulted. The end-user can then select the particular <code>Category</code> within that <code>Taxonomy</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/120-demo-bar-classify-french-colours.png"><img src="images/120-demo-bar-classify-french-colours.png" alt="120 demo bar classify french colours" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "baz" <code>DemoObject</code> on the other hand starts off with no <code>Classification</code>s. Because this has global app tenancy, only the "Sizes" <code>Taxonomy</code> applies:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/130-demo-baz-global-classify.png"><img src="images/130-demo-baz-global-classify.png" alt="130 demo baz global classify" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Like <code>DemoObject</code>, there are five instances of <code>OtherObject</code>, again each with a different app tenancy:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/150-view-other-foo.png"><img src="images/150-view-other-foo.png" alt="150 view other foo" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The difference between <code>OtherObject</code> and <code>DemoObject</code> is that neither the "Sizes" nor "French Colours" taxonomies are applicable to <code>OtherObject</code>. Thus, with the "foo" <code>OtherObject</code> the only available taxonomy to classify is "Italian Colours":</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/160-other-cannot-classify-size.png"><img src="images/160-other-cannot-classify-size.png" alt="160 other cannot classify size" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Once a <code>Classification</code> has been made, it can be altered to any other <code>Category</code> within the same <code>Taxonomy</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/170-view-other-foo-change-classification-category.png"><img src="images/170-view-other-foo-change-classification-category.png" alt="170 view other foo change classification category" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Here the <code>Classification</code> is being changed:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/180-change-classification-category-prompt.png"><img src="images/180-change-classification-category-prompt.png" alt="180 change classification category prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Which we can see <em>has</em> then been changed:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/190-change-classification-category.png"><img src="images/190-change-classification-category.png" alt="190 change classification category" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>It is also possible to change each <code>Category</code>'s name, reference and (sorting) ordinal. If the name or ordinal are changed then the fully qualified name/ordinal are automatically updated for both the <code>Category</code> and any of its children.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/200-change-name-ref-sorting-ordinal.png"><img src="images/200-change-name-ref-sorting-ordinal.png" alt="200 change name ref sorting ordinal" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>(As of 1.15.0), the <code>name</code> and <code>reference</code> properties can only be modified if the global <code>isis.objects.editing</code> is set to <code>true</code>. The <code>sortingOrdinal</code>, however, is always editable.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_configure_use">How to configure/use</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your dom project’s <code>pom.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.incode.module.classification<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>incode-module-classification-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|incode-module-classification-dom">Maven Central Repo</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
+    <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
+            ...
+            org.incode.module.classification.dom.ClassificationModule.class,
+    );
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_for_each_domain_object">For each domain object…​</h3> 
+         <div class="paragraph"> 
+          <p>For each domain object that you want to classify (that is, add <code>Classification</code>s to), you need to:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>implement a subclass of <code>Classification</code> for the domain object’s type.<br></p> 
+            <div class="paragraph"> 
+             <p>This link acts as a type-safe tuple linking the domain object to the <code>Category</code>.</p> 
+            </div> </li> 
+           <li> <p>implement the <code>ApplicationTenancyService</code> SPI interface:<br></p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">ApplicationTenancyService</span> {
+    <span class="predefined-type">String</span> atPathFor(<span class="directive">final</span> <span class="predefined-type">Object</span> domainObjectToClassify);
+}</code></pre> 
+             </div> 
+            </div> 
+            <div class="paragraph"> 
+             <p>This allows the module to find which taxonomies are applicable to the domain object.</p> 
+            </div> </li> 
+           <li> <p>implement the <code>ClassificationRepository.SubtypeProvider</code> SPI interface:<br></p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">SubtypeProvider</span> {
+    <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> Classification&gt; subtypeFor(<span class="predefined-type">Class</span>&lt;?&gt; domainObject);
+}</code></pre> 
+             </div> 
+            </div> 
+            <div class="paragraph"> 
+             <p>This tells the module which subclass of <code>Classification</code> to use to attach to the "classified" domain object. The <code>SubtypeProviderAbstract</code> adapter can be used to remove some boilerplate.</p> 
+            </div> </li> 
+           <li> <p>subclass <code>T_classify</code>, <code>T_unclassify</code> and <code>T_classifications</code> (abstract) mixin classes for the domain object.<br></p> 
+            <div class="paragraph"> 
+             <p>These contribute the "classifications" collection and actions to add and remove <code>Classification</code>s.</p> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Typically the SPI implementations and the mixin classes are nested static classes of the <code>Classification</code> subtype.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, in the domain app’s example module the <code>DemoObject</code> can be classified by virtue of the <code>ClassificationForDemoObject</code> subclass:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@javax</span>.jdo.annotations.PersistenceCapable(identityType= IdentityType.DATASTORE, schema=<span class="string"><span class="delimiter">"</span><span class="content">incodeClassificationDemo</span><span class="delimiter">"</span></span>)
+<span class="annotation">@javax</span>.jdo.annotations.Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+<span class="annotation">@DomainObject</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ClassificationForDemoObject</span> <span class="directive">extends</span> Classification {                   <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="directive">private</span> DemoObject demoObject;
+    <span class="annotation">@Column</span>(allowsNull = <span class="string"><span class="delimiter">"</span><span class="content">false</span><span class="delimiter">"</span></span>, name = <span class="string"><span class="delimiter">"</span><span class="content">demoObjectId</span><span class="delimiter">"</span></span>)
+    <span class="annotation">@Property</span>(editing = Editing.DISABLED)
+    <span class="directive">public</span> DemoObject getDemoObject() {                                             <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="keyword">return</span> demoObject;
+    }
+    <span class="directive">public</span> <span class="type">void</span> setDemoObject(<span class="directive">final</span> DemoObject demoObject) {
+        <span class="local-variable">this</span>.demoObject = demoObject;
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">Object</span> getClassified() {                                                 <i class="conum" data-value="3"></i><b>(3)</b>
+        <span class="keyword">return</span> getDemoObject();
+    }
+    <span class="directive">protected</span> <span class="type">void</span> setClassified(<span class="directive">final</span> <span class="predefined-type">Object</span> classified) {
+        setDemoObject((DemoObject) classified);
+    }
+
+    <span class="annotation">@DomainService</span>(nature = NatureOfService.DOMAIN)
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">ApplicationTenancyServiceForDemoObject</span>
+                    <span class="directive">implements</span> ApplicationTenancyService {                          <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="annotation">@Override</span>
+        <span class="directive">public</span> <span class="predefined-type">String</span> atPathFor(<span class="directive">final</span> <span class="predefined-type">Object</span> domainObjectToClassify) {
+            <span class="keyword">if</span>(domainObjectToClassify <span class="keyword">instanceof</span> DemoObject) {
+                <span class="keyword">return</span> ((DemoObject) domainObjectToClassify).getAtPath();
+            }
+            <span class="keyword">return</span> <span class="predefined-constant">null</span>;
+        }
+    }
+
+    <span class="annotation">@DomainService</span>(nature = NatureOfService.DOMAIN)
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">SubtypeProvider</span>
+            <span class="directive">extends</span> ClassificationRepository.SubtypeProviderAbstract {              <i class="conum" data-value="5"></i><b>(5)</b>
+        <span class="directive">public</span> SubtypeProvider() {
+            <span class="local-variable">super</span>(DemoObject.class, ClassificationForDemoObject.class);
+        }
+    }
+
+    <span class="annotation">@Mixin</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">_classifications</span> <span class="directive">extends</span> T_classifications&lt;DemoObject&gt; {    <i class="conum" data-value="6"></i><b>(6)</b>
+        <span class="directive">public</span> _classifications(<span class="directive">final</span> DemoObject classified) {
+            <span class="local-variable">super</span>(classified);
+        }
+    }
+    <span class="annotation">@Mixin</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">_classify</span> <span class="directive">extends</span> T_classify&lt;DemoObject&gt; {
+        <span class="directive">public</span> _classify(<span class="directive">final</span> DemoObject classified) {
+            <span class="local-variable">super</span>(classified);
+        }
+    }
+    <span class="annotation">@Mixin</span>
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">_unclassify</span> <span class="directive">extends</span> T_unclassify&lt;DemoObject&gt; {
+        <span class="directive">public</span> _unclassify(<span class="directive">final</span> DemoObject classified) {
+            <span class="local-variable">super</span>(classified);
+        }
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>extend from <code>Classification</code></td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+             <td>the type-safe reference property to the "classified" domain object (in this case <code>DemoObject</code>). In the RDBMS this will correspond to a regular foreign key with referential integrity constraints correctly applied.</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="3"></i><b>3</b></td> 
+             <td>implement the hook <code>setClassified(…​)</code> method to allow the type-safe reference property to the "classified" (in this case <code>DemoObject</code>) to be set. Also implemented <code>getClassified()</code> similarly</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="4"></i><b>4</b></td> 
+             <td>implementation of the <code>ApplicationTenancyService</code> for the domain object, telling the module the app tenancy of the domain object to be classified. If there is no implementation of this service (but the mixins have been defined) then the contributed collections and actions will still be visible but the collection will remain empty and the actions disabled.</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="5"></i><b>5</b></td> 
+             <td>implementation of the <code>SubtypeProvider</code> SPI domain service, telling the module which subclass of <code>Classification</code> to instantiate to attach to the "classified" domain object</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="6"></i><b>6</b></td> 
+             <td>mixins for the collections and actions contributed to the "classified" domain object</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_ui_concerns">UI Concerns</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The attached <code>Classification</code> objects are shown in two contexts: as a table of <code>Classification</code> objects for the "classified" domain object, and then as the actual subtype when the classification object itself is shown (eg <code>ClassificationForDemoObject</code> in the demo app).</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>In the former case (as a table) the <code>Classification</code> will be rendered according to the <code>Classification.layout.xml</code> provided by the module. In the latter (as an object) the classification will be rendered according to the layout provided by the consuming app, offering full control of the layout. The layout provided in the example module of the domain app (ie <code>ClassificationForDemoObject.layout.xml</code>) is a good starting point.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The module also allows the title, icon and CSS for <code>Classification</code>, <code>Category</code> and <code>Applicability</code> objects to be customised. In all three cases this done using subscribers. By default the values of the title/icon/CSS class is obtained using default subscribers, eg <code>Classification.TitleSubscriber</code>, <code>Classification.IconSubscriber</code> and <code>Classification.CssClassSubscriber</code>. The consuming module can override these values simply by providing alternative implementations.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_other_services">Other Services</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module provides the following domain services for querying aliases:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>CategoryRepository</code><br></p> 
+           <div class="paragraph"> 
+            <p>To search for existing <code>Category</code>s, and to create top-level <code>Taxonomy</code>s. Children are created from <code>Category</code> itself.</p> 
+           </div> </li> 
+          <li> <p><code>ClassificationRepository</code><br></p> 
+           <div class="paragraph"> 
+            <p>To search for <code>Classification</code>s, ie the tuple that links an <code>Category</code> with an arbitrary "classified" domain object.</p> 
+           </div> </li> 
+         </ul> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/dom/classification/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding the Apache Isis modules, returns no direct compile/runtime dependencies.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The module <em>does</em> use icons from <a href="https://icons8.com/">icons8</a>.</p> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

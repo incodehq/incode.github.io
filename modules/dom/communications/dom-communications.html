@@ -1,0 +1,875 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Communications Subdomain</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   dom-communications
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="dom-communications.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Communications Subdomain</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/dom/communications/dom-communications.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/dom/communications/dom-communications.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/dom/communications/dom-communications.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/dom/communications/dom-communications.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/dom/communications/dom-communications.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>incode-module-communications</code>) defines <code>CommunicationChannel</code>s (email address, postal address or phone/fax number), and also allows <code>Document</code>s (implemented by the <a href="../../dom/document/dom-document.html">Document subdomain</a> module) to be sent as <code>Communication</code>s either to an email address or to a postal address.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>A <code>Document</code> is an entity that holds some sort of content, either binary such as PDF or Word document or text such as HTML; they can be rendered in various ways. <code>Document</code>s can be attached to arbitrary domain objects using <code>Paperclip</code>s.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>A <code>Communication</code> is an entity that is a record of sending a <code>Document</code> to some party by way of their <code>CommunicationChannel</code>; these are the "correspondents" of the <code>Communication</code>. A <code>Communication</code> can be created either by sending the <code>Document</code> by email (ie to an email address), or by post (ie to a postal address). The module does not currently provided any capability to "send" a <code>Document</code> by phone or by fax.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Email <code>Communication</code>s always have an HTML cover note <code>Document</code> generated and associated with the <code>Communication</code>; the original <code>Document</code> is also associated. This cover note is used as the body of the actual email, while the original <code>Document</code> is included as an email attachment. If the original <code>Document</code> had supporting <code>Document</code>s associated with it (eg a tax or supplier receipt for an invoice), then these supporting documents are also included as attachments.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Postal <code>Communication</code>s do <em>not</em> have any sort of cover note, and the act of sending them is manual: the end-user downloads the original <code>Document</code> "through" the <code>Communication</code>; this marks the <code>Communication</code> as having been sent. If the original <code>Document</code> had supporting <code>Document</code>s associated with it then (as a convenience) a single PDF is downloaded that merges together the original <code>Document</code> along with any supporting documents.</p> 
+        </div> 
+        <div class="admonitionblock warning"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-warning" title="Warning"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>There is some overlap between this module and the <a href="../../dom/commchannel/dom-commchannel.html">CommunicationChannel subdomain</a> module). At some stage we intend to refactor this module to reuse the CommunicationChannel module, and then to remove any duplicate concepts (<code>EmailAddress</code> etc).</p> 
+             </div> 
+             <div class="paragraph"> 
+              <p>Also, note that the discriminators for <code>CommunicationChannel</code> subtypes currently are hard-coded to those for <a href="http://github.com/estatio/estatio">Estatio</a>. These can be overridden using DataNucleus <code>.orm</code> files if required.</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_screenshots">Screenshots</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomDomCommunicationsAppManifest</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This creates:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>demo customers, with a variety of <code>CommunicationChannel</code>s.</p> </li> 
+          <li> <p>demo invoices, each of which has a <code>Document</code> that has an associated document (simulating it having been generated already). Each invoice is also associated with ("owned" by) a customer</p> </li> 
+          <li> <p>prerequisite reference data to generate email cover notes:</p> 
+           <div class="ulist"> 
+            <ul> 
+             <li> <p>A <code>DocumentType</code> for the email cover notes.<br></p> 
+              <div class="paragraph"> 
+               <p>This is referenced by the demo app’s implementation of the <code>DocumentCommunicationSupport</code> SPI service</p> 
+              </div> </li> 
+             <li> <p>A corresponding <code>DocumentTemplate</code> for email cover notes</p> </li> 
+             <li> <p>The Freemarker rendering strategy (from the <a href="../../lib/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker DocRendering library</a> module). This is referenced by the <code>DocumentTemplate</code>, instructing the document module to render the email cover note using freemarker.</p> </li> 
+            </ul> 
+           </div> </li> 
+          <li> <p><code>Country</code> ref data (from the <a href="../../dom/country/dom-country.html">Country subdomain</a> module).<br></p> 
+           <div class="paragraph"> 
+            <p>This is required because <code>PostalAddress</code> communication channels reference the <code>Country</code>.</p> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The home page lists the demo customers and invoices:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/020-demo-customers-and-invoices.png"><img src="images/020-demo-customers-and-invoices.png" alt="020 demo customers and invoices" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="admonitionblock note"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>The remaining screenshots below <strong>do</strong> demonstrate the functionality of this module, but are out of date in that they are taken from the original isisaddons/incodehq module (prior to being amalgamated into the incode-platform).</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_screenshots_sending-an-email">Sending an Email</h3> 
+         <div class="paragraph"> 
+          <p>If we inspect one of the invoices for "Fred" (who has email addresses), we see it has an attached <code>Document</code> (simulating it having been generated from the invoice):</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/030-demo-invoice-for-customer-with-email-addresses.png"><img src="images/030-demo-invoice-for-customer-with-email-addresses.png" alt="030 demo invoice for customer with email addresses" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If we inspect that <code>Document</code> in turn, we can see that the "send by email" action is enabled:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/040-document-to-sendByEmail.png"><img src="images/040-document-to-sendByEmail.png" alt="040 document to sendByEmail" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This is because the demo app’s implementation of the <code>DocumentCommunicationSupport</code> SPI service was able to figure out an email address to use (the document’s invoice’s customer).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "sendByEmail" action prompt shows these emails:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/050-sendByEmail-prompt.png"><img src="images/050-sendByEmail-prompt.png" alt="050 sendByEmail prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Invoking the action results in an email <code>Communication</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/052-sendByEmail-result.png"><img src="images/052-sendByEmail-result.png" alt="052 sendByEmail result" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When an email <code>Communication</code> is created, it also automatically create a cover note <code>Document. The cover note is used as the body of the email, while the original `Document</code> is sent as an attachment. The cover note <code>Document</code> is automatically associated with the <code>Communication</code>, shown by the "coverNoteFor" property:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/054-cover-note-generated.png"><img src="images/054-cover-note-generated.png" alt="054 cover note generated" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The generated cover note is required to be HTML (so that it can be used as the body of the email). In the case of the demo app this cover note is generated using Freemarker:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/055-cover-note-text.png"><img src="images/055-cover-note-text.png" alt="055 cover note text" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The generated <code>Communication</code> is also associated with the original <code>Document</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/056-document-associated-with-communication.png"><img src="images/056-document-associated-with-communication.png" alt="056 document associated with communication" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Looking again at the generated email <code>Communication</code>, we see that it is scheduled to be sent in the background command:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/060-communication-sent-in-background.png"><img src="images/060-communication-sent-in-background.png" alt="060 communication sent in background" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The demo app has not been configured with a background scheduler, but does provide a "fake" scheduler which can be used to run such commands:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/062-fake-scheduler.png"><img src="images/062-fake-scheduler.png" alt="062 fake scheduler" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Which results in the email being sent:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/064-email-sent.png"><img src="images/064-email-sent.png" alt="064 email sent" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In fact, the demo app is not configured with a real email service either; instead it has a fake service that allows "sent" email messages to be inspected:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/066-list-sent-emails.png"><img src="images/066-list-sent-emails.png" alt="066 list sent emails" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The sent email has the correct body, and one attachment (the original <code>Document</code>):</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/068-view-sent-email.png"><img src="images/068-view-sent-email.png" alt="068 view sent email" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_screenshots_sending-a-postal-communication">Sending a Postal Communication</h3> 
+         <div class="paragraph"> 
+          <p>The "Mary" demo customer has postal addresses, so the <code>Document</code>s attached to her invoices can be sent by post.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/070-sendByPost-prompt.png"><img src="images/070-sendByPost-prompt.png" alt="070 sendByPost prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>As for email, this also results in a <code>Communication</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/072-sendByPost-result.png"><img src="images/072-sendByPost-result.png" alt="072 sendByPost result" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>What’s different here is that there is no cover note, there is no "prepared by" correspondent, and there is no background command.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Instead, the object provides the "download PDF for posting" action:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/080-downloadPdfForPosting-prompt.png"><img src="images/080-downloadPdfForPosting-prompt.png" alt="080 downloadPdfForPosting prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The idea is that (through the <code>Communication</code>) the user just downloads the original (PDF) <code>Document</code> that it references; the act of doing this marks the <code>Communication</code> as sent:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/082-downloadPdfForPosting-result.png"><img src="images/082-downloadPdfForPosting-result.png" alt="082 downloadPdfForPosting result" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The user can then open up the downloaded PDF, manually print it and manually put it into an envelope.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_screenshots_supporting-documents">Supporting Documents</h3> 
+         <div class="paragraph"> 
+          <p>The <a href="../../dom/document/dom-document.html">Document subdomain</a> module (on which this communications module) depends has the concept of "supporting" documents. For example, a generated <code>Document</code> of an invoice might have associated tax or supplier receipts which have been previously scanned in and which are available as PDFs.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/090-attachSupportingPdf-prompt.png"><img src="images/090-attachSupportingPdf-prompt.png" alt="090 attachSupportingPdf prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/092-attachSupportingPdf-result.png"><img src="images/092-attachSupportingPdf-result.png" alt="092 attachSupportingPdf result" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/100-sendByEmail-prompt.png"><img src="images/100-sendByEmail-prompt.png" alt="100 sendByEmail prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/102-sendByEmail-result.png"><img src="images/102-sendByEmail-result.png" alt="102 sendByEmail result" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/104-sent-email.png"><img src="images/104-sent-email.png" alt="104 sent email" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>It is also possible to send a postal communication with supporting documents:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/110-sendByPost-prompt.png"><img src="images/110-sendByPost-prompt.png" alt="110 sendByPost prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The only difference is that, when the <code>Document</code>s are downloaded for printing via the <code>Communication</code>, for convenience the PDFs will be stitched together into a single PDF for printing. The action prompt suggests a filename based on the original <code>Document</code> and supporting <code>Document</code>s.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/120-downloadPdfForPosting-prompt-prompt.png"><img src="images/120-downloadPdfForPosting-prompt-prompt.png" alt="120 downloadPdfForPosting prompt prompt" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_domain-model">Domain Model</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The main concepts of the module are shown below:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/domain-model.png"><img src="images/domain-model.png" alt="domain model" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>One side of the domain model defines <code>CommunicationChannel</code>s, owned by <code>CommunicationChannelOwner</code>s.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>On the other side is <code>Communication</code>, which relates to a <code>Document</code> by way of an implementation of the (<a href="../../dom/document/dom-document.html">Document subdomain</a> module’s) <code>Paperclip</code> class. Each <code>Communication</code> relates to one or more <code>CommunicationChannel</code>s by way of <code>CommChannelRole</code>, basically indicating the nature of the correspondent in that <code>Communication</code>.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_commchannel-mixins">(CommunicationChannel) Contributions</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The abstract <code>CommunicationChannelOwner_newChannelContributions</code> domain service contributes:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>communicationChannels</code> collection</p> </li> 
+          <li> <p><code>newPostalAddress</code> action</p> </li> 
+          <li> <p><code>newEmailAddress</code> action</p> </li> 
+          <li> <p><code>newPhoneOrFax</code> action</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To use, the consuming application should create a subclass, for example:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@DomainService</span>(nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DemoAppCommunicationChannelOwner_newChannelContributions</span> <span class="directive">extends</span>
+        CommunicationChannelOwner_newChannelContributions {
+
+    <span class="directive">public</span> DemoAppCommunicationChannelOwner_newChannelContributions() {
+        <span class="local-variable">super</span>(DemoAppCommunicationChannelOwner_newChannelContributions.class);
+    }
+}</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>CommunicationChannelOwner_emailAddressTitles</code> &amp; <code>CommunicationChannelOwner_phoneNumberTitles</code> are abstract mixins that contribute properties for use in tables; these summarise (any and all of the) emails or phone numbers that a <code>CommunicationChannelOwner</code> might have, using a specified separator.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For example:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Mixin</span>(method = <span class="string"><span class="delimiter">"</span><span class="content">prop</span><span class="delimiter">"</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DemoObjectWithNotes_emailAddress</span> <span class="directive">extends</span>
+        CommunicationChannelOwner_emailAddressTitles {
+    <span class="directive">public</span> DemoObjectWithNotes_emailAddress(
+            <span class="directive">final</span> DemoObjectWithNotes demoCustomer) {
+        <span class="local-variable">super</span>(demoCustomer, <span class="string"><span class="delimiter">"</span><span class="content"> | </span><span class="delimiter">"</span></span>);
+    }
+}</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>and</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Mixin</span>(method = <span class="string"><span class="delimiter">"</span><span class="content">prop</span><span class="delimiter">"</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">DemoObjectWithNotes_phoneNumbers</span> <span class="directive">extends</span>
+        CommunicationChannelOwner_phoneNumberTitles {
+    <span class="directive">public</span> DemoObjectWithNotes_phoneNumbers(
+            <span class="directive">final</span> DemoObjectWithNotes demoCustomer) {
+        <span class="local-variable">super</span>(demoCustomer, <span class="string"><span class="delimiter">"</span><span class="content"> | </span><span class="delimiter">"</span></span>);
+    }
+}</code></pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_mixins">(Document) Mixins</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The modules provides a number of mixins that, by default, will be rendered in the UI. In the case of this module, all mixins are on the <code>Document</code> entity.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The mixins can be suppressed if necessary using vetoing subscribers to their corresponding domain events.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_mixins_send-by">Document_sendByEmail &amp; Document_sendByPost</h3> 
+         <div class="paragraph"> 
+          <p>These mixins on <code>Document</code> are used to create either email or postal <code>Communication</code>s. They are supported by the <code>DocumentCommunicationSupport</code> SPI service, described <a href="#_incode-module-communications_services-spi_document-communication-support">below</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="#_incode-module-communications_services-spi_document-communication-support">DocumentCommunicationSupport</a> SPI provides the cover note template to use.</p> 
+         </div> 
+         <div class="admonitionblock important"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-important" title="Important"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Note that the cover note template should have an <code>AttachmentAdvisor</code> set to "atach to none"; the mixin action has the responsibility of wiring the cover note <code>Document</code> to the newly created <code>Communication</code>.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_mixins_communications">Document_communications</h3> 
+         <div class="paragraph"> 
+          <p>The <code>Document_communications</code> collection mixin shows all <code>Communication</code>s to which a <code>Document</code> has been sent as an attachment (in the case of an email) or to be printed out (in the case of a postal comm).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note that this mixin is suppressed for cover notes; instead these have the <code>Document_coverNoteFor</code> mixin, described <a href="#_incode-module-communications_mixins_cover-note-for">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_mixins_communication-attachments">Document_communicationAttachments</h3> 
+         <div class="paragraph"> 
+          <p>The <code>Document_communicationAttachments</code> collection mixin lists all of the <code>Document</code>s that would be included as attachments if and when a new <code>Communication</code> is created.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This list always includes the target <code>Document</code> itself, and will also include any supporting <code>Document`s that may have been attached (using the <a href="../../dom/document/dom-document.html">Document subdomain</a> module’s `Document_attachSupportingPdf</code> mixin).</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_mixins_cover-note-for">Document_coverNoteFor</h3> 
+         <div class="paragraph"> 
+          <p>The <code>Document_coverNoteFor</code> property mixin applies only to <code>Document</code>s that have been created as email cover notes. It returns a reference to the email <code>Communication</code> to which it was associated (with a role of "cover note"); its content is used as the body of the actual email.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_services-api">Services (API)</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module currently does not provide a service to programmatically create <code>Communication</code>s. Instead, the various <a href="#_incode-module-communications_mixins">mixins</a> can be used.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_services-spi">Services (SPI)</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>SPI services are called by the module.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_services-spi_document-communication-support">DocumentCommunicationSupport (required)</h3> 
+         <div class="paragraph"> 
+          <p>An implementation of the <code>DocumentCommunicationSupport</code> SPI domain service is required to send communications of any type. Its signature is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">DocumentCommunicationSupport</span> {
+    DocumentType emailCoverNoteDocumentTypeFor(<span class="predefined-type">Document</span> document);
+    <span class="type">void</span> inferEmailHeaderFor(<span class="predefined-type">Document</span> document, CommHeaderForEmail header);
+    <span class="type">void</span> inferPrintHeaderFor(<span class="predefined-type">Document</span> document, CommHeaderForPost header);
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where <code>CommHeaderForEmail</code> is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CommHeaderForEmail</span> ... {
+
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> EmailAddress toDefault;
+    <span class="annotation">@Getter</span>
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">Set</span>&lt;EmailAddress&gt; toChoices = Sets.newTreeSet();
+
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> <span class="predefined-type">String</span> cc ;
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> <span class="predefined-type">String</span> bcc;
+
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> EmailAddress from;
+
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> <span class="predefined-type">String</span> disabledReason;  <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>Reason, if any, why the communication cannot be sent by email.</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and where <code>CommHeaderForPost</code> is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CommHeaderForPost</span> ... {
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> PostalAddress toDefault;
+    <span class="annotation">@Getter</span>
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">Set</span>&lt;PostalAddress&gt; toChoices = Sets.newTreeSet();
+
+    <span class="annotation">@Getter</span> <span class="annotation">@Setter</span>
+    <span class="directive">private</span> <span class="predefined-type">String</span> disabledReason;  <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>Reason, if any, why the communication cannot be sent by post.</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="admonitionblock important"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-important" title="Important"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Note that the cover note template should have an <code>AttachmentAdvisor</code> set to "atach to none"; the mixin action has the responsibility of wiring the cover note <code>Document</code> to the newly created <code>Communication</code>.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__dom-communications_services-spi_current-user-email-address-provider">CurrentUserEmailAddressProvider</h3> 
+         <div class="paragraph"> 
+          <p>The optional <code>CurrentUserEmailAddressProvider</code> SPI service provides the email address of the current user, in order to create a <code>CommChannelRole</code> indicating that the <code>Communication</code> was "prepared by" such-and-such a user.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Its signature is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">CurrentUserEmailAddressProvider</span> {
+    <span class="predefined-type">String</span> currentUserEmailAddress();</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The module does provide a default implementation, <code>CurrentUserEmailAddressProvider.UsingMeService</code>, that uses the <code>MeService</code> of the <a href="../../spi/security/spi-security.html">security</a> module. In many case therefore there will be no need to provide an alternative implementation of this SPI service.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_how-to-configure-use">How to configure/use</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your dom project’s <code>pom.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.incode.module.communications<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>incode-module-communications-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|incode-module-communications-dom">Maven Central Repo</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
+    <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
+            ...
+            org.incode.module.communications.dom.CommunicationsModule.class,
+    );
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__dom-communications_known-issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/dom/communications/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding the Incode Platform and Apache Isis modules, returns no direct compile/runtime dependencies.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>From the Incode Platform it uses:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="../../lib/base/lib-base.html">base library</a> module</p> </li> 
+          <li> <p><a href="../../lib/poly/lib-poly.html">poly library</a> module</p> </li> 
+          <li> <p><a href="../../lib/pdfbox/lib-pdfbox.html">pdfbox library</a> module</p> </li> 
+          <li> <p><a href="../../dom/country/dom-country.html">country generic subdomain</a> module</p> </li> 
+          <li> <p><a href="../../dom/document/dom-document.html">document generic subdomain</a> module</p> </li> 
+          <li> <p><a href="../../dom/command/spi-command.html">command spi</a> module</p> </li> 
+          <li> <p><a href="../../spi/security/spi-security.html">security spi</a> module</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The module <em>also</em> uses icons from <a href="https://icons8.com/">icons8</a>.</p> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

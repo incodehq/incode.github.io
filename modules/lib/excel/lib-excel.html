@@ -1,0 +1,1040 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Excel Library</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   lib-excel
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="lib-excel.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Excel Library</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/lib/excel/lib-excel.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/lib/excel/lib-excel.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/lib/excel/lib-excel.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/lib/excel/lib-excel.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/lib/excel/lib-excel.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>isis-module-excel</code>) provides a domain service so that a collection of (view model) object scan be exported to an Excel spreadsheet, or recreated by importing from Excel.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>It also provides a fixture to allow data to be imported from an Excel spreadsheet, with each row either corresponding to a persistent entity or alternatively to a view model which in turn persists data.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The underlying technology used is <a href="http://poi.apache.org">Apache POI</a>.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_screenshots">Screenshots</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomLibExcelAppManifest</code>.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_installing_the_fixture_data">Installing the Fixture Data</h3> 
+         <div class="paragraph"> 
+          <p>A home page is displayed when the app is run:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/010-install-fixtures.png"><img src="images/010-install-fixtures.png" alt="010 install fixtures" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_exporting_items_using_the_example_bulk_update_manager">Exporting items using the (example) bulk update manager</h3> 
+         <div class="paragraph"> 
+          <p>The example app has a bulk update manager as a wrapper around the ExcelService:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/020-run-bulk-update-manager.png"><img src="images/020-run-bulk-update-manager.png" alt="020 run bulk update manager" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The (example) bulk update manager allows the end-user to define a criteria to exporting a (sub)set of items:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/030-export.png"><img src="images/030-export.png" alt="030 export" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which are then downloaded …​</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/040-open-xlsx.png"><img src="images/040-open-xlsx.png" alt="040 open xlsx" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>... and can be viewed in Microsoft Excel:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/050-xlsx.png"><img src="images/050-xlsx.png" alt="050 xlsx" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_importing_exporting_excel">Importing Exporting Excel</h3> 
+         <div class="paragraph"> 
+          <p>Using Excel the user can update data:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/060-xlsx-updated.png"><img src="images/060-xlsx-updated.png" alt="060 xlsx updated" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>... and the use the (example) bulk update manager to import:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/070-import.png"><img src="images/070-import.png" alt="070 import" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>specifying the updated spreadsheet in the dialog:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/080-import-dialog.png"><img src="images/080-import-dialog.png" alt="080 import dialog" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_view_models_represent_the_excel_rows">View models represent the Excel rows</h3> 
+         <div class="paragraph"> 
+          <p>For each row in the spreadsheet the <code>ExcelService</code> instantiates a corresponding view model.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/090-line-items.png"><img src="images/090-line-items.png" alt="090 line items" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The view model can then provide a bulk <code>apply</code> action…</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/100-bulk-apply.png"><img src="images/100-bulk-apply.png" alt="100 bulk apply" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>to update the corresponding entity:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/110-updated-todo-item.png"><img src="images/110-updated-todo-item.png" alt="110 updated todo item" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__limited_pivot_support_for_import">(Limited) pivot support for Import</h3> 
+         <div class="paragraph"> 
+          <p>This module has support for pivot tables (export only) which is demonstrated by:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/120-demo-pivot-menu.png"><img src="images/120-demo-pivot-menu.png" alt="120 demo pivot menu" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which are then downloaded and can be viewed in Microsoft Excel:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/130-demo-pivot-sheet.png"><img src="images/130-demo-pivot-sheet.png" alt="130 demo pivot sheet" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_configure_use">How to configure/use</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your <code>dom</code> project’s <code>pom.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.excel<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>isis-module-excel-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|isis-module-excel-dom">Maven Central Repo</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
+    <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
+        ...
+        org.isisaddons.module.excel.ExcelModule.class,
+    );
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__code_excelservice_code_api"><code>ExcelService</code> API</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The <code>ExcelService</code> is intended for use by domain object classes.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_api">API</h3> 
+         <div class="paragraph"> 
+          <p>The API exposed by <code>ExcelService</code> breaks into two.</p> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_import">Import</h4> 
+          <div class="paragraph"> 
+           <p>The first set of methods allow domain objects to be read (imported) from an Excel workbook:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExcelService</span> {
+    <span class="directive">public</span> &lt;T&gt; <span class="predefined-type">List</span>&lt;T&gt; fromExcel(                       <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="predefined-type">Blob</span> excelBlob,
+        <span class="predefined-type">Class</span>&lt;T&gt; cls) { ... }
+    <span class="directive">public</span> &lt;T&gt; <span class="predefined-type">List</span>&lt;T&gt; fromExcel(                       <i class="conum" data-value="2"></i><b>(2)</b>
+        <span class="predefined-type">Blob</span> excelBlob,
+        WorksheetSpec worksheetSpec) { ... }
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">List</span>&lt;?&gt;&gt; fromExcel(                     <i class="conum" data-value="3"></i><b>(3)</b>
+        <span class="predefined-type">Blob</span> excelBlob,
+        <span class="predefined-type">List</span>&lt;WorksheetSpec&gt; worksheetSpecs) { ... }
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">List</span>&lt;?&gt;&gt; fromExcel(                     <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="predefined-type">Blob</span> excelBlob,
+        WorksheetSpec.Factory factory) { ... }
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">List</span>&lt;?&gt;&gt; fromExcel(                     <i class="conum" data-value="5"></i><b>(5)</b>
+        <span class="predefined-type">Blob</span> excelBlob,
+        WorksheetSpec.Factory factory,
+        WorksheetSpec.Sequencer sequencer,
+        ) { ... }
+    ...
+}</code></pre> 
+           </div> 
+          </div> 
+          <div class="colist arabic"> 
+           <table> 
+            <tbody>
+             <tr> 
+              <td><i class="conum" data-value="1"></i><b>1</b></td> 
+              <td>converts a single-sheet workbook into a list of domain objects</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="2"></i><b>2</b></td> 
+              <td>converts a single-sheet workbook into a list of domain objects, using <code>WorksheetSpec</code> (discussed below)</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="3"></i><b>3</b></td> 
+              <td>converts a multiple-sheet workbook into a list of list of domain objects.</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="4"></i><b>4</b></td> 
+              <td>converts all "matched" worksheets for a multiple-sheet workbook, with the supplied <code>WorksheetSpec.Factory</code> returning the <code>WorksheetSpec</code> to handle the sheet</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="5"></i><b>5</b></td> 
+              <td>as previous, but with the sheets resequenced using the supplied <code>WorksheetSpec.Sequencer</code>.</td> 
+             </tr> 
+            </tbody>
+           </table> 
+          </div> 
+          <div class="paragraph"> 
+           <p>The <code>WorksheetSpec</code> is a data structure that specifies what is on each worksheet of the Excel workbook (ie which sheet of the workbook to read to obtain the domain objects):</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="title">
+            WorksheetSpec.java
+           </div> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">WorksheetSpec</span> {
+    <span class="directive">public</span> &lt;T&gt; WorksheetSpec (
+        <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;T&gt; cls,                 <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="directive">final</span> <span class="predefined-type">String</span> sheetName) { ... }     <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+}</code></pre> 
+           </div> 
+          </div> 
+          <div class="colist arabic"> 
+           <table> 
+            <tbody>
+             <tr> 
+              <td><i class="conum" data-value="1"></i><b>1</b></td> 
+              <td>the class of those domain objects</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="2"></i><b>2</b></td> 
+              <td>the name of the sheet to be read. If omitted, then the simple name of the domain object class will be used. In all cases the sheet name must be 30 characters or less in length.</td> 
+             </tr> 
+            </tbody>
+           </table> 
+          </div> 
+          <div class="paragraph"> 
+           <p>The <code>WorksheetSpec.Factory</code> API is:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="title">
+            WorksheetSpec.Factory.java
+           </div> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">WorksheetSpec</span> {
+    ...
+    public <span class="type">interface</span> <span class="class">Factory</span> {
+        WorksheetSpec fromSheet(<span class="predefined-type">String</span> sheetName);  <i class="conum" data-value="1"></i><b>(1)</b>
+    }
+}</code></pre> 
+           </div> 
+          </div> 
+          <div class="colist arabic"> 
+           <table> 
+            <tbody>
+             <tr> 
+              <td><i class="conum" data-value="1"></i><b>1</b></td> 
+              <td>returns the <code>WorksheetSpec</code> indicating how the sheet should be handled, or <code>null</code> otherwise.</td> 
+             </tr> 
+            </tbody>
+           </table> 
+          </div> 
+          <div class="paragraph"> 
+           <p>And the <code>Worksheet.Sequencer</code> API is simply:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="title">
+            WorksheetSpec.Sequencer.java
+           </div> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">WorksheetSpec</span> {
+    ...
+    public <span class="type">interface</span> <span class="class">Sequencer</span> {
+        <span class="predefined-type">List</span>&lt;WorksheetSpec&gt; sequence(<span class="predefined-type">List</span>&lt;WorksheetSpec&gt; specs);
+    }
+}</code></pre> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_export">Export</h4> 
+          <div class="paragraph"> 
+           <p>The second set of methods allow domain objects to be written out (exported) to an Excel workbook:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExcelService</span> {
+    ...
+    public &lt;T&gt; <span class="predefined-type">Blob</span> toExcel(                                            <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="directive">final</span> <span class="predefined-type">List</span>&lt;T&gt; domainObjects,
+            <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;T&gt; cls,
+            <span class="directive">final</span> <span class="predefined-type">String</span> fileName) { ... }
+    <span class="directive">public</span> &lt;T&gt; <span class="predefined-type">Blob</span> toExcel(                                            <i class="conum" data-value="2"></i><b>(2)</b>
+            <span class="directive">final</span> WorksheetContent worksheetContent,
+            <span class="directive">final</span> <span class="predefined-type">String</span> fileName) { ... }
+    <span class="directive">public</span> <span class="predefined-type">Blob</span> toExcel(
+            <span class="directive">final</span> <span class="predefined-type">List</span>&lt;WorksheetContent&gt; worksheetContents,             <i class="conum" data-value="3"></i><b>(3)</b>
+            <span class="directive">final</span> <span class="predefined-type">String</span> fileName)  { ... }</code></pre> 
+           </div> 
+          </div> 
+          <div class="colist arabic"> 
+           <table> 
+            <tbody>
+             <tr> 
+              <td><i class="conum" data-value="1"></i><b>1</b></td> 
+              <td>converts a list of domain objects to a single-sheet workbook, specifying the type of those domain objects.</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="2"></i><b>2</b></td> 
+              <td>converts a list of domain objects to a single-sheet workbook, using <code>WorksheetContent</code> (discussed below)</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="3"></i><b>3</b></td> 
+              <td>converts a list of worksheet contents to a multi-sheet workbook</td> 
+             </tr> 
+            </tbody>
+           </table> 
+          </div> 
+          <div class="paragraph"> 
+           <p>The fileName provided is used as the name of the returned <code>Blob</code></p> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Here <code>WorksheetContent</code> is a data structure that wraps the list of domain objects to be exported along with the afore-mentioned <code>WorksheetSpec</code>:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">WorksheetContent</span> {
+    <span class="directive">public</span> &lt;T&gt; WorksheetContent(
+        <span class="directive">final</span> <span class="predefined-type">List</span>&lt;T&gt; domainObjects,        <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="directive">final</span> WorksheetSpec spec) { ... }   <i class="conum" data-value="2"></i><b>(2)</b>
+    ...
+}</code></pre> 
+           </div> 
+          </div> 
+          <div class="colist arabic"> 
+           <table> 
+            <tbody>
+             <tr> 
+              <td><i class="conum" data-value="1"></i><b>1</b></td> 
+              <td>the list of domain objects to be exported as an excel sheet</td> 
+             </tr> 
+             <tr> 
+              <td><i class="conum" data-value="2"></i><b>2</b></td> 
+              <td>the <code>WorksheetSpec</code>, describing the class of those domain objects and the worksheet name to use</td> 
+             </tr> 
+            </tbody>
+           </table> 
+          </div> 
+          <div class="paragraph"> 
+           <p>In a likewise manner the following methods allow (annotated) domain objects to be exported to an Excel workbook in a pivot table.</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExcelService</span> {
+    ...
+    public &lt;T&gt; <span class="predefined-type">Blob</span> toExcelPivot(
+            <span class="directive">final</span> <span class="predefined-type">List</span>&lt;T&gt; domainObjects,
+            <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;T&gt; cls,
+            <span class="directive">final</span> <span class="predefined-type">String</span> fileName) { ... }
+    <span class="directive">public</span> &lt;T&gt; <span class="predefined-type">Blob</span> toExcelPivot(
+            <span class="directive">final</span> WorksheetContent worksheetContent,
+            <span class="directive">final</span> <span class="predefined-type">String</span> fileName) { ... }
+    <span class="directive">public</span> <span class="predefined-type">Blob</span> toExcelPivot(
+            <span class="directive">final</span> <span class="predefined-type">List</span>&lt;WorksheetContent&gt; worksheetContents,
+            <span class="directive">final</span> <span class="predefined-type">String</span> fileName)  { ... }</code></pre> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_usage">Usage</h3> 
+         <div class="paragraph"> 
+          <p>Given:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ToDoItemExportImportLineItem</span> <span class="directive">extends</span> AbstractViewModel { ... }</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which are wrappers around <code>ToDoItem</code> entities:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">final</span> <span class="predefined-type">List</span>&lt;ToDoItem&gt; items = ...;
+<span class="directive">final</span> <span class="predefined-type">List</span>&lt;ToDoItemExportImportLineItem&gt; toDoItemViewModels =
+    Lists.transform(items,
+        <span class="keyword">new</span> Function&lt;ToDoItem, ToDoItemExportImportLineItem&gt;(){
+            <span class="annotation">@Override</span>
+            <span class="directive">public</span> ToDoItemExportImportLineItem apply(<span class="directive">final</span> ToDoItem toDoItem) {
+                <span class="keyword">return</span> container.newViewModelInstance(
+                    ToDoItemExportImportLineItem.class,
+                    bookmarkService.bookmarkFor(toDoItem).getIdentifier());
+            }
+        });</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>then the following creates an Isis <code>Blob</code> (bytestream) containing the spreadsheet of these view models:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">return</span> excelService.toExcel(
+         toDoItemViewModels, ToDoItemExportImportLineItem.class, fileName);</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and conversely:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">Blob</span> spreadsheet = ...;
+<span class="predefined-type">List</span>&lt;ToDoItemExportImportLineItem&gt; lineItems =
+    excelService.fromExcel(spreadsheet, ToDoItemExportImportLineItem.class);</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>recreates view models from a spreadsheet.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Alternatively, more control can be obtained using <code>WorksheetSpec</code> and <code>WorksheetContent</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java">WorksheetSpec spec = <span class="keyword">new</span> WorksheetSpec(ToDoItemExportImportLineItem.class, <span class="string"><span class="delimiter">"</span><span class="content">line-items</span><span class="delimiter">"</span></span>);
+
+<span class="comment">// export</span>
+WorksheetContents contents = <span class="keyword">new</span> WorkbookContents(toDoItemViewModels, spec);
+<span class="predefined-type">Blob</span> spreadsheet = excelService.toExcel(contents, fileName);
+
+<span class="comment">// import</span>
+<span class="predefined-type">List</span>&lt;<span class="predefined-type">List</span>&gt; objects = excelService.fromExcel(spreadsheet, <span class="predefined-type">Collections</span>.singletonList(spec));
+<span class="predefined-type">List</span>&lt;ToDoItemExportImportLineItem&gt; items = objects.get(<span class="integer">0</span>);</code></pre> 
+          </div> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_more_on_the_creation_of_pivot_tables">more on the creation of pivot tables</h4> 
+          <div class="paragraph"> 
+           <p>In order to create a pivot table from a list of domain objects (normally Viewmodels) the following annotations on properties can be used.</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@PivotRow</span></code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Indicates that the property will be used as row label in the pivot table (left most column). This annotation is mandatory and only 1 is allowed.</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@PivotColumn</span>(order = ..)</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Indicates that the distinct values of the property will be used as column labels in the pivot table. This annotation is mandatory. More than 1 annotation is supported and they will be used in the order specified.</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@PivotValue</span>(order = .. , type = ..)</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Indicates that the values of the property will be used as pivoted values in the pivot table. This annotation is mandatory. More than 1 annotation is supported and they will be used in the order specified. Type specifies the aggregation type, that defaults to AggregationType.SUM. At the moment the other supported type is AggregationType.COUNT</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@PivotDecoration</span>(order = ...)</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Indicates that the distinct values of the property will be used as 'extra' values besides the row label (they "decorate" the label). This annotation is optional. More than 1 annotation is supported and they will be used in the order specified. Decoration assumes that all distinct labels are decorated with the same values. This is not enforced however: the first decoration found will be used.</p> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Here is the example used in the demo application</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@DomainObject</span>(nature = Nature.VIEW_MODEL)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">ExcelModuleDemoPivot</span> {
+
+    ...
+
+    <span class="annotation">@PivotRow</span>
+    <span class="directive">private</span> ExcelModuleDemoToDoItem.Subcategory subcategory;
+
+    <span class="annotation">@PivotColumn</span>(order = <span class="integer">1</span>)
+    <span class="directive">private</span> ExcelModuleDemoToDoItem.Category category;
+
+    <span class="annotation">@PivotValue</span>(order = <span class="integer">1</span>, type = AggregationType.SUM)
+    <span class="directive">private</span> <span class="predefined-type">BigDecimal</span> cost;
+
+}</code></pre> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__code_excelfixture_code"><code>ExcelFixture</code></h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The <code>ExcelFixture</code> is intended for use as part of the application’s fixtures, as used for prototyping/demos and for integration tests. Behind the scenes it (re)uses the <code>ExcelService</code>.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_api_2">API</h3> 
+         <div class="paragraph"> 
+          <p>The constructor for the <code>ExcelFixture</code> is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExcelFixture</span> {
+    <span class="directive">public</span> ExcelFixture(
+        <span class="directive">final</span> <span class="predefined-type">URL</span> excelResource,                        <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="directive">final</span> <span class="predefined-type">Class</span>... classes) {                       <i class="conum" data-value="2"></i><b>(2)</b>
+            ...
+        }
+    }
+    <span class="directive">public</span> <span class="type">void</span> setExcelResourceName(<span class="predefined-type">String</span> rn) { ... } <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>the <code>URL</code> to the Excel spreadsheet</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+             <td>a list of classes to process each of the sheets in the spreadsheet.</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="3"></i><b>3</b></td> 
+             <td>optionally, specify the name of the sheet. This is used only to disambiguate any results added to the <code>FixtureResultList</code> (displayed in the UI) if multiple spreadsheets are loaded using different <code>ExcelFixture</code> instances.</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Each of the classes must either be a persistable entity or must implement the <code>ExcelFixtureRowHandler</code> interface:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">interface</span> <span class="class">ExcelFixtureRowHandler</span> {
+    <span class="predefined-type">List</span>&lt;<span class="predefined-type">Object</span>&gt; handleRow(
+            <span class="directive">final</span> FixtureScript.ExecutionContext executionContext,  <i class="conum" data-value="1"></i><b>(1)</b>
+            <span class="directive">final</span> ExcelFixture excelFixture,                        <i class="conum" data-value="2"></i><b>(2)</b>
+            <span class="directive">final</span> <span class="predefined-type">Object</span> previousRow);                              <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>to look up execution parameters, and to call <code>addResult(…​)</code> (to make results available in the UI)</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+             <td>provided principally so that <code>addResult(…​)</code> can be called.</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="3"></i><b>3</b></td> 
+             <td>to support sparsely populated spreadsheets where a null cell means to use the value from the previous row. Particularly useful for spreadsheets that group together multiple entities (eg category/subcategory/item).</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The fixture is instantiated and executed in the usual way, as per any other fixture script.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The fixture uses the class name to lookup the sheet of the workbook:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>it first tries to find a sheet with the class' simpleName</p> </li> 
+           <li> <p>if a sheet cannot be found, and if the class' simpleName ends with "RowHandler", then it will look for a sheet without this suffix.</p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, the class <code>ExcelModuleDemoToDoItemRowHandler</code> will match a sheet named "ExcelModuleDemoToDoItemRowHandler".</p> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Excel sheet names can be no longer than 30 characters</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Assuming the sheet has been located, the fixture will instantiate an instance of the class for each row, and set the properties of the sheet according to the headers. If the class is persistable, it will then attempt to persist the object using <code>DomainObjectContainer#persist(…​)</code>. Otherwise (where the class implements <code>ExcelFixtureRowHandler</code>), the <code>handleRow(…​)</code> method will be called.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The fixture makes all created objects available to the caller through two accessors:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>getObjects()</code> returns all objects created by any of the sheets</p> </li> 
+           <li> <p><code>getObjects(Class)</code> returns all objects created by an entity/row handler for a given sheet</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_usage_2">Usage</h3> 
+         <div class="paragraph"> 
+          <p>The <code>ExcelFixture</code> is used as follows:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">final</span> <span class="predefined-type">URL</span> excelResource = Resources.getResource(getClass(), <span class="string"><span class="delimiter">"</span><span class="content">ToDoItems.xlsx</span><span class="delimiter">"</span></span>);                              <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="directive">final</span> ExcelFixture excelFixture = <span class="keyword">new</span> ExcelFixture(excelResource, ExcelModuleDemoToDoItemRowHandler.class); <i class="conum" data-value="2"></i><b>(2)</b>
+executionContext.executeChild(<span class="local-variable">this</span>, excelFixture);                                                          <i class="conum" data-value="3"></i><b>(3)</b>
+<span class="predefined-type">List</span>&lt;<span class="predefined-type">Object</span>&gt; items = excelFixture.getObjects(ExcelModuleDemoToDoItemRowHandler.class);                      <i class="conum" data-value="4"></i><b>(4)</b></code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>eg using google guava library</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+             <td>expect a single sheet</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="3"></i><b>3</b></td> 
+             <td>execute in the usual way</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="4"></i><b>4</b></td> 
+             <td>obtain the objects created by the <code>ExcelModuleDemoToDoItemRowHandler</code> for its corresponding sheet</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">ExcelModuleDemoToDoItemRowHandler</span> <span class="directive">implements</span> ExcelFixtureRowHandler {          <i class="conum" data-value="1"></i><b>(1)</b>
+    ...                                                                                     <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Object</span>&gt; handleRow(
+            <span class="directive">final</span> FixtureScript.ExecutionContext executionContext,                          <i class="conum" data-value="3"></i><b>(3)</b>
+            <span class="directive">final</span> ExcelFixture fixture,
+            <span class="directive">final</span> <span class="predefined-type">Object</span> previousRow) {
+        <span class="directive">final</span> ExcelModuleDemoToDoItem toDoItem = ...;
+        executionContext.addResult(fixture, todoItem);                                      <i class="conum" data-value="4"></i><b>(4)</b>
+        <span class="keyword">return</span> <span class="predefined-type">Collections</span>.&lt;<span class="predefined-type">Object</span>&gt;singletonList(toDoItem);                                 <i class="conum" data-value="5"></i><b>(5)</b>
+    }
+    ..                                                                                      <i class="conum" data-value="6"></i><b>(6)</b>
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>implement the <code>ExcelFixtureRowHandler</code> interface</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+             <td>getters and setters omitted</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="3"></i><b>3</b></td> 
+             <td><code>ExecutionContext</code> can be used to pass parameters down to the row handler, and to call addResult</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="4"></i><b>4</b></td> 
+             <td>make available in the UI</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="5"></i><b>5</b></td> 
+             <td>return a list of objects instantiated by this row handler.</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="6"></i><b>6</b></td> 
+             <td>eg inject domain services/repositories to delegate to for instantiating objects</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_related_modules">Related Modules</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>See also the <a href="../../wkt/excel/wkt-excel.html">Excel wicket component</a>, which makes every collection downloadable as an Excel spreadsheet.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/lib/excel/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding Apache Isis itself, returns these compile/runtime dependencies:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">org.apache.poi:poi:jar:3.9
+org.apache.poi:poi-ooxml-schemas:jar:3.9
+org.apache.poi:poi-ooxml:jar:3.9</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For further details on 3rd-party dependencies, see:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="http://poi.apache.org">Apache POI</a></p> </li> 
+         </ul> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

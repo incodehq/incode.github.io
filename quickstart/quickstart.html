@@ -1,0 +1,2034 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Quickstart</title> 
+  <link rel="icon" type="image/png" href="../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../
+  </div> 
+  <div id="docname" style="display:none;">
+   quickstart
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../index.html"> <img alt="Brand" src="../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../pages/license.html">License</a></li> 
+        <li><a href="../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="quickstart.pdf"><img src="../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Quickstart</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/quickstart.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/quickstart.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/quickstart.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/quickstart.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/quickstart.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The quickstart is a Maven archetype intended to be used as a template for new applications.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Like the Apache Isis framework’s own <a href="http://isis.apache.org#guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype">simpleapp archetype</a>, the application provides a <code>SimpleObject</code> to adapt and copy, along with supporting unit tests, integration tests and BDD (cucumber) specs.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform, with <a href="../modules/spi/audit/spi-audit.html">auditing</a>, <a href="../modules/spi/command/spi-command.html">command</a> profiling, <a href="../modules/spi/security/spi-security.html">security</a>, <a href="../modules/ext/flywaydb/ext-flywaydb.html">flywaydb</a> and (feature) <a href="../modules/ext/togglz/ext-togglz.html">togglz</a> enabled by default. The application also configures the <em>Quartz scheduler</em> for background scheduling, and the <em>Jolokia</em> servlet, allowing consoles such as <em>hawt.io</em> to monitor the internal state of the webapp.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The generated application also includes example code to:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="quickstart-with-embedded-camel.html">bootstrap</a> a <em>Spring Framework</em> context alongside the Apache Isis framework, hosting embedded <em>Apache Camel</em> and <em>Apache ActiveMQ</em> instances</p> </li> 
+          <li> <p><a href="quickstart-with-example-usage.html">demonstrate usage</a> of the various modules within the Incode Platform.</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>These can be easily included or excluded just by commenting in/out small sections of code.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_prerequisites">Prerequisites</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_prerequisites.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_prerequisites.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_prerequisites.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_prerequisites.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_prerequisites.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The prerequisite software is:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>Java JDK 8</p> </li> 
+          <li> <p><a href="http://maven.apache.org">maven 3</a> (3.5.0 or later is recommended).</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>We also strongly recommend an IDE; the Incode Platform developers use JetBrains IntelliJ Community Edition.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_running-the-archetype">Running the archetype</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running-the-archetype.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running-the-archetype.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running-the-archetype.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running-the-archetype.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running-the-archetype.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Use Maven to generate your application from the <code>quickstart-archetype</code>. For example:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
+    -D archetypeGroupId=org.incode.platform.archetype \
+    -D archetypeArtifactId=quickstart-archetype \
+    -D archetypeVersion=1.15.0 \
+    -D groupId=com.mycompany \
+    -D artifactId=myapp \
+    -D version=1.0-SNAPSHOT \
+    -B</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Change the <code>groupId</code> and <code>artifactId</code> as required.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The application will be generated in a directory named after the artifact (<code>myapp</code> in the example above):</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code>cd myapp</code></pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_project-structure">Project Structure</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_project-structure.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_project-structure.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_project-structure.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_project-structure.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_project-structure.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The quickstart app consists of five Maven modules: a parent module and four submodules. The diagram below shows their dependencies:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="_images/project-structure/module-dependencies/slide1.png"><img src="_images/project-structure/module-dependencies/slide1.png" alt="slide1" width="800px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>where:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>quickstart-module-simple</code> is where the business logic resides for an initial "simple" module.<br></p> 
+           <div class="paragraph"> 
+            <p>This consists of nothing more than a <code>SimpleObject</code> and supporting menu and repository (basically the same domain as generated by Apache Isis' <a href="http://isis.apache.org/guides/ugfun/ugfun.html#_ugfun_getting-started_simpleapp-archetype">simpleapp</a> archetype).<br></p> 
+           </div> 
+           <div class="paragraph"> 
+            <p>In your own application we recommend that you clone this module for each discrete module that makes up your business domain. Doing this from the very beginning will help ensure your app doesn’t become the proverbial "big ball of mud".</p> 
+           </div> </li> 
+          <li> <p>It’s quite common to factor out base/abstract classes to remove boilerplate, or to hold utility classes. The <code>quickstart-module-base</code> module is an ideal place for this, intended as a base module that all business modules will depend upon. It is also where the example <a href="../modules/ext/togglz/ext-togglz.html">togglz</a> feature toggle <code>enum</code> class resides.</p> </li> 
+          <li> <p>The <code>quickstart-appdefn</code> module holds the application’s implementation of the <a href="http://isis.apache.org/guides/rgcms/rgcms.html#_rgcms_classes_AppManifest-bootstrapping">AppManifest</a> interface, which defines the modules that make up the application. The quickstart’s implementation is <code>domainapp.appdefn.DomainAppAppManifest</code>.<br></p> 
+           <div class="paragraph"> 
+            <p>It’s also a useful place to define fixtures for demoing prototypes to the business, aw well as supporting services that might be needed to help configure modules. The quickstart includes implementations of services for both the <a href="../modules/spi/security/spi-security.html">security spi</a> module and the <a href="../modules/ext/security/ext-togglz.html">togglz</a> (feature toggle) module.</p> 
+           </div> </li> 
+          <li> <p>Finally, the <code>quickstart-webapp</code> module is what packages up the application as a <code>.war</code> file (the <code>WEB-INF/web.xml</code> shown in the diagram actually lives in this module). There’s very little Java code in this module: the most significant class is <code>DomainAppWicketApplication</code> (extends <code>IsisWicketApplication</code>), required by the <a href="http://isis.apache.org/guides/ugvw/ugvw.html">Wicket viewer</a>.</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>You’ll want to load the generated app into an IDE; the figure below shows the app as loaded into IntelliJ:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="_images/project-structure/quickstart-app-loaded-into-intellij.png"><img src="_images/project-structure/quickstart-app-loaded-into-intellij.png" alt="quickstart app loaded into intellij" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>by default the <code>example</code> modules are excluded from the project:</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>See the Apache Isis documentation for <a href="http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_importing-maven-modules">further guidance</a>.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_removing_unneeded_modules">Removing unneeded modules</h3> 
+         <div class="paragraph"> 
+          <p>By default the <code>DomainAppAppManifest</code> app manifest has dependencies on <em>all</em> of the generic subdomains and SPI services. This means that the database when generated will include tables for the entities of these modules, even if the application doesn’t integrate with them. For example, the <a href="../modules/dom/document/dom-document.html">document module</a> includes tables that map onto the <code>DocumentType</code>, <code>DocumentTemplate</code> and <code>Document</code> entities (among others).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>It’s extremely unlikely that your application will need all of the modules in the platform. To exclude the modules that you don’t require, simply delete or comment out of the app manifest. To keep things tidy, you should probably also remove the corresponding <code>&lt;dependency&gt;`s from your application’s `pom.xml</code> files.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_building">Building (and tests)</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>To build the generated app:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code>mvn clean install</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This will compile the code and automatically run all tests (discussed in more detail <a href="#_quickstart_building_tests">below</a>), and it also package up the application as a WAR file (namely, <code>webapp/target/myapp.war</code>).</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_building_tests">Tests</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_tests.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_tests.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_tests.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_tests.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_tests.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The generated application includes unit tests, integration tests and BDD cucumber specifications. All of these are executed using the surefire plugin, which is configured to follow a naming convention:</p> 
+         </div> 
+         <table class="tableblock frame-all grid-all spread"> 
+          <caption class="title">
+           Table 1. Test configurations
+          </caption> 
+          <colgroup> 
+           <col style="width: 18.1818%;"> 
+           <col style="width: 18.1818%;"> 
+           <col style="width: 27.2727%;"> 
+           <col style="width: 18.1818%;"> 
+           <col style="width: 18.1819%;"> 
+          </colgroup> 
+          <thead> 
+           <tr> 
+            <th class="tableblock halign-center valign-bottom">Test type</th> 
+            <th class="tableblock halign-center valign-bottom">Naming convention</th> 
+            <th class="tableblock halign-center valign-bottom">Used in Module(s)</th> 
+            <th class="tableblock halign-center valign-bottom">Disabled using</th> 
+            <th class="tableblock halign-center valign-bottom">Generated Reports</th> 
+           </tr> 
+          </thead> 
+          <tbody> 
+           <tr> 
+            <td class="tableblock halign-center valign-middle"><p class="tableblock">Unit tests</p></td> 
+            <td class="tableblock halign-center valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>*_Test</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>module-simple</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>-DskipUT</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>target/surefire-unittest-reports</code></p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-center valign-middle"><p class="tableblock">Integration tests</p></td> 
+            <td class="tableblock halign-center valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>*_IntegTest</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>module-simple</code>; <code>appdefn</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>-DskipIT</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>target/surefire-integtest-reports</code></p> 
+              </div>
+             </div></td> 
+           </tr> 
+           <tr> 
+            <td class="tableblock halign-center valign-middle"><p class="tableblock">BDD specs</p></td> 
+            <td class="tableblock halign-center valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>*_IntegBddSpec</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>appdefn</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>-DskipBS</code></p> 
+              </div>
+             </div></td> 
+            <td class="tableblock halign-left valign-middle">
+             <div>
+              <div class="paragraph"> 
+               <p><code>target/surefire-integbddspecs-reports</code></p> 
+              </div>
+             </div></td> 
+           </tr> 
+          </tbody> 
+         </table> 
+         <div class="paragraph"> 
+          <p>It’s also possible to disable all tests using the usual <code>-DskipTests</code> flag.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The reports are generated relative to the module that contains the tests. Such reports can be picked up by your continuous integration server.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In addition, the BDD specs also generate a (very simple) website at <code>target/cucumber-html-report/index.html</code>, and a (much richer) website at <code>target/cucumber-reports/cucumber-html-reports/overview-features.html</code>.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/build/tests/cucumber-report.png"><img src="_images/build/tests/cucumber-report.png" alt="cucumber report" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>One thing to be aware of: if a unit test or integration test fails, then the build will break. However, note that if a BDD spec "fails" (eg due to a missing binding), then the build continues; the failure is shown in the generated cucumber report instead.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The configuration of tests in the Maven <code>pom.xml</code> project files is done using the <em>surefire</em> and <em>cucumberreporting</em> maven mixins, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_building_metamodel-validation">Metamodel validation</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_metamodel-validation.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_metamodel-validation.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_metamodel-validation.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_metamodel-validation.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_metamodel-validation.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The generated application also configures the <a href="http://isis.apache.org/guides/rgmvn/rgmvn.html">Apache Isis maven plugin</a> to <a href="http://isis.apache.org/guides/rgmvn/rgmvn.html#_rgmvn_validate">validate</a> the domain application. For example, if a supporting method for an action <code>findByName</code> is misspelt, then this will be reported and the build will fail. In the quickstart app the metamodel validation plugin is configured in the <code>module-simple</code> module.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Running metamodel validation does require bootstrapping the application, so will lengthen the overall build time. If required, the metamodel validation can be skipped using <code>-Dskip.isis-validate</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The configuration in the Maven <code>pom.xml</code> project files is done using the <em>isis-validate mavenmixin</em>, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_building_swagger-spec">Swagger spec</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_swagger-spec.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_swagger-spec.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_swagger-spec.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_swagger-spec.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_building_swagger-spec.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The generated application also configures the <a href="http://isis.apache.org/guides/rgmvn/rgmvn.html">Apache Isis maven plugin</a> to <a href="http://isis.apache.org/guides/rgmvn/rgmvn.html#_rgmvn_swagger">generate a Swagger spec</a> file. This can, for example, be used to generate stubs in various programming languages.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In the quickstart app, the plugin is configured to run in the <code>appdefn</code> module (so providing a single spec for the entire app). The configuration is done using the <em>isis-swagger</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Generating the swagger spec does require bootstrapping the application, so will lengthen the overall build time. If reuired, the swagger generation can be skipped using <code>-Dskip.isis-swagger</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When run, it generates swagger files in <code>target/generated-resources/isis-swagger</code>, relative to module that configures the plugin.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_running">Running</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>There are a number of ways that you can run your application.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_running_ide">IDE</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_ide.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_ide.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_ide.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_ide.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_ide.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>When developing an Apache Isis application, you’ll typically want to run the app from within the IDE. Not only does this reduce the feedback loop (no need to package and deploy, for example), you can also very easily set up debugging breakpoints and the like.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>To run the app from the IDE, we use Apache Isis' <code>org.apache.isis.WebServer</code>, which runs the app as a command line application. This starts up an embedded Jetty instance configured to run the webapp.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, here’s the launch configuration to run the generated application from IntelliJ:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/intellij-run-configuration.png"><img src="_images/running/ide/intellij-run-configuration.png" alt="intellij run configuration" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>That is to say:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>main-class: <code>org.apache.isis.WebServer</code></p> </li> 
+           <li> <p>program args: <code>-m domainapp.appdefn.DomainAppAppManifest</code></p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java">mvn -Denhance -Dskip.default datanucleus:enhance -T1C -o</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>run against the parent pom to enhance the JDO domain entities. See the Apache Isis documentation for <a href="http://isis.apache.org/guides/dg/dg.html#http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_running">further guidance</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When the application is started this way, it runs without any fixtures, that is, using <code>domainapp.appdefn.DomainAppAppManifest</code> configured in <code>webapp/WEB-INF/isis.properties</code>. The only user account that is available therefore is the default superuser provided by the <a href="../modules/spi/security/spi-security.html">security module</a>, namely <code>isis-module-security-admin</code>/<code>pass</code>.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/run-app-login-isis-module-security-admin.png"><img src="_images/running/ide/run-app-login-isis-module-security-admin.png" alt="run app login isis module security admin" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The home page shows only the security module’s menu, not the domain app’s entities (`SimpleObject’s menu etc):</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/run-app-home-page-isis-module-security-admin.png"><img src="_images/running/ide/run-app-home-page-isis-module-security-admin.png" alt="run app home page isis module security admin" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Manually setting up a user and permissions to be able to access the business domain would be tedious to say the least. So instead we can use an extended version of the app manifest which will also run some fixtures. These set up a user account and also some dummy data.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, here’s the updated launch configuration using the app manifest:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/intellij-run-configuration-with-fixtures.png"><img src="_images/running/ide/intellij-run-configuration-with-fixtures.png" alt="intellij run configuration with fixtures" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>That is to say:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>program args: <code>-m domainapp.appdefn.DomainAppAppManifestWithFixtures</code></p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which supplies additional fixtures using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">protected</span> <span class="type">void</span> overrideFixtures(<span class="directive">final</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> FixtureScript&gt;&gt; fixtureScripts) {
+    fixtureScripts.add(SimpleObject_data.PersistScript.class);
+    fixtureScripts.add(SeedSuperAdministratorRoleAndSvenSuperUser.class);
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When we run the app again, we can now log in using a new <code>sven/pass</code> user account:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/run-app-login.png"><img src="_images/running/ide/run-app-login.png" alt="run app login" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The home page now shows a <code>Simple Objects</code> menu:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/run-app-home-page.png"><img src="_images/running/ide/run-app-home-page.png" alt="run app home page" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>from whence we can access the <code>SimpleObject</code>s also created by the fixture:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/ide/run-app-SimpleObject.png"><img src="_images/running/ide/run-app-SimpleObject.png" alt="run app SimpleObject" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note also the additional menus on the right-hand side to access other modules set up and accessible to the <code>sven</code> superuser. These are discussed in more detail <a href="#_quickstart_modules">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_running_mvn">mvn (jetty:run)</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_mvn.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_mvn.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_mvn.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_mvn.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_mvn.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>If you want to run the application without even loading it into the IDE, then you can do this using the maven Jetty plugin:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code>mvn -pl webapp jetty:run</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The "-pl webapp" argument indicates that the command is run in the "webapp" subdirectory/submodule.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>However, note that this will run with the standard <code>DomainAppAppManifest</code>, as configured in <code>WEB-INF/isis.properties</code>; the only user account is <code>isis-module-security-admin</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>More than likely you’ll want to override the manifest; you can do this using a system property. For example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code> mvn -pl webapp jetty:run \
+         -Disis.appManifest=domainapp.appdefn.DomainAppAppManifestWithFixtures</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The configuration in the Maven <code>pom.xml</code> project files for the jetty plugin that provides this feature is done using the <em>jettywar</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_running_webapp">Webapp</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_webapp.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_webapp.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_webapp.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_webapp.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_webapp.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The application can also be run in a servlet container, using the <code>.war</code> file generated from the usual build. For example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn install \
+     -DskipTests -Dskip.isis-validate -Dskip.isis-swagger</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>will result in a <code>xxx-webapp-1.0-SNAPSHOT.war</code> (where xxx is the project’s <code>artifactId</code>) generated in <code>webapp/target</code>. This can then be deployed to the servlet container in the normal way. For example, if deploying to <a href="http://tomcat.apache.org">Apache Tomcat</a>, just copy to the <code>$TOMCAT_HOME/webapps/</code> directory.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If you want to change the manifest (or any other property), it is possible to override the configuration externally. See the Apache Isis docs for <a href="http://isis.apache.org/guides/ugbtb/ugbtb.html#_ugbtb_deployment_tomcat">further guidance</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The configuration in the Maven <code>pom.xml</code> project files for maven’s war plugin is done using the <em>jettywar</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_running_standalone">Standalone</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_standalone.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_standalone.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_standalone.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_standalone.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_standalone.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>Yet another alternative is to build the webapp to run standalone as a single "uber-jar", once again using Jetty as an embedded instance. This could be useful for example to distribute standalone prototype of your application for review.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Building the standalone jar is done by setting the <code>-Dmavenmixin-jettyconsole</code> property. For example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn install \
+    -Dmavenmixin-jettyconsole \
+    -DskipTests -Dskip.isis-validate -Dskip.isis-swagger</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>will result in a <code>xxx-webapp-1.0-SNAPSHOT-jetty-console.war</code> (where xxx is the project’s <code>artifactId</code>) generated in <code>webapp/target</code>. This can then be running using java, for example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">java -jar webapp/target/myapp-webapp-1.0-SNAPSHOT-jetty-console.war</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This displays a Swing UI from which the webapp can be started.</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/jetty-console/jetty-console-ui.png"><img src="_images/running/jetty-console/jetty-console-ui.png" alt="jetty console ui" width="400px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>It’s also possible to run headless, or to change the port. And again, the manifest can be changed using a system property. For example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">java -Disis.appManifest=domainapp.appdefn.DomainAppAppManifestWithFixtures \
+     -jar webapp/target/myapp-webapp-1.0-SNAPSHOT-jetty-console.war \
+          --headless \
+          --port 9090</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The configuration in the Maven <code>pom.xml</code> project files for the jettyconsole plugin that provides this feature is done using the <em>jettyconsole</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_running_docker">Docker</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_docker.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_docker.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_docker.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_docker.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_running_docker.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>Finally, it’s also possible to package up and run the webapp as a Docker container.</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>to package the webapp as a Docker image:</p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="bash">mvn install \
+    -Dmavenmixin-docker -Ddocker-plugin.imageName=mycompany/myapp \
+    -DskipTests -Dskip.isis-vaidate -Dskip.isis-swagger</code></pre> 
+             </div> 
+            </div> 
+            <div class="paragraph"> 
+             <p>where "imageName" is anything you want.<br></p> 
+            </div> 
+            <div class="paragraph"> 
+             <p>The configuration for the docker plugin is done using the <em>docker</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
+            </div> </li> 
+           <li> <p>and to run it:</p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="bash">docker container run -p 8080:8080 -d mycompany/myapp</code></pre> 
+             </div> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>On Windows, you may need to enable the Docker daemon first, otherwise the "mvn install" command above will fail:</p> 
+              </div> 
+              <div class="imageblock"> 
+               <div class="content"> 
+                <a class="image" href="_images/running/docker/on-windows/010-docker-localhost-2375.png"><img src="_images/running/docker/on-windows/010-docker-localhost-2375.png" alt="010 docker localhost 2375" width="400px"></a> 
+               </div> 
+              </div> 
+              <div class="paragraph"> 
+               <p>You might also need to ensure that the "Unidentified networks" are configured to be private:</p> 
+              </div> 
+              <div class="imageblock"> 
+               <div class="content"> 
+                <a class="image" href="_images/running/docker/on-windows/026-docker-nat-private.png"><img src="_images/running/docker/on-windows/026-docker-nat-private.png" alt="026 docker nat private" width="400px"></a> 
+               </div> 
+              </div> 
+              <div class="paragraph"> 
+               <p>This can be done using the "Local Security Policy" application.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This will bootstrap the application; <code>docker container ps</code> will show all running containers. Alternatively, Kitematic provides a simple UI to view and interact with running containers:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/running/docker/kitematic.png"><img src="_images/running/docker/kitematic.png" alt="kitematic" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When the application is started this way, it runs without any fixtures. There are a variety of ways to override this but these easiest is probably to use the <code>$ISIS_OPT</code> environment variable, a set of key:value pairs concatenated together.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>scripts/rundocker.sh</code> script is a simple wrapper that reads all properties from an externally specified configuration file and starts the docker container correctly. For example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">pushd scripts
+rundocker.sh test/myapp isis-overrides.properties -p 8080:8080
+popd</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>test/myapp</code> is the name of the image to be run</p> </li> 
+           <li> <p><code>-p 8080:8080</code> is passed through to the <code>docker run</code> command</p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>See the Apache Isis docs for <a href="http://isis.apache.org/guides/ugbtb/ugbtb.html#_ugbtb_deployment_docker">further guidance</a> on deploying with Docker.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_using-an-external-database">Using an external database</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_using-an-external-database.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_using-an-external-database.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_using-an-external-database.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_using-an-external-database.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_using-an-external-database.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>All of the examples listed above run the application against an in-memory HSQLDB database. Obviously though at some point you’ll want to persist your data against an external database.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To do so just requires that overriding four configuration properties that specify the JDBC driver, JDBC URL, user and password. It also (of course) requires that the JDBC driver is configured as a <code>&lt;dependency&gt;</code> in the webapp’s <code>pom.xml</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For example, to run the quickstart application against SQL Server:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>create a new and empty database, eg <code>myappdb</code>, with corresponding user and password, <code>myappdbo/s3cr3t!</code>, say.</p> </li> 
+          <li> <p><a href="https://docs.microsoft.com/en-us/sql/connect/jdbc/using-the-jdbc-driver">download</a> the <code>mssql-jdbc-6.2.1.jre8.jar</code> driver, and install locally using:<br></p> 
+           <div class="listingblock"> 
+            <div class="content"> 
+             <pre class="CodeRay highlight"><code data-lang="bash">mvn install:install-file -Dfile=mssql-jdbc-6.2.1.jre8.jar \
+                     -DgroupId=com.microsoft.sqlserver \
+                     -DartifactId=jdbc \
+                     -Dversion=6.2.1 \
+                     -Dpackaging=jar</code></pre> 
+            </div> 
+           </div> </li> 
+          <li> <p>edit the <code>webapp/pom.xml</code> to include the sqljdbc4 driver:<br></p> 
+           <div class="listingblock"> 
+            <div class="content"> 
+             <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;profile&gt;</span>
+    <span class="tag">&lt;id&gt;</span>jdbc-mssql<span class="tag">&lt;/id&gt;</span>
+    <span class="tag">&lt;activation&gt;</span>
+        <span class="tag">&lt;property&gt;</span>
+            <span class="tag">&lt;name&gt;</span>!skip.jdbc-mssql<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/property&gt;</span>
+    <span class="tag">&lt;/activation&gt;</span>
+    <span class="tag">&lt;dependencies&gt;</span>
+       <span class="tag">&lt;dependency&gt;</span>
+           <span class="tag">&lt;groupId&gt;</span>com.microsoft.sqlserver<span class="tag">&lt;/groupId&gt;</span>
+           <span class="tag">&lt;artifactId&gt;</span>jdbc<span class="tag">&lt;/artifactId&gt;</span>
+           <span class="tag">&lt;version&gt;</span>6.2.1<span class="tag">&lt;/version&gt;</span>
+       <span class="tag">&lt;/dependency&gt;</span>
+    <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/profile&gt;</span></code></pre> 
+            </div> 
+           </div> </li> 
+          <li> <p>change (by simply editing in <code>isis.properties</code>) or override (eg by passing in as <code>-D</code> system properties) the following configuration properties:</p> 
+           <div class="listingblock"> 
+            <div class="content"> 
+             <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionDriverName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionURL=jdbc:sqlserver://localhost:1433;instance=.;databaseName=myappdb
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionUserName=myappdbo
+isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionPassword=s3cr3t!</code></pre> 
+            </div> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For example, an IntelliJ launch configuration can specify system properties:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="_images/running/external-db/intellij-run-configuration-with-jdbc-overrides.png"><img src="_images/running/external-db/intellij-run-configuration-with-jdbc-overrides.png" alt="intellij run configuration with jdbc overrides" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>where the system properties dialog is:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="_images/running/external-db/intellij-run-configuration-with-jdbc-overrides-system-properties.png"><img src="_images/running/external-db/intellij-run-configuration-with-jdbc-overrides-system-properties.png" alt="intellij run configuration with jdbc overrides system properties" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>When the application has started the tables should have been automatically created (by virtue of the <code>isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true</code> configuration property in <code>isis.properties</code>):</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="_images/running/external-db/sqlserver-tables-automatically-created.png"><img src="_images/running/external-db/sqlserver-tables-automatically-created.png" alt="sqlserver tables automatically created" width="400px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>with 10 <code>SimpleObject</code> instances created through the fixture:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="_images/running/external-db/sqlserver-table-SimpleObject.png"><img src="_images/running/external-db/sqlserver-table-SimpleObject.png" alt="sqlserver table SimpleObject" width="500px"></a> 
+         </div> 
+        </div> 
+        <div class="admonitionblock tip"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>If running against a persistent datastore, then remember that the fixture script should only be run the very first time you run up the application. Thereafter, switch to the regular app manifest (<code>domainapp.appdefn.DomainAppAppManifest</code>); otherwise you’ll likely get INSERT errors on start up (trying to re-insert the same dummy data).</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_modules">Modules</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Now we’ve explored how to run the application, let’s explore some of the features already configured in the quickstart.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_security">Security</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_security.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_security.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_security.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_security.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_security.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="../modules/spi/security/spi-security.html">security module</a> provides authentication and authorisation, implemented by an <a href="http://shiro.apache.org">Apache Shiro</a> Realm:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           WEB-INF/shiro.ini file
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="ini">incodePlatformSpiSecurityRealm=org.isisaddons.module.security.shiro.IsisModuleSecurityRealm
+securityManager.realms = $incodePlatformSpiSecurityRealm
+
+authenticationStrategy=org.isisaddons.module.security.shiro.AuthenticationStrategyForIsisModuleSecurityRealm
+securityManager.authenticator.authenticationStrategy = $authenticationStrategy</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Each logged-in user has a corresponding <code>ApplicationUser</code> account, accessible from the "me" menu item:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/security/me-menu-item.png"><img src="_images/modules/security/me-menu-item.png" alt="me menu item" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which shows the current user:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/security/application-user.png"><img src="_images/modules/security/application-user.png" alt="application user" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Other functionality is available from the security menu:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/security/security-menu.png"><img src="_images/modules/security/security-menu.png" alt="security menu" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note that the security seed data (defined in the <code>SeedSuperAdministratorRoleAndSvenSuperUser</code> fixture) also sets up a role required by the <a href="../modules/ext/togglz/ext-togglz.html">togglz module</a>, also see <a href="#_quickstart_modules_togglz">below</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_session-logger">Session Logger</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_session-logger.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_session-logger.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_session-logger.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_session-logger.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_session-logger.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="../modules/ext/sessionlogger/ext-sessionlogger.html">session logger</a> module records each user session as the user logs in or logs out (or is timed out automatically).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The session logger menu items are on the <em>Activity</em> menu:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/sessionlogger/find-sessions.png"><img src="_images/modules/sessionlogger/find-sessions.png" alt="find sessions" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Sessions can be searched by date/time and user:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/sessionlogger/find-sessions-prompt.png"><img src="_images/modules/sessionlogger/find-sessions-prompt.png" alt="find sessions prompt" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>returning matching sessions:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/sessionlogger/session-list.png"><img src="_images/modules/sessionlogger/session-list.png" alt="session list" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which can be drilled into:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/sessionlogger/session-object.png"><img src="_images/modules/sessionlogger/session-object.png" alt="session object" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_commands">Commands</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_commands.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_commands.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_commands.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_commands.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_commands.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="../modules/ext/command/ext-command.html">session logger</a> module captures actions and property edits as persistent <code>Command</code> objects. These commands represent the <em>intention</em> to invoke the action/edit the property, rather than the action invocation/property edit itself.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The quickstart app (when using the fixtures) disables commands "globally" in the app manifest:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           DomainAppAppManifestWithFixtures
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="ini">protected void disableAuditingAndCommandAndPublishGlobally(final Map&lt;String, String&gt; configurationProperties) {
+    ...
+    configurationProperties.put("isis.services.command.actions","none");
+    configurationProperties.put("isis.services.command.properties","none");
+    ...
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>but the <code>SimpleObject</code> domain object re-enables command reification for both editing of the <code>notes</code> property;</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java">    <span class="annotation">@Property</span>(
+            ...
+            command = CommandReification.ENABLED,
+            ...
+    )
+    <span class="directive">private</span> <span class="predefined-type">String</span> notes;</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and for invoking the <code>updateName</code> action:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Action</span>(
+        ...
+        command = CommandReification.ENABLED,
+        ...
+)
+<span class="directive">public</span> SimpleObject updateName( ... ) {  ... }</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Persisted <code>Command</code> objects can be accessed in several ways. One option is to use the <em>Activity</em> menu:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/command/find-commands.png"><img src="_images/modules/command/find-commands.png" alt="find commands" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Alternatively, recent commands executed by an end-user can be found via their coresponding <code>ApplicationUser</code> object:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/command/recent-commands-by-user.png"><img src="_images/modules/command/recent-commands-by-user.png" alt="recent commands by user" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, invoking the <code>SimpleObject#updateName()</code> action:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/command/SimpleObject-updateName.png"><img src="_images/modules/command/SimpleObject-updateName.png" alt="SimpleObject updateName" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>results in this <code>Command</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/command/Command-object.png"><img src="_images/modules/command/Command-object.png" alt="Command object" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Using commands it’s also possible to defer their invocation to be run in the background, either using <a href="http://isis.apache.org/guides/rgant/rgant.html#_rgant-Action_command"><code>@Action#commandExecuteIn()</code></a> or using the <a href="http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_spi_BackgroundService"><code>BackgroundService</code></a>. The <a href="../modules/ext/quartz/ext-quartz.html">quartz</a> module is configured in the webapp to run such background commands, see <a href="#_quickstart_modules_quartz">below</a> for details.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_auditing">Auditing</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_auditing.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_auditing.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_auditing.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_auditing.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_auditing.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>Where <a href="#_quickstart_modules_commands">command</a>s capture the intention of a user to invoke an action/edit a property, audit records (as provided by the <a href="../modules/spi/audit/spi-audit.html">audit module</a>) capture the effect of performing such an interaction. With the quickstart app configuring both commands and audits, this provides excellent traceability of cause-and-effect.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The quickstart app (when using the fixtures) disables auditing "globally" in the app manifest:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           DomainAppAppManifestWithFixtures
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="ini">protected void disableAuditingAndCommandAndPublishGlobally(final Map&lt;String, String&gt; configurationProperties) {
+    configurationProperties.put("isis.services.audit.objects","none");
+    ...
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>but the <code>SimpleObject</code> re-enables auditing using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@DomainObject</span>(
+        auditing = Auditing.ENABLED
+)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">SimpleObject</span> ...  { ... }</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, invoking the <code>SimpleObject#updateName()</code> action (the example given above while discussing <a href="#_quickstart_modules_commands">command</a>s) persists a corresponding a <code>Command</code>, and which also shows the corresponding audit entries:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/audit/command-and-audit.png"><img src="_images/modules/audit/command-and-audit.png" alt="command and audit" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In this case there is just one <code>AuditEntry</code> object:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/audit/audit-entry.png"><img src="_images/modules/audit/audit-entry.png" alt="audit entry" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_publishing">Publishing</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_publishing.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_publishing.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_publishing.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_publishing.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_publishing.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>Publishing and commands share some similarities: both create an XML representation of an action invocation or property edit. However, whereas a Command represents only the <em>intention</em> to invoke the action, with publishing the serialized XML also captures the result of the invocation and some basic metrics.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The main use case of publishing is to be able facilitate message exchange between external systems. The quickstart app uses the <a href="../modules/spi/publishmq/spi-publishmq.html">publishmq</a> module which bootstraps an in-memory ActiveMQ instance and publishes to it.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In fact, the publishmq module allows the location of the ActiveMQ queue to be overridden. The quickstart app configures these properties, but leaves them as their defaults (that is, connecting to an in-memory ActiveMQ instance):</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           isis.properties (in webapp module)
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="ini">isis.services.PublisherServiceUsingActiveMq.vmTransportUri=vm://broker
+isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=\
+                                                           memberInteractionsQueue</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The quickstart app (when using the fixtures) disables publishing "globally" in the app manifest:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           DomainAppAppManifestWithFixtures (in the appdefn module)
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="ini">protected void disableAuditingAndCommandAndPublishGlobally(final Map&lt;String, String&gt; configurationProperties) {
+    ...
+    configurationProperties.put("isis.services.publish.objects","none");
+    configurationProperties.put("isis.services.publish.actions","none");
+    configurationProperties.put("isis.services.publish.properties","none");
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>but the <code>SimpleObject</code> domain object re-enables publishing for both editing of the <code>notes</code> property:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Property</span>(
+        ...
+        publishing = Publishing.ENABLED
+)
+<span class="directive">private</span> <span class="predefined-type">String</span> notes;</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and for invoking the <code>updateName</code> action:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Action</span>(
+        ...
+        publishing = Publishing.ENABLED
+)
+<span class="directive">public</span> SimpleObject updateName( ... ) {  ... }</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Using the <a href="http:http://hawt.io">hawt.io</a> console we can monitor the messages sent to the ActiveMQ message. Download the hawt.io JAR file and start using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">java -jar hawtio-app-1.5.3.jar --port 9090</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Then connect to the jolokia servlet (configured in the quickstart’s <code>web.xml</code>):</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/publish/hawtio-jolokia-connect.png"><img src="_images/modules/publish/hawtio-jolokia-connect.png" alt="hawtio jolokia connect" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>with the port set to <code>8080</code> and the path set to <code>/api/jolokia</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Invoking the <code>updateName</code> action on <code>SimpleObject</code> will result in a message being sent to the ActiveMQ queue:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/publish/hawtio-activemq-interactions.png"><img src="_images/modules/publish/hawtio-activemq-interactions.png" alt="hawtio activemq interactions" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and indeed the details of the message can be inspected:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/publish/hawtio-activemq-interaction.png"><img src="_images/modules/publish/hawtio-activemq-interaction.png" alt="hawtio activemq interaction" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Note that these are only visible via hawt.io because there is nothing consuming the messages. For that, you need to configure a consumer, The <a href="quickstart-with-embedded-camel.html">embedded camel</a> extended example does precisely this.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The publishmq module also persists all interactions to a database table; this is to allow messages to be resent if required. The message can be seen persisted as a <code>PublishedEvent</code> entity (searchable from the <em>Activity</em> menu):</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/publish/publish-object.png"><img src="_images/modules/publish/publish-object.png" alt="publish object" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_togglz">Togglz</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_togglz.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_togglz.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_togglz.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_togglz.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_togglz.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>Feature toggles are a <a href="https://martinfowler.com/articles/feature-toggles.html">technique</a> with various use cases, one of which is to allow functionality to be rolled out partially, eg for feedback. The <a href="../modules/ext/togglz/ext-togglz.html">togglz module</a> provides support for this (leveraging the <a href="../modules/dom/settings/dom-settings.html">settings module</a> for feature persistence.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The quickstart integrates this module, and demonstrates its usage in the <code>SimpleObjectMenu</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           SimpleObjectMenu (in module-simple)
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">SimpleObjectMenu</span> {
+
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;SimpleObject&gt; listAll() { ... }
+
+    <span class="directive">public</span> <span class="predefined-type">List</span>&lt;SimpleObject&gt; findByName( ... ) { ... }
+    <span class="directive">public</span> <span class="type">boolean</span> hideFindByName() {
+        <span class="keyword">return</span> ! TogglzFeature.findByName.isActive();
+    }
+
+    <span class="directive">public</span> SimpleObject create( ... ) { ... }
+    <span class="directive">public</span> <span class="type">boolean</span> hideCreate() {
+        <span class="keyword">return</span> ! TogglzFeature.SimpleObject_create.isActive();
+    }
+
+    ...
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where <code>TogglzFeature</code> is this enum:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           TogglzFeature (in module-base)
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">enum</span> TogglzFeature <span class="directive">implements</span> org.togglz.core.Feature {
+
+    <span class="annotation">@Label</span>(<span class="string"><span class="delimiter">"</span><span class="content">Enable SimpleObject#create</span><span class="delimiter">"</span></span>)
+    <span class="annotation">@EnabledByDefault</span>
+    SimpleObject_create,
+
+    <span class="annotation">@Label</span>(<span class="string"><span class="delimiter">"</span><span class="content">Enable SimpleObject#findByName</span><span class="delimiter">"</span></span>)
+    SimpleObject_findByName;
+
+    <span class="directive">public</span> <span class="type">boolean</span> isActive() {
+        <span class="keyword">return</span> FeatureContext.getFeatureManager().isActive(<span class="local-variable">this</span>);
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Because the <code>SimpleObject_findByName</code> feature toggle is disabled, the corresponding action is hidden:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/togglz/feature-disabled.png"><img src="_images/modules/togglz/feature-disabled.png" alt="feature disabled" width="300px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Users with the <code>isis-module-togglz-admin</code> role can change feature toggles dynamically:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/togglz/feature-toggles-menu.png"><img src="_images/modules/togglz/feature-toggles-menu.png" alt="feature toggles menu" width="300px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which brings up the togglz console:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/togglz/togglz-console.png"><img src="_images/modules/togglz/togglz-console.png" alt="togglz console" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>With the feature enabled, the "findByName" action become visible:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/togglz/feature-enabled.png"><img src="_images/modules/togglz/feature-enabled.png" alt="feature enabled" width="300px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_quartz">Quartz</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_quartz.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_quartz.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_quartz.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_quartz.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_quartz.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="../modules/ext/quartz/ext-quartz.html">quartz extension</a> module provides an in-memory scheduler for running jobs according to a schedule. The quickstart app uses this to schedule background commands every 10 seconds. Its configuration could of course be extended to perform other tasks.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The configuration is contained in <code>quartz-config.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="title">
+           quartz-config.xml (in the webapp module)
+          </div> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="tag">&lt;job-scheduling-data</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.quartz-scheduler.org/xml/JobSchedulingData</span><span class="delimiter">"</span></span> <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">"</span></span> <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.quartz-scheduler.org/xml/JobSchedulingData</span> <span class="content">http://www.quartz-scheduler.org/xml/job_scheduling_data_1_8.xsd</span><span class="delimiter">"</span></span> <span class="attribute-name">version</span>=<span class="string"><span class="delimiter">"</span><span class="content">1.8</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;schedule&gt;</span>
+
+        <span class="tag">&lt;job&gt;</span>
+            <span class="tag">&lt;name&gt;</span>RunBackgroundJobs<span class="tag">&lt;/name&gt;</span>
+            <span class="tag">&lt;group&gt;</span>DomainApp<span class="tag">&lt;/group&gt;</span>
+            <span class="tag">&lt;description&gt;</span>Runs all background jobs<span class="tag">&lt;/description&gt;</span>
+            <span class="tag">&lt;job-class&gt;</span>org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob<span class="tag">&lt;/job-class&gt;</span>
+            <span class="tag">&lt;job-data-map&gt;</span>
+                <span class="tag">&lt;entry&gt;</span>
+                    <span class="tag">&lt;key&gt;</span>user<span class="tag">&lt;/key&gt;</span>
+                    <span class="tag">&lt;value&gt;</span>scheduler_user<span class="tag">&lt;/value&gt;</span>
+                <span class="tag">&lt;/entry&gt;</span>
+                <span class="tag">&lt;entry&gt;</span>
+                    <span class="tag">&lt;key&gt;</span>roles<span class="tag">&lt;/key&gt;</span>
+                    <span class="tag">&lt;value&gt;</span>admin_role<span class="tag">&lt;/value&gt;</span>
+                <span class="tag">&lt;/entry&gt;</span>
+            <span class="tag">&lt;/job-data-map&gt;</span>
+        <span class="tag">&lt;/job&gt;</span>
+
+        <span class="tag">&lt;trigger&gt;</span>
+            <span class="tag">&lt;cron&gt;</span>
+                <span class="tag">&lt;name&gt;</span>RunBackgroundJobsEvery10Seconds<span class="tag">&lt;/name&gt;</span>
+                <span class="tag">&lt;job-name&gt;</span>RunBackgroundJobs<span class="tag">&lt;/job-name&gt;</span>
+                <span class="tag">&lt;job-group&gt;</span>DomainApp<span class="tag">&lt;/job-group&gt;</span>
+                <span class="tag">&lt;cron-expression&gt;</span>0/10 * * * * ?<span class="tag">&lt;/cron-expression&gt;</span>
+            <span class="tag">&lt;/cron&gt;</span>
+        <span class="tag">&lt;/trigger&gt;</span>
+
+    <span class="tag">&lt;/schedule&gt;</span>
+<span class="tag">&lt;/job-scheduling-data&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where <code>RunBackgroundCommandsJob</code> is provided by the quartz module.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>To see this in use, add the follow mixin:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Mixin</span>(method=<span class="string"><span class="delimiter">"</span><span class="content">act</span><span class="delimiter">"</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">SimpleObject_updateNameInBackground</span> {
+    <span class="directive">private</span> <span class="directive">final</span> SimpleObject simpleObject;
+    <span class="directive">public</span> SimpleObject_updateNameInBackground(<span class="directive">final</span> SimpleObject simpleObject) {
+        <span class="local-variable">this</span>.simpleObject = simpleObject;
+    }
+
+    <span class="annotation">@MemberOrder</span>(name = <span class="string"><span class="delimiter">"</span><span class="content">name</span><span class="delimiter">"</span></span>, sequence = <span class="string"><span class="delimiter">"</span><span class="content">3</span><span class="delimiter">"</span></span>)
+    <span class="directive">public</span> SimpleObject act(<span class="directive">final</span> <span class="predefined-type">String</span> name) {
+        messageService.informUser(<span class="string"><span class="delimiter">"</span><span class="content">name will be updated in the next 10 seconds...</span><span class="delimiter">"</span></span>);
+        backgroundService2.execute(simpleObject).updateName(name);
+        <span class="keyword">return</span> simpleObject;
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> default0Act() {
+        <span class="keyword">return</span> simpleObject.default0UpdateName();
+    }
+
+    <span class="annotation">@Inject</span>
+    MessageService messageService;
+
+    <span class="annotation">@Inject</span>
+    BackgroundService2 backgroundService2;
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which provides a new "updateNameInBackground" action:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/quartz/updateNameInBackground.png"><img src="_images/modules/quartz/updateNameInBackground.png" alt="updateNameInBackground" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which when invoked does not immediately change the object’s name but instead displays a message:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/quartz/updateNameInBackground-result.png"><img src="_images/modules/quartz/updateNameInBackground-result.png" alt="updateNameInBackground result" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Keep clicking on the object’s title to reload; within 10 seconds the name should change.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Listing all commands shows how the "updateNameInBackground" action is executed immediately (in the foreground), and as a side-effect creates a command for "updateName", executed in the background by the Quartz scheduler:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/quartz/command-list.png"><img src="_images/modules/quartz/command-list.png" alt="command list" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_quickstart_modules_flywaydb">FlywayDB</h3>
+         <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+          <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_flywaydb.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+          <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+          <ul class="dropdown-menu">
+           <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_flywaydb.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+           <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_flywaydb.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+           <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_flywaydb.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+           <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_modules_flywaydb.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+          </ul>
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="../modules/ext/flywaydb/ext-flywaydb.html">flywaydb extension</a> integrates FlywayDB to automatically handle database migrations. These ensure that the schema of the (production) database is in sync with that required by the domain entities.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>To demonstrate its usage, the quickstart app includes the <code>DomainAppAppManifestWithFlywayEnabledForSqlServer</code> manifest. This adds a number of configuration properties, the most important of which is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java">configurationProperties.put(
+    <span class="string"><span class="delimiter">"</span><span class="content">isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll</span><span class="delimiter">"</span></span>, <span class="string"><span class="delimiter">"</span><span class="content">false</span><span class="delimiter">"</span></span>);</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This tells DataNucleus to <em>not</em> automatically create the required database schema, so that it is instead created "manually" by Flyway running the provided SQL scripts.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>There are a number of other configuration properties also set in that manifest; thes indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The migration scripts themselves are in the <code>webapp</code> module, in a subpackage of <code>db.migration</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/flywaydb/migration-scripts.png"><img src="_images/modules/flywaydb/migration-scripts.png" alt="migration scripts" width="400px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Running the app with this manifest against an empty SQL Server database results in FlywayDB automatically creating the database tables:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/flywaydb/mssql-generated-tables.png"><img src="_images/modules/flywaydb/mssql-generated-tables.png" alt="mssql generated tables" width="400px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>flyway.schema_version</code> table keeps track of the scripts that have been applied:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="_images/modules/flywaydb/schema_version.png"><img src="_images/modules/flywaydb/schema_version.png" alt="schema version" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>There are a couple of other points worth making.</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>First, the manifest also uses the following configuration property:</p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="ini">configurationProperties.put(
+    "isis.persistor.datanucleus.impl.datanucleus.Mapping", "sqlserver");</code></pre> 
+             </div> 
+            </div> 
+            <div class="paragraph"> 
+             <p>to instruct DataNucleus to pick up any <code>-sqlserver.orm</code> files from the classpath. There are two such: <code>DocumentAbstract-sqlserver.orm</code> and <code>CommandJdo-sqlserver.orm</code>.</p> 
+            </div> </li> 
+           <li> <p>Second, the quickstart app also provides a <code>beforeMigrate.sql</code> script to drop all index/constraints, and uses the <code>autoCreateConstraints</code> property so that DataNucleus will automatically re-create any indices afterwards.</p> 
+            <div class="paragraph"> 
+             <p>For large databases this would not be practicable, in which case the <code>beforeMigrate.sql</code> script should be removed. Any changes to indices would therefore need to be provided in migration SQL scripts.</p> 
+            </div> </li> 
+          </ul> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_dynamic-reloading">Dynamic Reloading</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_dynamic-reloading.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_dynamic-reloading.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_dynamic-reloading.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_dynamic-reloading.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_dynamic-reloading.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The <code>module-simple</code> module includes <code>layout.gradle</code> and <code>liveReload.gradle</code> scripts, and the Wicket viewer is configured for live reloading:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="title">
+          viewer_wicket.properties (in appdefn module)
+         </div> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="properties">isis.viewer.wicket.liveReloadUrl=http://localhost:35729/livereload.js?snipver=1</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The procedure described in the Apache Isis <a href="http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_advanced_gradle-liveReload">documentation</a> explains that the two scripts should be run together:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">gradle -t --offline -b layouts.gradle &amp;
+gradle -t --offline -b liveReload.gradle &amp;</code></pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_quickstart_maven-mixins">Maven Mixins</h2>
+       <div class="btn-group" style="float: right; font-size: small; padding: 6px; margin-top: -55px; ">
+        <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_maven-mixins.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+        <ul class="dropdown-menu">
+         <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_maven-mixins.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+         <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_maven-mixins.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+         <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_maven-mixins.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+         <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/quickstart/_quickstart_maven-mixins.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        </ul>
+       </div> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>To minimize boilerplate, the Maven <code>pom.xml</code> files use the <code>com.github.odavid.maven.plugins:mixin-maven-plugin</code>. This allows the <code>&lt;build&gt;</code> definitions of other <code>pom.xml</code> files to be "mixed in to" (that is, included in) the consuming <code>pom.xml</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The maven mixins themselves used by the generated application are listed in the table below:</p> 
+        </div> 
+        <table class="tableblock frame-all grid-all spread"> 
+         <colgroup> 
+          <col style="width: 40%;"> 
+          <col style="width: 60%;"> 
+         </colgroup> 
+         <thead> 
+          <tr> 
+           <th class="tableblock halign-left valign-top"><code>groupId:artifactId</code><br> github repo</th> 
+           <th class="tableblock halign-left valign-bottom">Description</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code><br> <code>cucumberreporting</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-cucumberreporting</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>net.masterthought:maven-cucumber-reporting</code> plugin, to generate HTML reports based on outputs of BDD specification tests.</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code><br> <code>datanucleusenhance</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-datanucleusenhance</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>org.datanucleus:datanucleus-maven-plugin</code> to post-process (enhance) persistent entities according to the JDO spec.</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code><br> <code>docker</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-docker</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>com.spotify:docker-maven-plugin</code> plugin to create Docker images and to upload these to a specified registry.</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code><br> <code>enforcerrelaxed</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-enforcerrelaxed</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>maven-enforcer-plugin</code> plugin with a number of pre-defined rules (though <em>not</em> dependency convergence checking).</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code><br> <code>jettyconsole</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-jettyconsole</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>org.simplericity.jettyconsole:jetty-console-maven-plugin</code> to create a console app (with optional Swing UI) to bootstrap the application from the command line using an embedded Jetty instance.</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code><br> <code>jettywar</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-jettywar</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>maven-war-plugin</code> to build a war (webapp archive), and the ` <code>org.eclipse.jetty:jetty-maven-plugin</code> to be able to run this from maven (using <code>mvn jetty:war</code>).</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code> <code>sourceandjavadoc</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-sourceandjavadoc</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>maven-javadoc-plugin</code> plugin to create Javadoc website and the <code>maven-jxr-plugin</code> to create a similar website of the source code (cross-referencing the Javadoc).</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code> <code>standard</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-standard</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the standard <code>maven-clean-plugin</code>, <code>maven-resources-plugin</code> <code>maven-compiler-plugin</code>, maven-jar-plugin`, <code>maven-install-plugin</code>, <code>maven-deploy-plugin</code> and maven-site-plugin` plugins (mostly just setting their version).</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code> <code>staticanalysis</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-staticanalysis</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>maven-checkstyle-plugin</code>, maven-pmd-plugin`, <code>javancss-maven-plugin</code> and <code>jdepend-maven-plugin</code> plugins. The configuration files driving these plugins are specified as properties.</p> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><code>com.danhaywood.mavenmixin:</code> <code>surefire</code></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="https://github.com/danhaywood/java-mavenmixin-surefire">java-mavenmixin-surefire</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Configures the <code>maven-surefire-plugin</code> with multiple executions to run unit tests, integration tests and BDD specifications. testing support is discussed further <a href="#_quickstart_running-tests">below</a>.</p> 
+             </div>
+            </div></td> 
+          </tr> 
+         </tbody> 
+        </table> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../js/search-panel/search-panel.js"></script> 
+  <script src="../../js/header-link/header-link.js"></script> 
+  <script src="../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

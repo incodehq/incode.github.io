@@ -1,0 +1,903 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>FlywayDB Extension</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   ext-flywaydb
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="ext-flywaydb.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>FlywayDB Extension</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/ext/flywaydb/ext-flywaydb.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/ext/flywaydb/ext-flywaydb.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/ext/flywaydb/ext-flywaydb.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/ext/flywaydb/ext-flywaydb.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/ext/flywaydb/ext-flywaydb.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>isis-module-flywaydb</code>) provides an implementation of the <a href="http://datanucleus.org/">DataNucleus</a> <a href="http://www.datanucleus.org/products/accessplatform_4_1/jdo/pmf.html"><code>PersistenceManagerFactory</code></a> class. This uses <a href="https://flywaydb.org">Flyway</a> API to automatically apply any database migration scripts prior to the bootstrapping of the rest of the Apache Isis runtime.</p> 
+        </div> 
+        <div class="admonitionblock important"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-important" title="Important"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>The integration provided by this module runs a single instance of Flyway for the entire database, even if that database has multiple schemas (as is common in Apache Isis applications). In other words (although Flyway as a tool supports it), this integration does <em>not</em> allow for the tables in different schemas to have their own separate migration history.</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__ext-flywaydb_what-happens-during-bootstrapping">What happens during bootstrapping</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>When the application bootstraps, it uses the run two DB migration files that reside in <code>db.migration</code> package of the webapp module:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="webapp/src/main/resources/db/migration/V1__schema-simple.sql">V1__schema-simple.sql</a><br></p> 
+           <div class="paragraph"> 
+            <p>creates the <code>simple</code> schema</p> 
+           </div> </li> 
+          <li> <p><a href="webapp/src/main/resources/db/migration/V2__table-simple_SimpleObject.sql">V2__table-simple_SimpleObject.sql</a><br></p> 
+           <div class="paragraph"> 
+            <p>creates the <code>simple.SimpleObject</code> table to hold the <code>SimpleObject</code> entity.</p> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>As a side-effect of running the migration, the flyway DB schema management tables are created.</p> 
+        </div> 
+        <div class="admonitionblock important"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-important" title="Important"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>While (for simplicity) the demo application uses files named <code>V1__</code>, <code>V2__</code> and so on, we recommend you use a more sophisticated naming convention based on dates. See <a href="#naming-convention-for-scripts">below</a> for further discussion.</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+        <div class="paragraph"> 
+         <p>All of this can be confirmed by invoking <code>Prototyping &gt; HSQL DB Manager</code> to spawn off a Swing UI client that can view the (in-memory) database:</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p><span class="image"><a class="image" href="https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png"><img src="https://raw.githubusercontent.com/isisaddons/isis-module-flywaydb/master/images/hsqldb.png" alt="hsqldb"></a></span></p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/hsqldb.png"><img src="images/hsqldb.png" alt="hsqldb" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This shows the migration scripts have been run, and the Flyway schema tables created and populated.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__ext-flywaydb_how-to-configure">How to Configure</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your project’s <code>webapp</code> module’s <code>pom.xml</code>:<br></p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>+</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.flywaydb<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>isis-module-flywaydb-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching [Maven Central Repo](<a href="http://search.maven.org/#search|ga|1|isis-module-flywaydb-dom" class="bare">http://search.maven.org/#search|ga|1|isis-module-flywaydb-dom</a>).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_configuration_properties">Configuration Properties</h3> 
+         <div class="paragraph"> 
+          <p>Set the following configuration properties:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.javax.jdo.PersistenceManagerFactoryClass=\
+                            org.isisaddons.module.flywaydb.dom.FlywayJdoPersistenceManagerFactory
+isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=false
+isis.persistor.datanucleus.impl.datanucleus.schema.validateAll=true
+isis.persistor.datanucleus.impl.flyway.schemas=flyway</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Disabling DataNucleus' <code>autoCreateAll</code> property in turn enables Flyway migrations.</p> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Using <code>autoCreateTables=false</code> (instead of <code>autoCreateAll</code>) will also enable Flyway migrations, but will continue to allow DataNucleus to (re)create table constraints; see the section <a href="#idempotent-constraints">below</a> for further discussion.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Enabling DataNucleus' <code>validateAll</code> property means you can be assured that your migration scripts have brought the database schema into the same shape as is expected by DataNucleus; if there is a mismatch then the app will fail to bootstrap.</p> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>See the section <a href="#handling-validation-errors">below</a> for workarounds when validation errors are thrown that should not be.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>flyway.schemas</code> property is intended to list all of the schemas that Flyway manages as a single indivisible set of tables; the <code>schema_version</code> table will be created in the first schema listed. If these schemas do not exist already then Flyway will automatically create them in the current database; however if any of them <em>do</em> exist then Flyway will not create any of the schemas.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If any of the tables that need to be managed happen to reside in a default schema (such as "dbo" for SQL Server, or "PUBLIC" for HSQLDB), then either:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>do <em>not</em> list that default schema within <code>flyway.schemas</code>, and also <em>do not</em> provide migration scripts to create the schemas themselves (relying on Flyway to create the schemas instead), or</p> </li> 
+           <li> <p><em>do</em> list that default schema within <code>flyway.schemas</code>, and then <em>do</em> provide migration scripts to create the schemas themselves, or</p> </li> 
+           <li> <p>just list "flyway" as the one and only schema in <code>flyway.schemas</code>, and then <em>do</em> provide a migration scripts to create the schemas.<br></p> 
+            <div class="paragraph"> 
+             <p>This will have the result of creating a new <code>flyway.schema_version</code> table.</p> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Of these options, the demo application for this module goes with the last approach.</p> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Flyway’s <code>migrate</code> command supports a large number of other <a href="https://flywaydb.org/documentation/commandline/migrate">configuration options</a>. All of these can be enabled/set using a property name consisting of <code>isis.persistor.datanucleus.impl.</code> prefix along with the <code>flyway.xxx</code> property as a suffix.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_use">How to Use</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The sections below describe some of the common use cases when using Flyway to manage database migrations.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_naming-convention-for-scripts">Naming convention for scripts</h3> 
+         <div class="paragraph"> 
+          <p>When Flyway runs it searches for files named <code>Vnnnn__</code>, where <code>nnnn</code> is some number. In the Flyway documentation (and, for that matter, in the demo app for this module), those numbers start at 1. However, if your team uses <a href="http://martinfowler.com/bliki/FeatureBranch.html">feature branch</a>es then this is likely to cause conflicts when those feature branches are merged back into master/trunk.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Luckily, Flyway does not require the <a href="https://flywaydb.org/documentation/migration/versioned">version number</a>s to be contiguous; moreover the number can contain '_' or '.' as a separator. Therefore, (along <a href="http://www.jeremyjarrell.com/using-flyway-db-with-distributed-version-control/">with</a> <a href="http://stackoverflow.com/a/34599349/56880">others</a>) we recommend that the number used is the current date/time, for example:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code>VyyyyMMdd.hhmm__description-of-the-change.sql</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When the feature branches are merged, you (the developer) should check that any new migrations have a later timestamp than the version of the current production database; chances are they will be. But if necessary, the filename/timestamp can be updated, eg to be the current date/time that the merged is performed.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Alternatively, an "out-of-order" migration (as discussed <a href="#out-of-order-migrations">below</a>) could be used.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_disabling-for-development">Disabling for development</h3> 
+         <div class="paragraph"> 
+          <p>When developing Apache Isis applications, it’s common practice to prototype and run integration tests in memory, by default using HSQLDB. In production, however, some other database will most likely be used (PostgreSQL, MySQL, MS SQL Server etc).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Now Flyway - by design - does not attempt to abstract over different database vendors. In other words, the SQL migration scripts that are designed for production will quite possibly not work for development environment. The long and short of this is that you will most likely want to simply disable the flyway migration when running in-memory against HSQLDB.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This can be done simply by setting either the <code>autoCreateAll</code> or the <code>autoCreateTables</code> property back to <code>true</code>, either in the <code>persistor_datanucleus.properties</code> file, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Or, (if using <code>mvn jetty:run</code> or <code>org.apache.isis.WebServer</code>) with a system property, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="properties">mvn -pl webapp jetty:run -Disis.persistor.datanucleus.impl.datanucleus.schema.autoCreateAll=true</code></pre> 
+          </div> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Flyway migrations are <strong>not</strong> disabled if only <code>autoCreateConstraints</code> property is enabled. This enables the use case for dropping all constraints prior to migration, and then having DataNucleus recreate them after. See <a href="#idempotent-constraints">below</a> for further discussion.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_idempotent-constraints">Idempotent constraints</h3> 
+         <div class="paragraph"> 
+          <p>As part of the release process, some DBAs prefer to drop all database constraints, then recreate them at the end of the release. This helps ensure that what is deployed to the database is only what should be there.</p> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Obviously this isn’t feasible for very large databases; in such cases dropping only foreign key/alternate indices (but not primary keys) may be more appropriate.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>To effect this:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>dropping constraints can be done using the <a href="https://flywaydb.org/documentation/callbacks">"before migrate" callback</a> from Flyway.<br></p> 
+            <div class="paragraph"> 
+             <p>Create a script <code>beforeMigrate.sql</code> which will drop all these objects, place in <code>db.migration</code> package alongside any other migration scripts.</p> 
+            </div> </li> 
+           <li> <p>recreating constraints can be done using DataNucleus' <a href="http://www.datanucleus.org/products/accessplatform_4_1/jdo/schema.html"><code>autoCreateConstraints</code></a> property.<br></p> 
+            <div class="paragraph"> 
+             <p>In <code>webapp</code> module’s <code>persistor_datanucleus.properties</code> file, also set:<br></p> 
+            </div> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.datanucleus.schema.autoCreateConstraints=true</code></pre> 
+             </div> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>When the application is bootstrapped, Flyway will run the <code>beforeMigrate.sql</code> script to drop all constraints and other objects, and then DataNucleus will reinstate those constraints as it initializes.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_ext-flywaydb_managing-views-etc">Managing views etc</h3> 
+         <div class="paragraph"> 
+          <p>In addition to the tables that support an Apache Isis application, there may be additional artifacts such as views and stored procedures that also need to be deployed. For example, such views might be to support third-party reports or other similar tools.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Since such views may need to be updated whenever the underlying tables change, it makes sense to manage them as part of the codebase of the Apache Isis application.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>On the other hand, since these are not part of the application, DataNucleus cannot be used to automatically create these artifacts. Instead, Flyway’s <a href="https://flywaydb.org/documentation/migration/repeatable">repeatable migrations</a> can be used to run the scripts.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>A repeatable migration is simply a file with the prefix <code>R__</code>, residing in the <code>db.migration</code> package as usual; for example <code>R__reporting-views.sql</code>. Typically these scripts should drop all views and then recreate them; ie they should be idempotent.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Flyway will run these scripts whenever they file is changed (it maintains a checksum of the file).</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_baselining-an-existing-database">(Manual) baselining an existing database</h3> 
+         <div class="paragraph"> 
+          <p>If you want to start using Flyway for with an existing database that is already in production, then it must be <a href="https://flywaydb.org/documentation/command/baseline">baseline</a>d.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This involves Flyway creating its <code>schema_version</code> table, and inserting a row to represent the "current" version of that database. Thereafter only scripts with a number higher than that version will be applied.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>As a minimum, baselining involves simply running the <code>baseline</code> command:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">flyway -driver=... \
+       -url=... \
+       -user=... \
+       -password=... \
+       -baselineVersion="yyyyMMdd.hhmm" \
+       -baselineDescription="Initial take-on" \
+       baseline</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where <code>yyyyMMdd.hhmm</code> can be the current date/time.</p> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>It’s also possible to specify command-line options using a <code>flyway.conf</code> <a href="https://flywaydb.org/documentation/commandline/">configuration file</a>.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If you wish, you could also generate scripts to represent the current state of the database. These won’t be used by Flyway in the baselined system, but could be used to start the app against a completely empty database (if Flyway isn’t otherwise <a href="#disabling-for-development">disabled</a>).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, scripts can be geneated for MS SQL Server using the <a href="https://msdn.microsoft.com/en-gb/library/bb895179(v=sql.110).aspx">Generate and Publish Scripts</a> wizard (Tasks &gt; Generate Scripts); save these as <code>VyyyyMMdd.hhmm__initial-take-on.sql</code>. This follows the date/time naming convention discussed <a href="#naming-convention-for-scripts">above</a>.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_more_advanced_use_cases">More advanced use cases</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>And here are some slightly more advanced use cases to consider.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_automatic-baselining-an-existing-database">(Automatic) baselining an existing database</h3> 
+         <div class="paragraph"> 
+          <p>Rather than <a href="#baselining-an-existing-database">manually baselining an existing (production) database</a>, Flyway also supports automatic baselining. With this option enabled, if Flyway is run against a database with no <code>schema_version</code> table, then it will automatically create that table and populate it with a single baseline row.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This can be configured by updating the <code>webapp</code> module’s <code>persistor_datanucleus.properties</code> file:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.flyway.baselineOnMigrate=true
+isis.persistor.datanucleus.impl.flyway.baselineVersion=1</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Change the <code>flyway.baselineVersion</code> if you want some other value to be used as the baseline version.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_handling-validation-errors">Handling validation errors</h3> 
+         <div class="paragraph"> 
+          <p>Sometimes <code>validateAll</code> can result in DataNucleus throwing an exception even if the actual database matches the schema. The underlying reason for this occurring will vary; one reason is a buggy JDBC driver misreporting database metadata. It is however possible to workaround this issue.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>By way of example, when running against MS SQL Server you may find that BLOB/CLOB columns are reported as being invalid. One common example is the <code>CommandJdo</code> entity (in the <a href="../../spi/command/spi-command.html">command spi</a> module), with its <code>exception</code> and a <code>memento</code> properties. This is defined as:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CommandJdo</span> {
+    ...
+    <span class="annotation">@javax</span>.jdo.annotations.Column(allowsNull=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>, jdbcType=<span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span>)
+    <span class="directive">private</span> <span class="predefined-type">String</span> exception;
+    ...
+    <span class="annotation">@javax</span>.jdo.annotations.Column(allowsNull=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>, jdbcType=<span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span>)
+    <span class="directive">private</span> <span class="predefined-type">String</span> memento;
+    ...
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In MS SQL Server this is mapped to a table with a column of type <code>TEXT</code>. However, this results in DataNucleus throwing an exception, to the effect that the datastore defines a LONGVARCHAR, while the (class) metadata defines a CLOB.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The workaround is to redefine the JDO metadata using an <code>.orm</code> file. For example, <code>CommandJdo</code> can be made to work by adding <code>CommandJdo-sqlserver.orm</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java">&lt;?xml version=<span class="string"><span class="delimiter">"</span><span class="content">1.0</span><span class="delimiter">"</span></span> encoding=<span class="string"><span class="delimiter">"</span><span class="content">UTF-8</span><span class="delimiter">"</span></span> ?&gt;
+&lt;orm xmlns=<span class="string"><span class="delimiter">"</span><span class="content">http://xmlns.jcp.org/xml/ns/jdo/orm</span><span class="delimiter">"</span></span>
+     xmlns:xsi=<span class="string"><span class="delimiter">"</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">"</span></span>
+     xsi:schemaLocation=<span class="string"><span class="delimiter">"</span><span class="content">http://xmlns.jcp.org/xml/ns/jdo/orm http://xmlns.jcp.org/xml/ns/jdo/orm_3_0.xsd</span><span class="delimiter">"</span></span>&gt;
+
+    &lt;<span class="keyword">package</span> <span class="namespace">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">org.isisaddons.module.command.dom</span><span class="delimiter">"</span></span>&gt;
+        &lt;<span class="namespace">class</span> <span class="namespace">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">CommandJdo</span><span class="delimiter">"</span></span>
+               <span class="namespace">schema</span>=<span class="string"><span class="delimiter">"</span><span class="content">isiscommand</span><span class="delimiter">"</span></span>
+               <span class="namespace">table</span>=<span class="string"><span class="delimiter">"</span><span class="content">Command</span><span class="delimiter">"</span></span>&gt;
+            &lt;<span class="namespace">property</span> <span class="namespace">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">exception</span><span class="delimiter">"</span></span>&gt;
+                &lt;<span class="namespace">column</span> <span class="namespace">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">exception</span><span class="delimiter">"</span></span> <span class="namespace">jdbc</span>-<span class="namespace">type</span>=<span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span> <span class="namespace">sql</span>-<span class="namespace">type</span>=<span class="string"><span class="delimiter">"</span><span class="content">LONGVARCHAR</span><span class="delimiter">"</span></span> <span class="namespace">allows</span>-<span class="namespace">null</span>=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>/&gt;
+            &lt;/<span class="namespace">property</span>&gt;
+            &lt;<span class="namespace">field</span> <span class="namespace">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">memento</span><span class="delimiter">"</span></span>&gt;
+                &lt;<span class="namespace">column</span> <span class="namespace">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">memento</span><span class="delimiter">"</span></span> <span class="namespace">jdbc</span>-<span class="namespace">type</span>=<span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span> <span class="namespace">sql</span>-<span class="namespace">type</span>=<span class="string"><span class="delimiter">"</span><span class="content">LONGVARCHAR</span><span class="delimiter">"</span></span> <span class="namespace">allows</span>-<span class="namespace">null</span>=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>/&gt;
+            &lt;/<span class="namespace">field</span>&gt;
+        &lt;/<span class="namespace">class</span>&gt;
+    &lt;/<span class="namespace">package</span>&gt;
+
+&lt;/<span class="namespace">orm</span>&gt;</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This should reside in the appropriate package (<code>org.isisaddons.module.command.dom</code> in this case).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Another example is the <code>DocumentAbstract</code> entity (in the <a href="../../dom/document/dom-document.html">document subdomain</a> module), with its <code>blob_byte</code> and a <code>memento</code> properties.</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">DocumentAbstract</span> {
+    ...
+    <span class="annotation">@javax</span>.jdo.annotations.Column(allowsNull = <span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>, name = <span class="string"><span class="delimiter">"</span><span class="content">blob_bytes</span><span class="delimiter">"</span></span>, jdbcType = <span class="string"><span class="delimiter">"</span><span class="content">BLOB</span><span class="delimiter">"</span></span>, sqlType = <span class="string"><span class="delimiter">"</span><span class="content">BLOB</span><span class="delimiter">"</span></span>)
+    <span class="directive">private</span> <span class="type">byte</span><span class="type">[]</span> blobBytes;
+    ...
+    <span class="annotation">@javax</span>.jdo.annotations.Column(allowsNull = <span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>, name = <span class="string"><span class="delimiter">"</span><span class="content">clob_chars</span><span class="delimiter">"</span></span>, jdbcType = <span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span>, sqlType = <span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span>)
+    <span class="directive">private</span> <span class="predefined-type">String</span> clobChars;
+    ...
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The fix in this case is the following <code>DocumentAbstract-sqlserver.orm</code> file:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="preprocessor">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="tag">&lt;orm</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://xmlns.jcp.org/xml/ns/jdo/orm</span><span class="delimiter">"</span></span>
+     <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">"</span></span>
+     <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://xmlns.jcp.org/xml/ns/jdo/orm</span> <span class="content">http://xmlns.jcp.org/xml/ns/jdo/orm_3_0.xsd</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;package</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">org.incode.module.document.dom.impl.docs</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;class</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">DocumentAbstract</span><span class="delimiter">"</span></span>
+               <span class="attribute-name">schema</span>=<span class="string"><span class="delimiter">"</span><span class="content">incodeDocuments</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+            <span class="tag">&lt;field</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">blobBytes</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;column</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">blob_bytes</span><span class="delimiter">"</span></span> <span class="attribute-name">jdbc-type</span>=<span class="string"><span class="delimiter">"</span><span class="content">BLOB</span><span class="delimiter">"</span></span> <span class="attribute-name">sql-type</span>=<span class="string"><span class="delimiter">"</span><span class="content">LONGVARBINARY</span><span class="delimiter">"</span></span> <span class="attribute-name">allows-null</span>=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;/field&gt;</span>
+            <span class="tag">&lt;field</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">clobChars</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+                <span class="tag">&lt;column</span> <span class="attribute-name">name</span>=<span class="string"><span class="delimiter">"</span><span class="content">clob_chars</span><span class="delimiter">"</span></span> <span class="attribute-name">jdbc-type</span>=<span class="string"><span class="delimiter">"</span><span class="content">CLOB</span><span class="delimiter">"</span></span> <span class="attribute-name">sql-type</span>=<span class="string"><span class="delimiter">"</span><span class="content">LONGVARCHAR</span><span class="delimiter">"</span></span> <span class="attribute-name">allows-null</span>=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span><span class="tag">/&gt;</span>
+            <span class="tag">&lt;/field&gt;</span>
+        <span class="tag">&lt;/class&gt;</span>
+    <span class="tag">&lt;/package&gt;</span>
+<span class="tag">&lt;/orm&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The last thing to do is to instruct DataNucleus to also read these additional <code>.orm</code> files. This can be done using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.datanucleus.Mapping=sqlserver</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where <code>sqlserver</code> matches the filename (<code>DocumentAbstract-<strong>sqlserver</strong>.orm</code> and so on).</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_out-of-order-migrations">Out-of-order migrations</h3> 
+         <div class="paragraph"> 
+          <p>Sometimes it is necessary to run <a href="https://flywaydb.org/documentation/commandline/migrate">"outOfOrder"</a> migrations; that is, to run a migration whose number is less than that of the current production database.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>To enable this feature, add the following to the <code>webapp</code> module’s <code>persistor_datanucleus.properties</code> file:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="properties">isis.persistor.datanucleus.impl.flyway.outOfOrder=true</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_ext-flywaydb_java-based-migrations">Java-based migrations</h3> 
+         <div class="paragraph"> 
+          <p>In addition to SQL-based migrations, Flyway also supports <a href="https://flywaydb.org/documentation/api/hooks#callsbacks">migrations implemented in Java</a>. These follow the same naming convention as SQL-based migrations, and also reside in the <code>db.migration</code> package. Of course, they must be compiled and reside on the classpath, very similar to Apache Isis fixture scripts.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_vendor-specific-scripts">Database vendor-specific scripts</h3> 
+         <div class="paragraph"> 
+          <p>In addition to SQL-based migrations, Flyway also supports <a href="https://flywaydb.org/documentation/api/hooks#callsbacks">migrations implemented in Java</a>. These follow the same naming convention as SQL-based migrations, and also reside in the <code>db.migration</code> package. Of course, they must be compiled and reside on the classpath, very similar to Apache Isis fixture scripts.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="__ext-flywaydb_process-for-creating-migration-scripts">A process for creating migration scripts</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Suppose you’ve developed a new feature which will require a database schema change; how should the migration scripts be created and tested? Here’s one approach:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>obtain a backup of the current production database (which is already under Flyway’s control; <a href="#baselining-an-existing-database">baseline</a> it if not)<br></p> 
+           <div class="paragraph"> 
+            <p>In fact, all that is required is the schema of this database. So, as a minor refinement, you could set up a CI pipeline that hooks onto your nightly database backups; this would restore the production database to some scratch DB, then truncate all tables, then creates a backup of that truncated database.<br></p> 
+           </div> 
+           <div class="admonitionblock tip"> 
+            <table> 
+             <tbody>
+              <tr> 
+               <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+               <td class="content"> 
+                <div class="paragraph"> 
+                 <p>See <a href="/util/sql/truncate-all-tables.sql">truncate-all-tables.sql</a> for a script that does this for MS SQL Server.</p> 
+                </div> </td> 
+              </tr> 
+             </tbody>
+            </table> 
+           </div> </li> 
+          <li> <p>in your development environment, restore the current production database (or truncated version) twice:</p> 
+           <div class="ulist"> 
+            <ul> 
+             <li> <p>restore once to <code>current</code> DB</p> </li> 
+             <li> <p>restore another to <code>test</code> DB</p> </li> 
+            </ul> 
+           </div> </li> 
+          <li> <p>create a completely blank <code>dev</code> DB<br></p> 
+           <div class="paragraph"> 
+            <p>You could either create an empty database, or zap an existing scratch DB.</p> 
+           </div> 
+           <div class="admonitionblock tip"> 
+            <table> 
+             <tbody>
+              <tr> 
+               <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+               <td class="content"> 
+                <div class="paragraph"> 
+                 <p>See <a href="/util/sql/drop-all-tables.sql">drop-all-tables.sql</a> for a script that does this for MS SQL Server.</p> 
+                </div> </td> 
+              </tr> 
+             </tbody>
+            </table> 
+           </div> </li> 
+          <li> <p>run app against this empty <code>dev</code> database, with <code>autoCreateAll=true</code><br></p> 
+           <div class="paragraph"> 
+            <p>This disables Flyway, causing DataNucleus to create the schema based on its current metadata</p> 
+           </div> </li> 
+          <li> <p>next, use a comparison tool to compare <code>current</code> against <code>dev</code>.<br></p> 
+           <div class="admonitionblock tip"> 
+            <table> 
+             <tbody>
+              <tr> 
+               <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+               <td class="content"> 
+                <div class="paragraph"> 
+                 <p>One option is to use the command line tools provided by <a href="http://www.liquibase.org/">liquibase</a> (itself a DB migration framework that "competes" with Flyway; here we just leverage its diff utility). See <a href="#using-liquibase">below</a> for details of how to use liquibase’s commandline tool.</p> 
+                </div> </td> 
+              </tr> 
+             </tbody>
+            </table> 
+           </div> </li> 
+          <li> <p>Save SQL scripts capturing the difference</p> </li> 
+          <li> <p>Finally, run app against <code>test</code> DB, this time with Flyway re-enabled and with DataNucleus validation re-enabled also:</p> 
+           <div class="ulist"> 
+            <ul> 
+             <li> <p><code>autoCreateAll=false</code> (or <code>autoCreateTables=false</code>) re-enables Flyway, causing it apply the migration scripts</p> </li> 
+             <li> <p><code>validateAll=true</code> causes DataNucleus to check that the resultant DB schema matches that required by the entity metadata.</p> </li> 
+            </ul> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>If there is an issue then the app will fails to start; use the errors in the console to diagnose the issue and then go round the loop.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="__ext-flywaydb_using-liquibase">Using Liquibase to diff databases</h3> 
+         <div class="paragraph"> 
+          <p><a href="http://www.liquibase.org/">Liquibase</a> is another Java-based migration tool that "competes" with Flyway; its scope is rather broader than Flyway which some prefer. Here we just leverage its diff utility in order to help generate migration scripts.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <a href="/util/scripts/delta.sh">delta.sh</a> shows how this can be done for a SQL Server database. It is invoked as follows:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">PROD_URL="jdbc:sqlserver://localhost;instance=.;databaseName=current"
+DEV_URL="jdbc:sqlserver://localhost;instance=.;databaseName=dev"
+USERNAME="sa"
+PASSWORD="pass"
+
+sh delta.sh $PROD_URL $DEV_URL $USERNAME $PASSWORD</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>(Referring back to the process described <a href="#process-for-creating-migration-scripts">above</a>) this compares the current production database to the development database.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>delta.sh</code> script uses a <a href="/util/scripts/schema.txt">schema.txt</a> file which lists all of the database schemas to compare. This should the same list of schemas as configured in <code>persistor_datanucleus.properties</code> (the <code>flyway.schemas</code> property), described <a href="#how-to-configure">above</a>. Adjust as necessary.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Obviously, the above script requires that <code>liquibase</code> shell script is on your <code>$PATH</code> (or <code>liquibase.bat</code> on your <code>%PATH%</code>).</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/ext/flywaydb/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding Apache Isis itself, returns these compile/runtime dependencies:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">org.flywaydb:flyway-core:jar:4.0.3</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For further details on 3rd-party dependencies, see:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="https://flywaydb.org">Flyway DB</a></p> </li> 
+         </ul> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

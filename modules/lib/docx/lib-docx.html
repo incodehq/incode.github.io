@@ -1,0 +1,678 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Docx (MS Word) Library</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   lib-docx
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="lib-docx.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Docx (MS Word) Library</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/lib/docx/lib-docx.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/lib/docx/lib-docx.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/lib/docx/lib-docx.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/lib/docx/lib-docx.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/lib/docx/lib-docx.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>isis-module-docx</code>) provides a mail-merge capability of input data into an MS Word <code>.docx</code> templates. The generated output document is either Word <code>.docx</code> or Acrobat <code>.pdf</code>.</p> 
+        </div> 
+        <div class="admonitionblock important"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-important" title="Important"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>Exporting to PDF requires more memory, both heap and permgen. If the PDF generation hangs then increase the memory settings, eg <code>-Xmx1024m -XX:MaxPermSize=128m</code></p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The module consists of a single domain service, <code>DocxService</code>. This provides an API to merge a <code>.docx</code> template against its input data. The input data is represented as a simple HTML file.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The service supports several data types:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>plain text</p> </li> 
+          <li> <p>rich text</p> </li> 
+          <li> <p>date</p> </li> 
+          <li> <p>bulleted list</p> </li> 
+          <li> <p>tables</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The implementation uses <a href="http://www.docx4java.org">docx4j</a>, <a href="https://code.google.com/p/guava-libraries/">guava</a> and <a href="http://www.jdom.org">jdom2</a>. Databinding to custom XML parts (the <code>.docx</code> file format’s in-built support) is <strong>not</strong> used (as repeating datasets - required for lists and tables - was not supported prior to Word 2013).</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_screenshots_and_usage">Screenshots and Usage</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomLibDocxAppManifest</code>.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_installing_the_fixture_data">Installing the Fixture Data</h3> 
+         <div class="paragraph"> 
+          <p>A home page is displayed when the app is run:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/010-install-fixtures.png"><img src="images/010-install-fixtures.png" alt="010 install fixtures" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>... creates a single demo <code>Order</code> entity, with properties of different data types and a collection of child (<code>OrderLine</code>) entities:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/020-order-entity.png"><img src="images/020-order-entity.png" alt="020 order entity" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_the_code_docx_code_template">The <code>.docx</code> template</h3> 
+         <div class="paragraph"> 
+          <p>The template <code>.docx</code> itself is marked up using smart tags, as specified on the [DEVELOPER] tab (see <a href="http://msdn.microsoft.com/en-us/library/bb608625.aspx">"How to show the DEVELOPER tab in Word"</a>).</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/030-customer-confirmation-docx-template.png"><img src="images/030-customer-confirmation-docx-template.png" alt="030 customer confirmation docx template" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The actual <code>.docx</code> used in the example app can be found <a href="https://github.com/incodehq/incode-platform/blob/master/ex/app/quickstart/example/dom/src/main/java/org/incode/domainapp/example/dom/lib/docx/dom/custconfirm/CustomerConfirmation.docx?raw=true">here</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_generating_the_document">Generating the Document</h3> 
+         <div class="paragraph"> 
+          <p>In the example app’s design the <code>CustomerConfirmation</code> example domain service is in essence an intelligent wrapper around the <code>CustomerConfirmation.docx</code> template. It contributes two actions to <code>Order</code>, the more significant of which is <code>downloadCustomerConfirmation()</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>.docx</code> is simply loaded as a simple resource from the classpath:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@DomainService</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">CustomerConfirmation</span> {
+
+    <span class="directive">private</span> WordprocessingMLPackage wordprocessingMLPackage;
+
+    <span class="annotation">@PostConstruct</span>
+    <span class="directive">public</span> <span class="type">void</span> init() <span class="directive">throws</span> <span class="exception">IOException</span>, LoadTemplateException {
+        <span class="directive">final</span> <span class="type">byte</span><span class="type">[]</span> bytes = Resources.toByteArray(Resources.getResource(
+                                <span class="local-variable">this</span>.getClass(), <span class="string"><span class="delimiter">"</span><span class="content">CustomerConfirmation.docx</span><span class="delimiter">"</span></span>));
+        wordprocessingMLPackage = docxService.loadPackage(<span class="keyword">new</span> <span class="predefined-type">ByteArrayInputStream</span>(bytes));
+    }
+    ...
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>A more sophisticated service implementation could perhaps have retrieved and cached the <code>.docx</code> template bytes from a <code>Blob</code> property of a <code>CommunicationTemplate</code> entity, say.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Then, in the <code>downloadCustomerConfirmation</code> contributed action the <code>CustomerConfirmation</code> performs several steps:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>it converts the <code>Order</code> into the HTML input for the <code>DocxService</code></p> </li> 
+           <li> <p>it calls the <code>DocxService</code> to convert this HTML into a <code>.docx</code> file</p> </li> 
+           <li> <p>finally it emits the generated <code>.docx</code> as a Blob; in the web browser this is then downloaded:</p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This can be seen below:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="predefined-type">Blob</span> downloadCustomerConfirmation(
+        <span class="directive">final</span> Order order) <span class="directive">throws</span> <span class="exception">IOException</span>, JDOMException, MergeException {
+
+    <span class="directive">final</span> org.w3c.dom.Document w3cDocument = asInputW3cDocument(order);
+
+    <span class="directive">final</span> <span class="predefined-type">ByteArrayOutputStream</span> docxTarget = <span class="keyword">new</span> <span class="predefined-type">ByteArrayOutputStream</span>();
+    docxService.merge(
+        w3cDocument, wordprocessingMLPackage, docxTarget, DocxService.MatchingPolicy.LAX);
+
+    <span class="directive">final</span> <span class="predefined-type">String</span> blobName = <span class="string"><span class="delimiter">"</span><span class="content">customerConfirmation-</span><span class="delimiter">"</span></span> + order.getNumber() + <span class="string"><span class="delimiter">"</span><span class="content">.docx</span><span class="delimiter">"</span></span>;
+    <span class="directive">final</span> <span class="predefined-type">String</span> blobMimeType =
+        <span class="string"><span class="delimiter">"</span><span class="content">application/vnd.openxmlformats-officedocument.wordprocessingml.document</span><span class="delimiter">"</span></span>;
+    <span class="directive">final</span> <span class="type">byte</span><span class="type">[]</span> blobBytes = docxTarget.toByteArray();
+
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="predefined-type">Blob</span>(blobName, blobMimeType, blobBytes);
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Invoking this action is shown below:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/100-customer-confirmation-generated-download.png"><img src="images/100-customer-confirmation-generated-download.png" alt="100 customer confirmation generated download" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which when opened in MS Word looks like:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/110-customer-confirmation-generated-view.png"><img src="images/110-customer-confirmation-generated-view.png" alt="110 customer confirmation generated view" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>A similar action downloads the generated document as a PDF:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/120-customer-confirmation-generated-download-pdf.png"><img src="images/120-customer-confirmation-generated-download-pdf.png" alt="120 customer confirmation generated download pdf" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which when opened in Acrobat looks like:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/130-customer-confirmation-generated-view-pdf.png"><img src="images/130-customer-confirmation-generated-view-pdf.png" alt="130 customer confirmation generated view pdf" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>CustomerConfirmation</code> service also contributes a second (prototype) action to allow the input HTML document (fed into the <code>DocxService</code>) to be inspected:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/140-customer-confirmation-input-download.png"><img src="images/140-customer-confirmation-input-download.png" alt="140 customer confirmation input download" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which when opened in a simple text editor looks like:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/150-customer-confirmation-input-view.png"><img src="images/150-customer-confirmation-input-view.png" alt="150 customer confirmation input view" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note how the table rows are repeated for each <code>OrderLine</code> item, and similarly a new bullet list for each <code>Order</code> preference.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_configure_use">How to configure/use</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your dom project’s <code>pom.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.docx<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>isis-module-docx-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.13.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching [Maven Central Repo](<a href="http://search.maven.org/#search|ga|1|isis-module-docx-dom" class="bare">http://search.maven.org/#search|ga|1|isis-module-docx-dom</a>).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
+    <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
+            ...
+            org.isisaddons.module.docx.DocxModule.class,
+    );
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_api_implementation">API &amp; Implementation</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The main API is:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> merge(
+         <span class="predefined-type">String</span> html,
+         <span class="predefined-type">InputStream</span> docxTemplate,
+         <span class="predefined-type">OutputStream</span> docxTarget,
+         MatchingPolicy matchingPolicy,     <i class="conum" data-value="1"></i><b>(1)</b>
+         OutputType outputType)             <i class="conum" data-value="2"></i><b>(2)</b>
+     <span class="directive">throws</span> LoadInputException,
+            LoadTemplateException,
+            MergeException</code></pre> 
+         </div> 
+        </div> 
+        <div class="colist arabic"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td><i class="conum" data-value="1"></i><b>1</b></td> 
+            <td>The <code>MatchingPolicy</code> specifies whether unmatched input values or unmatched placeholders in the template are allowed or should be considered as a failure.</td> 
+           </tr> 
+           <tr> 
+            <td><i class="conum" data-value="2"></i><b>2</b></td> 
+            <td>The <code>OutputType</code> specifies the type of the generated output. Two possible types are supported: <code>DOCX</code> and <code>PDF</code>.</td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Overloaded versions of the <code>merge(…​)</code> method exist:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>the <code>html</code> may instead be provided as a <code>org.w3c.dom.Document</code></p> </li> 
+          <li> <p>the <code>docxTemplate</code> may instead be provided as a doc4j <code>WordprocessingMLPackage</code> (an in-memory object structure that could be considered as analogous to an w3c <code>Document</code>, but representing a <code>.docx</code>).</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>WordprocessingMLPackage</code> can be obtained from a supplementary API method:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> WordprocessingMLPackage loadPackage(
+        <span class="predefined-type">InputStream</span> docxTemplate)
+    <span class="directive">throws</span> LoadTemplateException</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This exists because the parsing of the input stream into a <code>WordprocessingMLPackage</code> is not particularly quick. Therefore clients may wish to cache this in-memory object structure. If calling the overloaded version of <code>merge(…​)</code> that accepts the <code>WordprocessingMLPackage</code> then the service performs a defensive copy of the template.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>In the example app the <code>CustomerConfirmation</code> domain service does indeed cache this package in its <code>init()</code> method.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_input_html">input HTML</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The input data is provided as an XHTML form, and the service merges using the <code>@id</code> attribute of the XHTML against the tag of the smart tag field in the <code>.docx</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To specify a <strong>plain</strong> field, use:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;p</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">"</span><span class="content">CustomerId</span><span class="delimiter">"</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">"</span><span class="content">plain</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>12345<span class="tag">&lt;/p&gt;</span></code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To specify a <strong>date</strong> field, use:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;p</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">"</span><span class="content">RenewalDate</span><span class="delimiter">"</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">"</span><span class="content">date</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>20-Jan-2013<span class="tag">&lt;/p&gt;</span></code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To specify a <strong>rich</strong> field, use:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;p</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">"</span><span class="content">PromoText</span><span class="delimiter">"</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">"</span><span class="content">rich</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+    Roll up, roll up, step right this way!
+<span class="tag">&lt;/p&gt;</span></code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To specify a <strong>list</strong> field, use:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;ul</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">"</span><span class="content">Albums</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;li&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Please Please Me<span class="tag">&lt;/p&gt;</span>
+        <span class="tag">&lt;p&gt;</span>1963<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Help<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Sgt Peppers Lonely Hearts Club Band<span class="tag">&lt;/p&gt;</span>
+        <span class="tag">&lt;p&gt;</span>1965<span class="tag">&lt;/p&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Better than Revolver, or not?<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span></code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To specify a <strong>table</strong> field, use:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;table</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">"</span><span class="content">BandMembers</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;td&gt;</span>John Lennon<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;td&gt;</span>Rhythm guitar<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;td&gt;</span>Paul McCartney<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;td&gt;</span>Bass guitar<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;td&gt;</span>George Harrison<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;td&gt;</span>Lead guitar<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;td&gt;</span>Ringo Starr<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;td&gt;</span>Drums<span class="tag">&lt;/td&gt;</span>
+    <span class="tag">&lt;/tr&gt;</span>
+<span class="tag">&lt;/table&gt;</span></code></pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_generated_output">Generated output</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>For simple data types such as plain text, rich text and date, the service simply substitutes the input data into the placeholder fields in the <code>.docx</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For lists, the service expects the contents of the placeholder to be a bulleted list, with an optional second paragraph of a different style. The service clones the paragraphs for each item in the input list. If the input specifies more than one paragraph in the list item, then the second paragraph from the template is used for those additional paragraphs.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For tables, the service expects the placeholder to be a table, with a header and either one or two body rows. The header is left untouched, the body rows are used as the template for the input data. Any surplus cells in the input data are ignored.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/lib/docx/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding Apache Isis itself, returns these compile/runtime dependencies:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">org.jdom:jdom2:jar:2.0.5
+org.docx4j:docx4j:jar:3.2.1</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>For further details on 3rd-party dependencies, see:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="http://www.jdom.org">JDOM</a></p> </li> 
+          <li> <p><a href="https://www.docx4java.org/">docx4j</a></p> </li> 
+         </ul> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

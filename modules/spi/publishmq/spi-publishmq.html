@@ -1,0 +1,768 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>PublishMQ SPI Implementation</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   spi-publishmq
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="spi-publishmq.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>PublishMQ SPI Implementation</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/spi/publishmq/spi-publishmq.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/spi/publishmq/spi-publishmq.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/spi/publishmq/spi-publishmq.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/spi/publishmq/spi-publishmq.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/spi/publishmq/spi-publishmq.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>isis-module-publishmq</code>) provides an implementation of Apache Isis' <a href="http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_persistence-layer-spi_PublisherService"><code>PublisherService</code></a> SPI that submits an XML representation of an <a href="https://github.com/apache/isis/blob/master/core/schema/src/main/resources/org/apache/isis/schema/ixn/ixn.xsd"><code>MemberInteractionDto</code></a>s to an <a href="http://activemq.apache.org">ActiveMQ</a> queue.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart</a> app also demonstrates how this member interaction event (action invocation or property edit) can be routed using <a href="http://camel.apache.org">Apache Camel</a>, whereby the payload is enriched using Apache Isis' own <a href="http://isis.apache.org/guides/ug.html#_ug_restfulobjects-viewer">Restful Objects</a> viewer (obtaining additional information);</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The diagram below shows the moving parts:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/overview.png"><img src="images/overview.png" alt="overview" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>One of the design objectives for the PublishMq module is to allow the ActiveMQ queue (and therefore any Camel routing) to be either embedded (as in the example app) or to be remote. This is one of the reasons why the payload posted to the queue is the XML representation of a JAXB object (the <code>InvocationDto</code>).</p> 
+        </div> 
+        <div class="admonitionblock note"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>Note that the example app does <em>not</em> include an external system (General Ledger in the diagram), ie step #12.</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_screenshots">Screenshots</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomSpiPublishMqAppManifest</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>A home page is displayed when the app is run:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/010-install-fixtures.png"><img src="images/010-install-fixtures.png" alt="010 install fixtures" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>This returns the first demo object (an instance of <code>PublishMqDemoObject</code>):</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/020-update-demo-object.png"><img src="images/020-update-demo-object.png" alt="020 update demo object" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_invoke_an_action">Invoke an action</h3> 
+         <div class="paragraph"> 
+          <p>The <code>updateName()</code> action is defined as:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Action</span>(
+    semantics = SemanticsOf.IDEMPOTENT,
+    publishing = Publishing.ENABLED     <i class="conum" data-value="1"></i><b>(1)</b>
+)
+<span class="directive">public</span> PublishMqDemoObject updateName(
+        <span class="annotation">@ParameterLayout</span>(named=<span class="string"><span class="delimiter">"</span><span class="content">Name</span><span class="delimiter">"</span></span>) <span class="directive">final</span> <span class="predefined-type">String</span> name) {
+    setName(name);
+    <span class="keyword">return</span> <span class="local-variable">this</span>;
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>invocations of this action will be published to the configured implementation of <code>PublishingService</code>.</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Invoke the action:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/030-update-demo-object.png"><img src="images/030-update-demo-object.png" alt="030 update demo object" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>the value of the <code>name</code> property should, of course, be updated:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/040-demo-object-updated.png"><img src="images/040-demo-object-updated.png" alt="040 demo object updated" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>From the activity menu the published events (also persisted as entities) can be inspected:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/042-view-published-events.png"><img src="images/042-view-published-events.png" alt="042 view published events" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>... one of which is to update the name:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/046-publish-name.png"><img src="images/046-publish-name.png" alt="046 publish name" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The published entity contains XML which captures the details of the member interaction:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/048-published-event.png"><img src="images/048-published-event.png" alt="048 published event" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_configure_use">How to configure/use</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>You can either use this module "out-of-the-box", or you can fork this repo and extend to your own requirements.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The module itself consists of several submodules:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>the <code>publishmq-dom-servicespi</code> submodule</p> 
+           <div class="paragraph"> 
+            <p>which contains the <code>PublishingService</code> SPI implementation that actually publishes to an ActiveMQ queue</p> 
+           </div> </li> 
+          <li> <p>the (optional, but recommended) <code>publishmq-dom-jdo</code> submodule</p> 
+           <div class="paragraph"> 
+            <p>which allows published events to be persisted as <code>PublishedEvent</code> entities</p> 
+           </div> </li> 
+          <li> <p>the (optional) <code>publishmq-dom-camel</code> submodule</p> 
+           <div class="paragraph"> 
+            <p>which provides utility class to help route messages</p> 
+           </div> </li> 
+          <li> <p>the (optional) <code>publishmq-dom-statusclient</code></p> 
+           <div class="paragraph"> 
+            <p>that provides utility classes to log status messages with the originating system via the RestfulObjects viewer’s REST API.</p> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>by adding importing the parent module’s dependency into in your parent module’s <code>pom.xml</code>:<br></p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencyManagement&gt;</span>
+    <span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;dependency&gt;</span>
+            <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.publishmq<span class="tag">&lt;/groupId&gt;</span>
+            <span class="tag">&lt;artifactId&gt;</span>isis-module-publishmq-dom<span class="tag">&lt;/artifactId&gt;</span>
+            <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/artifactId&gt;</span>
+            <span class="tag">&lt;type&gt;</span>pom<span class="tag">&lt;/type&gt;</span>
+            <span class="tag">&lt;scope&gt;</span>import<span class="tag">&lt;/scope&gt;</span>
+        <span class="tag">&lt;/dependency&gt;</span>
+        ...
+    <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/dependencyManagement&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+           <li> <p>by adding the <code>-dom-servicespi</code> dependency in your project’s <code>dom</code> module’s <code>pom.xml</code>:<br></p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencies&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.publishmq<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>isis-module-publishmq-dom-servicespi<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
+    ...
+<span class="tag">&lt;/dependencies&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+           <li> <p>(if you are using Camel for routing and want to use the <code>AddExchangeHeaders</code> utility class) by adding (in the appropriate module within your app) the dependency:<br></p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencies&gt;</span>
+    <span class="tag">&lt;dependency&gt;</span>
+        <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.publishmq<span class="tag">&lt;/groupId&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>isis-module-publishmq-dom-camel<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;/dependency&gt;</span>
+    ...
+<span class="tag">&lt;/dependencies&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Note that the <a href="../../../quickstart/quickstart-with-embedded-camel.html">quickstart with embedded camel</a> configures this already, so use as a guide if need be.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|isis-module-publishmq-dom">Maven Central Repo</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml">    @Override
+    public List<span class="tag">&lt;Class</span><span class="error">&lt;</span><span class="error">?</span><span class="tag">&gt;</span><span class="error">&gt;</span> getModules() {
+        return Arrays.asList(
+                ...
+                org.isisaddons.module.publishmq.PublishMqModule.class,
+                ...
+        );
+    }</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>You might also need to specify the package for any new services that you have written, eg implementation of <code>ContentNegotiationService</code> or similar.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_configure_activemq">Configure ActiveMQ</h3> 
+         <div class="paragraph"> 
+          <p>Configure ActiveMQ so that the publishing service implementation can post to a queue called <code>memberInteractionsQueue</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In the <a href="../../../quickstart/quickstart-with-embedded-camel.html">quickstart with embedded camel</a> app this is done using Spring (<a href="webapp/src/main/resources/activemq-config.xml">activemq-config.xml</a>):</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>+</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;beans</span>
+  <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.springframework.org/schema/beans</span><span class="delimiter">"</span></span>
+  <span class="attribute-name">xmlns:xsi</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.w3.org/2001/XMLSchema-instance</span><span class="delimiter">"</span></span>
+  <span class="attribute-name">xsi:schemaLocation</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span> <span class="content">http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd</span><span class="delimiter">"</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;broker</span> <span class="attribute-name">xmlns</span>=<span class="string"><span class="delimiter">"</span><span class="content">http://activemq.apache.org/schema/core</span><span class="delimiter">"</span></span>
+            <span class="attribute-name">brokerName</span>=<span class="string"><span class="delimiter">"</span><span class="content">broker</span><span class="delimiter">"</span></span>
+            <span class="attribute-name">dataDirectory</span>=<span class="string"><span class="delimiter">"</span><span class="content">${activemq.data}</span><span class="delimiter">"</span></span>
+            <span class="attribute-name">useShutdownHook</span>=<span class="string"><span class="delimiter">"</span><span class="content">false</span><span class="delimiter">"</span></span>
+            <span class="attribute-name">useJmx</span>=<span class="string"><span class="delimiter">"</span><span class="content">true</span><span class="delimiter">"</span></span>
+            <span class="tag">&gt;</span>
+        ...
+        <span class="tag">&lt;destinations&gt;</span>
+            <span class="tag">&lt;queue</span> <span class="attribute-name">physicalName</span>=<span class="string"><span class="delimiter">"</span><span class="content">memberInteractionsQueue</span><span class="delimiter">"</span></span><span class="tag">/&gt;</span>
+        <span class="tag">&lt;/destinations&gt;</span>
+        ...
+    <span class="tag">&lt;/broker&gt;</span>
+<span class="tag">&lt;/beans&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This is bootstrapped in the <code>web.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;listener&gt;</span>
+    <span class="tag">&lt;listener-class&gt;</span>org.springframework.web.context.ContextLoaderListener<span class="tag">&lt;/listener-class&gt;</span>
+<span class="tag">&lt;/listener&gt;</span>
+<span class="tag">&lt;context-param&gt;</span>
+    <span class="tag">&lt;param-name&gt;</span>contextConfigLocation<span class="tag">&lt;/param-name&gt;</span>
+    <span class="tag">&lt;param-value&gt;</span>
+        classpath:activemq-config.xml
+    <span class="tag">&lt;/param-value&gt;</span>
+<span class="tag">&lt;/context-param&gt;</span></code></pre> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_canonical_dtos">Canonical DTOs</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The <a href="../../../quickstart/quickstart-with-embedded-camel.html">quickstart with embedded camel</a> app contains a few other little tricks that may be useful if you are looking to deploy a similar architecture for your own application.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_generate_canonical_dto_referencing_apache_isis_dtos">Generate Canonical DTO referencing Apache Isis' DTOs</h3> 
+         <div class="paragraph"> 
+          <p>As of 1.13.0 Apache Isis includes the <a href="http://isis.apache.org/schema/ixn/ixn.xsd"><code>ixn.xsd</code></a> (member interaction) schema (replacing and generalizing the <code>aim.xsd</code> provided from 1.9.0 through 1.12.x). The <code>PublishingServiceMq</code> uses this <code>ixn.xsd</code> schema (or rather, its Java JAXB equivalent, <code>InteractionDto</code>), directly.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The similar <code>common.xsd</code> is <em>also</em> used by the demo app in the construction of its own canonical <code>DemoObjectDto</code> (use of <code>OidDto</code> to represent a bookmark to a published domain object).</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_centralized_spring_configuration">Centralized Spring configuration</h3> 
+         <div class="paragraph"> 
+          <p>In the example app Spring is used to bootstrap ActiveMQ (<a href="webapp/src/main/resources/activemq-config.xml"><code>activemq-config.xml</code></a>), and Camel (<a href="fixture/routing/src/main/resources/camel-config.xml"><code>camel-config.xml</code></a>), and also the fake SOAP Subscriber (<a href="webapp/src/main/resources/externalSystemFakeServer-config.xml"><code>externalSystemFakeServer-config.xml</code></a>). The configuration for all is centralized through a propertyPlaceholderConfigurer bean (defined in <a href="webapp/src/main/resources/propertyPlaceholderConfigurer-config.xml#L23"><code>propertyPlaceholderConfigurer-config.xml</code></a>). The location of the property file is specified in the <a href="webapp/src/main/webapp/WEB-INF/web.xml#L44"><code>web.xml</code></a>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;context-param&gt;</span>
+    <span class="tag">&lt;param-name&gt;</span>spring.config.file<span class="tag">&lt;/param-name&gt;</span>
+    <span class="tag">&lt;param-value&gt;</span>classpath:spring.properties<span class="tag">&lt;/param-value&gt;</span>
+<span class="tag">&lt;/context-param&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where <a href="webapp/src/main/resources/spring.properties"><code>spring.properties</code></a> is:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="ini">activemq.data=activemq-data
+enrichWithCanonicalDto.base=http://localhost:8080/restful/
+enrichWithCanonicalDto.username=sven
+enrichWithCanonicalDto.password=pass
+updateExternalSystemAdapter.endpointAddress=http://localhost:8080/soap/ExternalSystemAdapter/DemoObject</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If necessary the location of this config file can be overridden; see <a href="http://isis.apache.org/guides/ug.html#_ug_deployment_externalized-configuration">this topic</a> in the Apache Isis user guide.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>In addition to Apache Isis, this module also depends upon:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="http://activemq.apache.org">ActiveMQ</a></p> </li> 
+          <li> <p>(optional) <a href="http://camel.apache.org">Camel</a><br></p> </li> 
+         </ul> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies_2">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The publishmq module actually consists of four distinct submodules, which can be used to some extend independently.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_publishmq_servicespi">publishmq/servicespi</h3> 
+         <div class="paragraph"> 
+          <p>Maven can report modules dependencies of this submodule using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/spi/publishmq/impl/servicespi -D excludeTransitive=true</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">org.apache.activemq:activemq-all:jar:5.11.1</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For further details on 3rd-party dependencies, see:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><a href="http://activemq.apache.org">Apache ActiveMQ</a></p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_publishmq_jdo">publishmq/jdo</h3> 
+         <div class="paragraph"> 
+          <p>This submodule can be considered optional (though its use <em>is</em> recommended). If not included then published messages are simply not persisted as JDO entities.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Maven can report modules dependencies of this submodule using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/spi/publishmq/impl/jdo -D excludeTransitive=true</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which, excluding Incode Platform and Apache Isis modules, returns these compile/runtime dependencies:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">org.slf4j:slf4j-api:jar:1.7.21</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>From the Incode Platform it uses:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>publishmq/servicespi</code> submodule, above.</p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For further details on 3rd-party dependencies, see:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><a href="https://www.slf4j.org/">Slf4J</a></p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_publishmq_camel">publishmq/camel</h3> 
+         <div class="paragraph"> 
+          <p>This submodule is considered optional because it merely provides a supporting utility class (<code>AddExchangeHeaders</code>).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Maven can report modules dependencies of this submodule using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/spi/publishmq/impl/camel -D excludeTransitive=true</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which, excluding Apache Isis modules, returns these compile/runtime dependencies:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">org.apache.camel:camel-core:jar:2.15.2
+org.apache.camel:camel-spring:jar:2.15.2
+org.apache.camel:camel-spring-javaconfig:jar:2.15.2
+org.apache.camel:camel-jms:jar:2.15.2</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For further details on 3rd-party dependencies, see:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><a href="https://camel.apache.org/">Apache Camel</a></p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_publishmq_statusclient">publishmq/statusclient</h3> 
+         <div class="paragraph"> 
+          <p>This submodule is considered optional; it provides the mechanism for a beans within a Camel route to report status back to the originating system via the RestfulObjects viewer’s REST API.</p> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>Using the status client requires the originating system to have configured <code>publishmq/jdo</code> to persist the status messages.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Maven can report modules dependencies of this submodule using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/spi/publishmq/impl/statusclient -D excludeTransitive=true</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>which, excluding Apache Isis modules, returns these compile/runtime dependencies:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">org.slf4j:slf4j-api:jar:1.7.21
+org.jboss.spec.javax.ws.rs:jboss-jaxrs-api_2.0_spec:jar:1.0.0.Final
+com.fasterxml.jackson.core:jackson-databind:jar:2.8.0</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For further details on 3rd-party dependencies, see:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><a href="https://www.slf4j.org/">Slf4J</a></p> </li> 
+           <li> <p><a href="https://github.com/FasterXML/jackson/">Jackson</a></p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>

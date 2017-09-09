@@ -1,0 +1,1060 @@
+<!doctype html>
+<html>
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- No caching headers --> 
+  <meta http-equiv="cache-control" content="no-cache"> 
+  <meta http-equiv="pragma" content="no-cache"> 
+  <meta http-equiv="expires" content="-1"> 
+  <title>Polymorphic Associations Library</title> 
+  <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
+  <!--
+        Based on DataNucleus' template,
+        that was in turn based on an earlier version of Apache Isis' template,
+        that was in turn based on Apache Deltaspike's template.
+
+        This template uses
+        * Bootstrap v3.3.7 (https://getbootstrap.com/) for navbar.
+        * Bootstrap TOC plugin v0.4.1 (https://afeld.github.io/bootstrap-toc/)
+          for the table of contents.
+        * jQuery (necessary for Bootstrap's JavaScript plugins)
+        * Font-Awesome for some icons used by Asciidoctor
+
+        Also:
+        * Bootswatch "flatly" theme for Bootstrap (https://bootswatch.com/flatly).
+        * slick.js (carousel)
+        * add a link to all headers (home-grown, adapted from blog posts)
+        * integration of elasticlunr.js (home-grown, adapted from blog posts)
+    --> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet"> 
+  <link href="../../../css/bootstrap-toc/0.4.1/bootstrap-toc.min.css" rel="stylesheet"> 
+  <link href="../../../css/asciidoctor/foundation.css" rel="stylesheet"> 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick.css" rel="stylesheet"> 
+  <link href="../../../css/slick/1.5.0/slick-theme.css" rel="stylesheet"> 
+  <link href="../../../css/search-panel/search-panel.css" rel="stylesheet"> 
+  <link href="../../../css/header-links/header-links.css" rel="stylesheet"> 
+  <link href="../../../css/sticky-header/sticky-header.css" rel="stylesheet"> 
+  <link href="../../../css/customisations.css" rel="stylesheet"> 
+  <!-- Coderay syntax formatter --> 
+  <style type="text/css">
+        /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{color:rgba(0,0,0,.4)}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top;line-height:1.45}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+    </style> 
+ </head> 
+ <body data-spy="scroll" data-target="#toc"> 
+  <div id="basedir" style="display:none;">
+   ../../../
+  </div> 
+  <div id="docname" style="display:none;">
+   lib-poly
+  </div> 
+  <div id="filetype" style="display:none;">
+   html
+  </div> 
+  <!-- Navbar --> 
+  <nav class="navbar navbar-default navbar-static-top header"> 
+   <div class="container"> 
+    <div class="navbar-header"> 
+     <!-- Three line menu button for use on mobile screens --> 
+     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
+     <a class="navbar-brand" href="../../../index.html"> <img alt="Brand" src="../../../images/incode-logo-66x52.png"> </a> 
+     <a class="navbar-brand" href="../../../index.html">Incode Platform</a> 
+    </div> 
+    <!-- Navbar that will collapse on mobile screens --> 
+    <div id="navbar" class="navbar-collapse collapse"> 
+     <ul class="nav navbar-nav"> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Optional Examples</li> 
+        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
+        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
+        <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
+        <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
+        <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Guides</li> 
+        <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
+        <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li><a href="../../../pages/license.html">License</a></li> 
+        <li><a href="../../../pages/thanks.html">Thanks</a></li> 
+       </ul> </li> 
+     </ul> 
+     <div class="nav navbar-nav navbar-right"> 
+      <!-- 'style' added to fix height of input box. FIX THIS --> 
+      <form class="navbar-form" role="search" id="search-form" style="padding: 1px 15px;"> 
+       <div class="form-group"> 
+        <input class="form-control" id="search-field" type="text" size="30" placeholder="Search"> 
+       </div> 
+      </form> 
+     </div> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="container"> 
+   <div class="row-fluid"> 
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9"> 
+     <div id="search-panel"> 
+      <div id="search-results"></div> 
+      <div> 
+       <br> 
+       <a href="#" id="search-results-clear">clear</a> 
+      </div> 
+     </div> 
+     <span class="pdf-link"><a href="lib-poly.pdf"><img src="../../../images/PDF-50.png"></a></span> 
+     <div class="page-title"> 
+      <h1>Polymorphic Associations Library</h1> 
+     </div> 
+     <div id="doc-content">
+      <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/lib/poly/lib-poly.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+       <ul class="dropdown-menu">
+        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/modules/lib/poly/lib-poly.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/modules/lib/poly/lib-poly.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/modules/lib/poly/lib-poly.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/modules/lib/poly/lib-poly.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+       </ul>
+      </div> 
+      <div id="preamble"> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module (<code>isis-module-poly</code>) provides a set of helpers to support the definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a (Java) interface.</p> 
+        </div> 
+        <div class="admonitionblock note"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+            <td class="content"> 
+             <div class="paragraph"> 
+              <p>Note that an library has has been superceded by a design pattern that does not require any supporting classes. Rather than emit events on the event bus, the design pattern suggests defining an SPI interface to be implemented.</p> 
+             </div> 
+             <div class="paragraph"> 
+              <p>Modules that use the SPI pattern (as opposed to this module) include <a href="../dom/alias/dom-alias.html">Alias subdomain</a> and <a href="../dom/classification/dom-classification.html">Classification subdomain</a>.</p> 
+             </div> </td> 
+           </tr> 
+          </tbody>
+         </table> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_rationale">Rationale</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Persistable polymorphic associations are important because they allow decoupling between classes using the <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">dependency inversion principle</a>; module dependencies can therefore by kept acyclic. This is key to long-term maintainability of the codebase (avoiding the <a href="http://en.wikipedia.org/wiki/Big_ball_of_mud">big ball of mud</a> anti-pattern).</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>While JDO/DataNucleus has several <a href="http://www.datanucleus.org/products/datanucleus/jdo/orm/interfaces.html">built-in strategies</a> to support polymorphic associations, none allow both a persisted reference to be arbitrarily extensible as well as supporting foreign keys (for RDBMS-enforced referential integrity). The purpose of this module is therefore to provide helper classes that use a different approach, namely the "table of two halves" pattern.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_table_of_two_halves_pattern">Table of Two Halves Pattern</h3> 
+         <div class="paragraph"> 
+          <p>The "table of two halves" pattern models the relationship tuple itself as a class hierarchy. The supertype table holds a generic polymorphic reference to the target object (leveraging Apache Isis' <a href="http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_integration-api_BookmarkService">Bookmark Service</a>) while the subtype table holds a foreign key is held within the subtype.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>It is quite possible to implement the "table of two halves" pattern without using the helpers provided by this module; indeed arguably there’s more value in the demo application that accompanies this module (discussed below) than in the helpers themselves. Still, the helpers do provide useful structure to help implement the pattern.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_demo_application">Demo Application</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>This module has a comprehensive demo fixtures that demonstrates four different polymorphic associations:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>1-to-1 and n-to-1: a <code>CommunicationChannel</code> may be owned by a <code>CommunicationChannelOwner</code>.</p> </li> 
+          <li> <p>1-to-n: a <code>Case</code> may contain multiple `CaseContent`s</p> </li> 
+          <li> <p>1-to-1: a <code>Case</code> may have a primary <code>CaseContent</code>.</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>CommunicationChannel</code> and <code>Case</code> are regular entities, while <code>CommunicationChannelOwner</code> and <code>CaseContent</code> are (Java) interfaces.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The demo app also has two entities, <code>FixedAsset</code> and <code>Party</code>, that both implement each of these interfaces. Each <code>FixedAsset</code> may "own" a single <code>CommunicationChannel</code>, while a <code>Party</code> may "own" multiple <code>CommunicationChannel`s. Meanwhile both `FixedAsset</code> and <code>Party</code> can be added as the "contents" of multiple `Case`s, and either can be used as a `Case’s "primary content".</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_communication_channel">Communication Channel</h3> 
+         <div class="paragraph"> 
+          <p>The following UML diagram shows the "logical" polymorphic association between <code>CommunicationChannel</code> and its owning <code>CommunicationChannelOwner</code>:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/comm-channel-uml.png"><img src="images/comm-channel-uml.png" alt="comm channel uml" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This is realized using the following entities:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/comm-channel-link-uml.png"><img src="images/comm-channel-link-uml.png" alt="comm channel link uml" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Here the <code>CommunicationChannelOwnerLink</code> is a persistent entity that has subtypes for each of the implementations of the <code>CommunicationChannelOwner</code> interface, namely <code>CommunicationChannelOwnerLinkForFixedAsset</code> and <code>CommunicationChannelOwnerLinkForParty</code>. This inheritance hierarchy can be persisted using any of the [standard strategies](<a href="http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html" class="bare">http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html</a>) supported by JDO/DataNucleus.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In the demo application the <a href="http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable">NEW_TABLE</a> strategy is used, giving rise to these tables:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/comm-channel-rdbms.png"><img src="images/comm-channel-rdbms.png" alt="comm channel rdbms" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_case_contents">Case Contents</h3> 
+         <div class="paragraph"> 
+          <p>The following UML diagram shows the (two) "logical" polymorphic assocations between <code>Case</code> and its `CaseContent`s:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/case-content-uml.png"><img src="images/case-content-uml.png" alt="case content uml" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note how <code>Case</code> actually has <em>two</em> polymorphic associations: a 1:n to its "contents", and a 1:1 to its "primary content".</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This is realized using the following entities:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/case-content-link-uml.png"><img src="images/case-content-link-uml.png" alt="case content link uml" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Here the <code>CaseContentLink</code> is a persistent entity that (as for communication channels) has subtypes for each of the implementations of the <code>CaseContent</code> interface. But because <code>Case</code> actually has two associations to <code>CaseContent</code>, there is also a further <code>CasePrimaryContentLink</code> persistent entity, again with subtypes.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>In the demo application the <a href="http://www.datanucleus.org/products/datanucleus/jdo/orm/inheritance.html#newtable">NEW_TABLE</a> strategy is used for both, giving rise to these tables for the "case content" association:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/case-content-contents-rdbms.png"><img src="images/case-content-contents-rdbms.png" alt="case content contents rdbms" width="600px"></a> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and also to these for the "primary content" association:</p> 
+         </div> 
+         <div class="imageblock"> 
+          <div class="content"> 
+           <a class="image" href="images/case-content-primary-rdbms.png"><img src="images/case-content-primary-rdbms.png" alt="case content primary rdbms" width="600px"></a> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_screenshots">Screenshots</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module’s functionality can be explored by running the <a href="../../../quickstart/quickstart-with-example-usage.html">quickstart with example usage</a> using the <code>org.incode.domainapp.example.app.modules.ExampleDomLibPolyAppManifest</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The home page when the app is run shows 3 parties, 3 fixed assets which between them have 9 communication channels. There are also 3 cases and the parties and fixed assets are variously contained within:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/020-dashboard.png"><img src="images/020-dashboard.png" alt="020 dashboard" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>If we navigate to the <code>Party</code> entity, we can see that it shows a collection of `CommunicationChannel`s that the party owns, and also a collection of the `Case`s within which the party is contained:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/030-party.png"><img src="images/030-party.png" alt="030 party" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>FixedAsset</code> entity is similar in that it also has a collection of <code>Case`s. However, in our demo app we have a business rule that the fixed asset can own only a single `CommunicationChannel</code>.</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/040-fixed-asset.png"><img src="images/040-fixed-asset.png" alt="040 fixed asset" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>On the <code>Party</code> entity we can add (and remove) `CommunicationChannel`s:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/050-party-add-comm-channel.png"><img src="images/050-party-add-comm-channel.png" alt="050 party add comm channel" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>In this demo app, because communication channels are <em>not</em> shared by entities, this will actually create and persist the corresponding <code>CommunicationChannel</code>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>We can also add (or remove) from `Case`s:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/060-party-add-to-case.png"><img src="images/060-party-add-to-case.png" alt="060 party add to case" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Here the rule is slightly different: the <code>Case</code> already exists and so the party is merely associated with an existing case.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>From the <code>Case</code> entity’s perspective, we can see its contents and also its primary content:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/070-case.png"><img src="images/070-case.png" alt="070 case" width="600px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>As might be expected, we have an action to set (or clear) the primary content:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/080-case-set-primary-contents.png"><img src="images/080-case-set-primary-contents.png" alt="080 case set primary contents" width="600px"></a> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_design">Design</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The key design idea is to leverage Isis' <a href="http://isis.apache.org/guides/rgsvc/rgsvc.html#_rgsvc_core-domain-api_EventBusService">event bus service</a> to determine which concrete subtype should be created and persisted to hold the association.</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>when the association needs to be created, an event is posted to the event bus</p> </li> 
+          <li> <p>the subscriber updates the event with the details of the subtype to be persisted</p> </li> 
+          <li> <p>if no subscriber updates the event, then the association cannot be created and an exception is thrown.</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The helper classes provided by this module factor out some of the boilerplate relating to this design, however there is (necessarily) quite a lot of domain-specific code. What’s important is understanding the design and how to replicate it.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The recipe for the pattern is:</p> 
+        </div> 
+        <table class="tableblock frame-all grid-all spread"> 
+         <caption class="title">
+          Table 1. Recipe
+         </caption> 
+         <colgroup> 
+          <col style="width: 14.2857%;"> 
+          <col style="width: 42.8571%;"> 
+          <col style="width: 42.8572%;"> 
+         </colgroup> 
+         <thead> 
+          <tr> 
+           <th class="tableblock halign-left valign-top">#</th> 
+           <th class="tableblock halign-left valign-top">Step</th> 
+           <th class="tableblock halign-left valign-top">Example</th> 
+          </tr> 
+         </thead> 
+         <tbody> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>1</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Create an interface for the target of the association</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="ulist"> 
+              <ul> 
+               <li> <p><code>CommunicationChannelOwner</code></p> </li> 
+               <li> <p><code>CaseContent</code></p> </li> 
+              </ul> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>2</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Create a persistent entity corresponding to the association</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="ulist"> 
+              <ul> 
+               <li> <p><code>CommunicationChannelOwnerLink</code><br></p> 
+                <div class="paragraph"> 
+                 <p>for the <code>CommunicationChannel</code>/"owner" association</p> 
+                </div> </li> 
+               <li> <p><code>CaseContentLink</code><br></p> 
+                <div class="paragraph"> 
+                 <p>for <code>Case</code>/"contents" association</p> 
+                </div> </li> 
+               <li> <p><code>CasePrimaryContentLink</code><br></p> 
+                <div class="paragraph"> 
+                 <p>for <code>Case</code>/"primary content" association</p> 
+                </div> </li> 
+              </ul> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>3</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Create an "instantiate event". We suggest using a nested static class of the link entity:</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="ulist"> 
+              <ul> 
+               <li> <p><code>CommunicationChannelOwnerLink.InstantiateEvent</code></p> </li> 
+               <li> <p><code>CaseContentLink.InstantiateEvent</code></p> </li> 
+               <li> <p><code>CasePrimaryContentLink.InstantiateEvent</code></p> </li> 
+              </ul> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>4</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Create a corresponding repository service for that link persistent entity:</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="ulist"> 
+              <ul> 
+               <li> <p><code>CommunicationChannelOwnerLinks</code></p> </li> 
+               <li> <p><code>CaseContentLinks</code></p> </li> 
+               <li> <p><code>CasePrimaryContentLinks</code></p> </li> 
+              </ul> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>5</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Create a subtype for each implementation of the target interface:</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="ulist"> 
+              <ul> 
+               <li> <p><code>CommunicationChannelOwnerLinkForFixedAsset</code> and <code>CommunicationChannelOwnerLinkForParty</code></p> </li> 
+               <li> <p><code>CaseContentLinkForFixedAsset</code> and <code>CaseContentLinkForParty</code></p> </li> 
+               <li> <p><code>CasePrimaryContentLinkForFixedAsset</code> and <code>CasePrimaryContentLinkForParty</code></p> </li> 
+              </ul> 
+             </div>
+            </div></td> 
+          </tr> 
+          <tr> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>6</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Create a subscriber to the event for each implementation of the target interface. We suggest using a nested static class of the subtype.</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="ulist"> 
+              <ul> 
+               <li> <p><code>CommunicationChannelOwnerLinkForFixedAsset. InstantiateSubscriber</code> and <code>CommunicationChannelOwnerLinkForParty. InstantiateSubscriber</code></p> </li> 
+               <li> <p><code>CaseContentLinkForFixedAsset. InstantiateSubscriber</code> and <code>CaseContentLinkForParty. InstantiateSubscriber</code></p> </li> 
+               <li> <p><code>CasePrimaryContentLinkForFixedAsset. InstantiateSubscriber</code> and <code>CasePrimaryContentLinkForParty. InstantiateSubscriber</code></p> </li> 
+              </ul> 
+             </div>
+            </div></td> 
+          </tr> 
+         </tbody> 
+        </table> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_api_and_usage">API and Usage</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The module itself consist of the following classes:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>PolymorphicAssociationLink</code> - an abstract class from which to derive the <code>*Link</code> entity</p> </li> 
+          <li> <p><code>PolymorphicAssociationLink.InstantiateEvent</code> - a superclass for the "instantiate event"</p> </li> 
+          <li> <p><code>PolymorphicAssociationLink.Factory</code> - a utility class that broadcasts the event and persists the link using the requested subtype</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Let’s look at each in more detail, relating back to the "communication channel owner" association in the demo app.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_polymorphicassociationlink">PolymorphicAssociationLink</h3> 
+         <div class="paragraph"> 
+          <p>A link is in essence a tuple between two entities. One of these links is direct "subject"; the other is the polymorphic reference. The <code>PolymorphicAssociationLink</code> class is intended to be used base class for all <code>*Link</code> entities (step 2 in the pattern recipe), and defines this structure:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">PolymorphicAssociationLink</span>&lt;
+                            S, P, L <span class="directive">extends</span> PolymorphicAssociationLink&lt;S, P, L&gt;&gt;
+        <span class="directive">implements</span> <span class="predefined-type">Comparable</span>&lt;L&gt; {
+
+    <span class="directive">protected</span> PolymorphicAssociationLink(<span class="directive">final</span> <span class="predefined-type">String</span> titlePattern) { ... }
+
+    <span class="directive">public</span> <span class="directive">abstract</span> S getSubject();
+    <span class="directive">public</span> <span class="directive">abstract</span> <span class="type">void</span> setSubject(S subject);
+
+    <span class="directive">public</span> <span class="directive">abstract</span> <span class="predefined-type">String</span> getPolymorphicObjectType();
+    <span class="directive">public</span> <span class="directive">abstract</span> <span class="type">void</span> setPolymorphicObjectType(<span class="directive">final</span> <span class="predefined-type">String</span> polymorphicObjectType);
+
+    <span class="directive">public</span> <span class="directive">abstract</span> <span class="predefined-type">String</span> getPolymorphicIdentifier();
+    <span class="directive">public</span> <span class="directive">abstract</span> <span class="type">void</span> setPolymorphicIdentifier(<span class="directive">final</span> <span class="predefined-type">String</span> polymorphicIdentifier);
+
+    <span class="directive">public</span> P getPolymorphicReference() { ... }
+    <span class="directive">public</span> <span class="type">void</span> setPolymorphicReference(<span class="directive">final</span> P polymorphicReference) { ... }
+
+    <span class="directive">public</span> <span class="type">int</span> compareTo(<span class="directive">final</span> PolymorphicAssociationLink other) { ... }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The subclass is required to implement the <code>subject</code>, <code>polymorphicObjectType</code> and the <code>polymorphicIdentifier</code> properties; these should delegate to the "concrete" properties.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, the <code>CommunicationChannelOwnerLink</code> looks like:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">abstract</span> <span class="type">class</span> <span class="class">CommunicationChannelOwnerLink</span>
+        <span class="directive">extends</span> PolymorphicAssociationLink&lt;
+                    CommunicationChannel, CommunicationChannelOwner,
+                    CommunicationChannelOwnerLink&gt; {
+
+    <span class="directive">public</span> CommunicationChannelOwnerLink() {
+        <span class="local-variable">super</span>(<span class="string"><span class="delimiter">"</span><span class="content">{polymorphicReference} owns {subject}</span><span class="delimiter">"</span></span>);
+    }
+
+    <span class="directive">public</span> CommunicationChannel getSubject() {
+        <span class="keyword">return</span> getCommunicationChannel();
+    }
+    <span class="directive">public</span> <span class="type">void</span> setSubject(<span class="directive">final</span> CommunicationChannel subject) {
+        setCommunicationChannel(subject);
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> getPolymorphicObjectType() {
+        <span class="keyword">return</span> getOwnerObjectType();
+    }
+    <span class="directive">public</span> <span class="type">void</span> setPolymorphicObjectType(<span class="directive">final</span> <span class="predefined-type">String</span> polymorphicObjectType) {
+        setOwnerObjectType(polymorphicObjectType);
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> getPolymorphicIdentifier() {
+        <span class="keyword">return</span> getOwnerIdentifier();
+    }
+    <span class="directive">public</span> <span class="type">void</span> setPolymorphicIdentifier(<span class="directive">final</span> <span class="predefined-type">String</span> polymorphicIdentifier) {
+        setOwnerIdentifier(polymorphicIdentifier);
+    }
+
+    <span class="annotation">@lombok</span>.Getter <span class="annotation">@lombok</span>.Setter
+    <span class="directive">private</span> CommunicationChannel communicationChannel;      <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="annotation">@lombok</span>.Getter <span class="annotation">@lombok</span>.Setter
+    <span class="directive">private</span> <span class="predefined-type">String</span> ownerObjectType;                         <i class="conum" data-value="1"></i><b>(1)</b>
+
+    <span class="annotation">@lombok</span>.Getter <span class="annotation">@lombok</span>.Setter
+    <span class="directive">private</span> <span class="predefined-type">String</span> ownerIdentifier;                         <i class="conum" data-value="1"></i><b>(1)</b>
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="colist arabic"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>JDO persisted properties</td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Thus, the abstract properties defined by <code>PolymorphicAssociationLink</code> just delegate to corresponding persisted (JDO annotated) properties in <code>CommunicationChannelOwnerLink</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Also note the pattern passed to the constructor; this is used to generate a title.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_polymorphicassociationlink_instantiateevent">PolymorphicAssociationLink.InstantiateEvent</h3> 
+         <div class="paragraph"> 
+          <p>The <code>PolymorphicAssociationLink.InstantiateEvent</code> is the base class to derive an instantiate event type for each polymorphic association (step 3 in the pattern recipe). Having derived event classes means that the event subscribers need only receive the exact events that they care about.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>InstantiateEvent</code> has the following structure:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">abstract</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">InstantiateEvent</span>&lt;
+                                S, P, L <span class="directive">extends</span> PolymorphicAssociationLink&lt;S, P, L&gt;&gt;
+        <span class="directive">extends</span> java.util.EventObject {
+
+    <span class="directive">protected</span> InstantiateEvent(
+            <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;L&gt; linkType,
+            <span class="directive">final</span> <span class="predefined-type">Object</span> source,
+            <span class="directive">final</span> S subject,
+            <span class="directive">final</span> P polymorphicReference) { ... }
+
+    <span class="directive">public</span> S getSubject() { ... }
+    <span class="directive">public</span> P getPolymorphicReference() { ... }
+
+    <span class="directive">public</span> <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> L&gt; getSubtype() { ... }
+    <span class="directive">public</span> <span class="type">void</span> setSubtype(<span class="directive">final</span> <span class="predefined-type">Class</span>&lt;? <span class="directive">extends</span> L&gt; subtype) { ... }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Any subclass is required to take the last three parameters in its constructor; the event is instantiated reflectively by <code>PolymorphicAssociationLink.Factory</code>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, the <code>CommunicationChannelOwnerLink.InstantiateEvent</code> is simply:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">InstantiateEvent</span>
+        <span class="directive">extends</span> PolymorphicAssociationLink.InstantiateEvent&lt;
+                    CommunicationChannel, CommunicationChannelOwner,
+                    CommunicationChannelOwnerLink&gt; {
+
+    <span class="directive">public</span> InstantiateEvent(
+            <span class="directive">final</span> <span class="predefined-type">Object</span> source,
+            <span class="directive">final</span> CommunicationChannel subject,
+            <span class="directive">final</span> CommunicationChannelOwner owner) {
+        <span class="local-variable">super</span>(CommunicationChannelOwnerLink.class, source, subject, owner);
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_polymorphicassociationlink_factory">PolymorphicAssociationLink.Factory</h3> 
+         <div class="paragraph"> 
+          <p>The final class <code>PolymorphicAssociationLink.Factory</code> is responsible for broadcasting the event and then persisting the appropriate subtype for the link. It has the following structure:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">Factory</span>&lt;S,P,L <span class="directive">extends</span> PolymorphicAssociationLink&lt;S,P,L&gt;,
+                            E <span class="directive">extends</span> InstantiateEvent&lt;S,P,L&gt;&gt; {
+
+    <span class="directive">public</span> Factory(
+            <span class="directive">final</span> <span class="predefined-type">Object</span> eventSource,
+            <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;S&gt; subjectType,
+            <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;P&gt; polymorphicReferenceType,
+            <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;L&gt; linkType, <span class="directive">final</span> <span class="predefined-type">Class</span>&lt;E&gt; eventType) { ... }
+
+    <span class="directive">public</span> <span class="type">void</span> createLink(<span class="directive">final</span> S subject, <span class="directive">final</span> P polymorphicReference) { ... }
+
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Unlike the other two classes, the factory is not subclassed. Instead, it should be instantiated as appropriate. Typically this will be in a repository service for the <code>*Link</code> entity (step 4 in the pattern recipe).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For example, with the communication channel example the <code>Factory</code> is instantiated in the <code>CommunicationChannelOwnerLinks</code> repository service:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CommunicationChannelOwnerLinks</span> {
+
+    PolymorphicAssociationLink.Factory&lt;
+            CommunicationChannel,
+            CommunicationChannelOwner,
+            CommunicationChannelOwnerLink,
+            CommunicationChannelOwnerLink.InstantiateEvent&gt; linkFactory;
+
+    <span class="annotation">@PostConstruct</span>
+    <span class="directive">public</span> <span class="type">void</span> init() {
+        linkFactory = container.injectServicesInto(
+                <span class="keyword">new</span> PolymorphicAssociationLink.Factory&lt;&gt;(
+                        <span class="local-variable">this</span>,
+                        CommunicationChannel.class,
+                        CommunicationChannelOwner.class,
+                        CommunicationChannelOwnerLink.class,
+                        CommunicationChannelOwnerLink.InstantiateEvent.class
+                ));
+
+    }
+
+    <span class="directive">public</span> <span class="type">void</span> createLink(
+            <span class="directive">final</span> CommunicationChannel communicationChannel,
+            <span class="directive">final</span> CommunicationChannelOwner owner) {
+        linkFactory.createLink(communicationChannel, owner);
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Note that it is necessary to inject services into the factory (<code>container.injectServicesInto(…​)</code>).</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_completing_the_pattern">Completing the Pattern</h3> 
+         <div class="paragraph"> 
+          <p>The helper classes provided by this module are actually only used by the "subject" domain entity (or the containing package for said entity); steps 1 through 4 in the pattern recipe. But what about the implementation for an entity (such as <code>FixedAsset</code>) that wishes to be used in such a polymorphic association, ie the final steps 5 and 6?</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Step 5 of the pattern requires a subtype of the <code>*Link</code> entity specific to the subtype to be reference. For example, for <code>FixedAsset</code> this looks like:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CommunicationChannelOwnerLinkForFixedAsset</span>
+        <span class="directive">extends</span> CommunicationChannelOwnerLink {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="type">void</span> setPolymorphicReference(<span class="directive">final</span> CommunicationChannelOwner polyReference) {
+        <span class="local-variable">super</span>.setPolymorphicReference(polyReference);
+        setFixedAsset((FixedAsset) polyReference);
+    }
+
+    <span class="comment">// JDO persisted property</span>
+    <span class="directive">private</span> FixedAsset fixedAsset;
+
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>where the inherited <code>setPolymorphicReference(…​)</code> method is overridden to also populate the JDO persisted property (<code>fixedAsset</code> in this case).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>And, finally, step 6 defines a subscriber on the instantiate event. We recommend this is a nested static class of the <code>*Link</code> subtype, and so:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CommunicationChannelOwnerLinkForFixedAsset</span>
+                        <span class="directive">extends</span> CommunicationChannelOwnerLink {
+
+    <span class="annotation">@DomainService</span>(nature = NatureOfService.DOMAIN)
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">InstantiationSubscriber</span> <span class="directive">extends</span> AbstractSubscriber {
+
+        <span class="annotation">@Programmatic</span>
+        <span class="annotation">@Subscribe</span>
+        <span class="directive">public</span> <span class="type">void</span> on(<span class="directive">final</span> CommunicationChannelOwnerLink.InstantiateEvent ev) {
+            <span class="keyword">if</span>(ev.getPolymorphicReference() <span class="keyword">instanceof</span> FixedAsset) {
+                ev.setSubtype(CommunicationChannelOwnerLinkForFixedAsset.class);
+            }
+        }
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The thing to note is that although there are quite a few steps (1 through 4, in fact) to make an association polymorphic, the steps to then reuse that polymorphic association (steps 5 and 6) are really rather trivial.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_some_quick_asides">Some quick asides</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>The demo application has a couple of other interesting implementation details - not to do with polymorphic associations - but noteworthy nonetheless.</p> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_use_of_event_bus_for_cascade_delete">Use of event bus for cascade delete</h3> 
+         <div class="paragraph"> 
+          <p>With the <code>Case</code> class there is a "case contents" and a "primary case content"; the idea being that the primary content should be one in the "contents" collection.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If the case content object that happens to be primary is dissociated from the case, then a <code>CaseContentContributions.RemoveFromCaseDomainEvent</code> domain event is broadcast. A subscriber listens on this to delete the primary case link:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CasePrimaryContentSubscriber</span> <span class="directive">extends</span> AbstractSubscriber {
+
+    <span class="annotation">@Subscribe</span>
+    <span class="directive">public</span> <span class="type">void</span> on(<span class="directive">final</span> CaseContentContributions.RemoveFromCaseDomainEvent ev) {
+        <span class="keyword">switch</span> (ev.getEventPhase()) {
+            <span class="keyword">case</span> EXECUTING:
+                <span class="directive">final</span> CasePrimaryContentLink link =
+                            casePrimaryContentLinks.findByCaseAndContent(
+                                                ev.getCase(), ev.getContent());
+                <span class="keyword">if</span>(link != <span class="predefined-constant">null</span>) {
+                    container.remove(link);
+                }
+                <span class="keyword">break</span>;
+        }
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_contributed_properties_for_collections_of_an_interface_type">Contributed properties for collections of an interface type</h3> 
+         <div class="paragraph"> 
+          <p>It (currently) isn’t possible to define (fully abstract) properties on interfaces, meaning that by default a collection of objects implementing an interface (eg `Case’s "caseContents" collection) would normally only show the icon of the object; not particularly satisfactory.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>However, Isis <strong>does</strong> support the notion of contributed properties to interfaces. The demo application uses this trick for the "caseContents" in the <code>CaseContentContributions</code> domain service:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">CaseContentContributions</span> {
+
+    <span class="annotation">@Action</span>( semantics = SemanticsOf.SAFE )
+    <span class="annotation">@ActionLayout</span>( contributed = Contributed.AS_ASSOCIATION )
+    <span class="annotation">@PropertyLayout</span>( hidden = Where.OBJECT_FORMS )
+    <span class="directive">public</span> <span class="predefined-type">String</span> title(<span class="directive">final</span> CaseContent caseContent) {
+        <span class="keyword">return</span> container.titleOf(caseContent);
+    }
+}</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Moreover, this trick contributes to all implementations (<code>FixedAsset</code> and <code>Party</code>).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>There is however a small gotcha, in that we only want this contributed property to be viewed on tables. The <code>@Property(hidden=Where.OBJECT_FORMS)</code> ensures that it is not shown anywhere else.</p> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_how_to_configure_use">How to configure/use</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_classpath">Classpath</h3> 
+         <div class="paragraph"> 
+          <p>Update your classpath by adding this dependency in your dom project’s <code>pom.xml</code>:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.poly<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>isis-module-poly-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|isis-module-poly-dom">Maven Central Repo</a>.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_bootstrapping">Bootstrapping</h3> 
+         <div class="paragraph"> 
+          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
+    <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
+            ...
+            org.isisaddons.module.poly.PolyModule.class,
+            ...
+    );
+}</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_known_issues">Known issues</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>None known at this time.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Maven can report modules dependencies using:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/lib/poly/impl -D excludeTransitive=true</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>which, excluding Apache Isis itself, returns no direct compile/runtime dependencies.</p> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="hidden-xs hidden-sm hidden-md col-lg-3"> 
+     <nav id="toc" data-spy="affix" data-toggle="toc"></nav> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="row"> 
+     <p class="text-center small text-muted"> Copyright © 2012~date Dan Haywood, licensed under the Apache&nbsp;License,&nbsp;v2.0. </p> 
+    </div> 
+   </div> 
+  </footer> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
+  <script src="../../../js/bootstrap/3.3.7/bootstrap.min.js"></script> 
+  <script src="../../../js/bootstrap-toc/0.4.1/bootstrap-toc.min.js"></script> 
+  <script src="../../../js/slick/1.5.0/slick.min.js"></script> 
+  <script src="../../../js/elasticlunr/elasticlunr.min.js"></script> 
+  <script src="../../../js/sticky-header/sticky-header.js"></script> 
+  <script src="../../../js/search-panel/search-panel.js"></script> 
+  <script src="../../../js/header-link/header-link.js"></script> 
+  <script src="../../../js/toc-scroll/toc-scroll.js"></script>  
+ </body>
+</html>
