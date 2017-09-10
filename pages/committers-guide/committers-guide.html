@@ -208,19 +208,18 @@ table.CodeRay td.code>pre{padding:0}
        <a href="#" id="search-results-clear">clear</a> 
       </div> 
      </div> 
-     <span class="pdf-link"><a href="committers-guide.pdf"><img src="../../images/PDF-50.png"></a></span> 
      <div class="page-title"> 
       <h1>Committers Guide</h1> 
      </div> 
      <div id="doc-content">
       <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
-       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
+       <button type="button" class="btn btn-xs btn-default" onclick="window.location.href=&quot;https://github.com/incodehq/incode-platform/edit/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc&quot;"><i class="fa fa-pencil-square-o"></i>&nbsp;Edit</button>
        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
        <ul class="dropdown-menu">
-        <li><a href="https://github.com/apache/isis/edit/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
-        <li><a href="https://github.com/apache/isis/commits/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
-        <li><a href="https://github.com/apache/isis/raw/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
-        <li><a href="https://github.com/apache/isis/blame/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
+        <li><a href="https://github.com/incodehq/incode-platform/edit/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></i>&nbsp; Edit</a></li>
+        <li><a href="https://github.com/incodehq/incode-platform/commits/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>&nbsp; History</a></li>
+        <li><a href="https://github.com/incodehq/incode-platform/raw/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>&nbsp; Raw</a></li>
+        <li><a href="https://github.com/incodehq/incode-platform/blame/master/adocs/documentation/src/main/asciidoc/pages/committers-guide/committers-guide.adoc" target="_blank"><i class="fa fa-hand-o-right fa-fw" aria-hidden="true"></i>&nbsp; Blame</a></li>
        </ul>
       </div> 
       <div id="preamble"> 
@@ -407,19 +406,58 @@ popd</code></pre>
        <h2 id="_docs_website">Docs &amp; website</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>The website resides in the <code>adocs/documentation</code> directory:</p> 
+         <p>The website resides in the <code>adocs</code> directory:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>documentation/</code> is the source for website itself (Asciidoctor)</p> </li> 
+          <li> <p><code>template/</code> is the HTML template</p> </li> 
+          <li> <p><code>search/</code> holds node.js Javascript files to index the built site so that it is searchable</p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The website is published to the <a href="https://github.com/incodehq/incodehq.github.io">incodehq/incodehq.github.io</a> github repository; a <code>CNAME</code> file (in the root directory) maps this to <a href="http://platform.catalog.org" class="bare">http://platform.catalog.org</a>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To publish, this repository must also be cloned to your local computer. The scripts assume that the <code>incode-platform</code> repository (ie this repo) and the <code>incodehq.github.io</code> repository cloned at the same level, eg:</p> 
         </div> 
         <div class="listingblock"> 
          <div class="content"> 
-          <pre class="CodeRay highlight"><code data-lang="bash">pushd adocs/documentation
-sh preview-html.sh
-popd</code></pre> 
+          <pre>└── incodehq
+    ├── incode-platform
+    └── incodehq.github.io</pre> 
          </div> 
         </div> 
         <div class="sect2"> 
-         <h3 id="_preview">Preview</h3> 
+         <h3 id="_prerequisites">Prerequisites</h3> 
          <div class="paragraph"> 
-          <p>Typically, use:</p> 
+          <p>Make sure that you’ve checked out the <code>incodehq/incodehq.github.io</code> repository alongside this one (see discussion above).</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>You’ll also need to install:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>node (v7.10.0 or later) …​ used to build the search index</p> </li> 
+           <li> <p>python 3 …​ used to preview</p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The actual website generation uses AsciidoctorJ, which is called by Maven plugin. There are no other software prereqs.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Normally you’ll want to work in the <code>adocs/documentation</code> directory:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">pushd adocs/documentation</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_previewing_the_website">Previewing the website</h3> 
+         <div class="paragraph"> 
+          <p>To do a quick build the website and preview locally, use:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
@@ -427,25 +465,45 @@ popd</code></pre>
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>This will build the HTML website and then start python webserver to browse. However, to save time the corresponding PDFs will not be created.</p> 
+          <p>This builds the HTML and the search index, but omits building the PDFs. To enable you to preview the generated site, it starts a (python) webserver to browse.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>For a full preview (including PDFs), use:</p> 
+          <p>To also build the PDFs, use:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">sh preview-pdf.sh</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">sh preview-html.sh</code></pre> 
           </div> 
          </div> 
         </div> 
         <div class="sect2"> 
          <h3 id="_publishing_the_website">Publishing the website</h3> 
          <div class="paragraph"> 
-          <p>Use:</p> 
+          <p>When you are ready to publish the website, use:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="bash">sh publish.sh</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>This will remove all files in the <code>incodeh.github.io</code> directory and replace with the latest build.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>To check everything is ok:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">pushd ../../../incodehq.github.io
+sh preview.sh</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If all looks ok, then just push the changes:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">git push</code></pre> 
           </div> 
          </div> 
         </div> 
