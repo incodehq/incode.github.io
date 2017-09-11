@@ -363,32 +363,165 @@ popd</code></pre>
         </div> 
         <div class="sect2"> 
          <h3 id="_recreating_the_archetype">Recreating the archetype</h3> 
-         <div class="admonitionblock note"> 
-          <table> 
-           <tbody>
-            <tr> 
-             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-             <td class="content"> 
-              <div class="paragraph"> 
-               <p>TODO: this is still incomplete.</p> 
-              </div> 
-              <div class="paragraph"> 
-               <p>should post-edit the commented bits, to ensure commented out by default.</p> 
-              </div> 
-              <div class="paragraph"> 
-               <p>also, change the &lt;description&gt; in incode-quickstart-archetype pom.xml</p> 
-              </div> </td> 
-            </tr> 
-           </tbody>
-          </table> 
+         <div class="paragraph"> 
+          <p>The quickstart archetype is re-created for each release from the current quickstart application. The generated archetype is then released by deploying up to Maven Central.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>using:</p> 
+          <p>Switch to the quickstart <em>application</em>:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/app/quickstart
-sh ../../../scripts/recreate-archetype.sh</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/app/quickstart</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Now check the application source code:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>Confirm that the parent <code>pom.xml</code> of the quickstart application inherits from the release version of <code>org.incode:incode-parent</code>. For example:</p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;parent&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.incode<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>incode-parent<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;relativePath</span><span class="tag">/&gt;</span>
+<span class="tag">&lt;/parent&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+           <li> <p>Also check that the parent <code>pom.xml</code> references the release (non-SNAPSHOT) versions of <code>isis.version</code>:</p> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.15.0<span class="tag">&lt;/isis.version&gt;</span>
+    ...
+<span class="tag">&lt;/properties&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+           <li> <p>Finally, ensure that the optional modules are <strong>commented in</strong>.</p> 
+            <div class="paragraph"> 
+             <p>Search for the phrase <em>"Comment in to include example modules"</em></p> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Staying in the same directory, recreate using:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">sh ../../arch/recreate-archetype.sh $INCODEREL</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>And then:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">popd</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_releasing_the_archetype">Releasing the archetype</h3> 
+         <div class="paragraph"> 
+          <p>We release in three steps:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>build the archetype locally (analogous to <code>mvn release:prepare</code>)</p> </li> 
+           <li> <p>check that an application can be built from the archetype</p> </li> 
+           <li> <p>deploy the archetype (using <code>mvn deploy</code>).</p> </li> 
+          </ul> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_prepare_the_archetype">Prepare the archetype</h4> 
+          <div class="paragraph"> 
+           <p>The archetype is prepared using:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/arch/quickstart
+sh ../release-prepare.sh $INCODEREL
+popd</code></pre> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_testing_the_archetype">Testing the archetype</h4> 
+          <div class="paragraph"> 
+           <p>In a <em>different session</em>:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">export INCODETMP=/c/tmp    # or as required
+export INCODEART=quickstart
+env | grep INCODE | sort</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>then:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">rm -rf $INCODETMP/test-$INCODEART
+
+mkdir $INCODETMP/test-$INCODEART
+cd $INCODETMP/test-$INCODEART</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>then:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
+    -D archetypeGroupId=org.incode.platform.archetype \
+    -D archetypeArtifactId=quickstart-archetype \
+    -D archetypeVersion=1.15.0 \
+    -D groupId=com.mycompany \
+    -D artifactId=myapp \
+    -D version=1.0-SNAPSHOT \
+    -D archetypeCatalog=local \
+    -B</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>and build and run using:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">cd myapp
+mvn clean install
+
+mvn -pl webapp jetty:run \
+    -Disis.appManifest=domainapp.appdefn.DomainAppAppManifestWithFixtures</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Login using sven/pass. The application generated should be the <a href="../quickstart/quickstart.html">Quickstart app</a>.</p> 
+          </div> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_deploying_the_archetype">Deploying the archetype</h4> 
+          <div class="paragraph"> 
+           <p>Back in the original session (in the <code>ex/arch/quickstart</code> directory), the archetype is released (deployed to Maven Central) using:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">sh ../release-deploy.sh \
+              $INCODENEXT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Once done:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">popd</code></pre> 
+           </div> 
           </div> 
          </div> 
         </div> 
@@ -412,7 +545,7 @@ sh ../../../scripts/recreate-archetype.sh</code></pre>
         <div class="listingblock"> 
          <div class="content"> 
           <pre class="CodeRay highlight"><code data-lang="bash">pushd modules
-sh interim-release.sh 1.15.0 origin
+sh interim-release.sh $INCODEREL origin
 popd</code></pre> 
          </div> 
         </div> 
@@ -421,7 +554,6 @@ popd</code></pre>
         </div> 
         <div class="ulist"> 
          <ul> 
-          <li> <p><code>1.15.0</code> is the base release</p> </li> 
           <li> <p><code>origin</code> is the name of the remote to which you have permissions to write to.</p> </li> 
          </ul> 
         </div> 

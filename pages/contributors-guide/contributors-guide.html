@@ -230,6 +230,34 @@ table.CodeRay td.code>pre{padding:0}
        </div> 
       </div> 
       <div class="sect1"> 
+       <h2 id="_directory_structure">Directory Structure</h2> 
+       <div class="sectionbody"> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre>_mothballed/           # unused from previous demo apps (eg fake SOAP external system)
+adocs/
+├── documentation/     # docs and website source
+├── search/            # node.js scripts to generate searchable index
+└── template/          # HTML template/styling for website
+ex/
+├── app/
+│   └── quickstart/    # quickstart application
+└── arch/
+    └── quickstart/    # quickstart archetype
+mavenmixins/
+modules/               # modules making up the platform
+├── pom.xml            # org.incode:incode-parent
+├── dom/               # generic subdomains
+├── ext/               # extensions
+├── lib/               # libraries
+├── mml/               # metamodel facets
+├── spi/               # Core framework SPI (hook) implementations
+└── wkt/               # Wicket viewer components</pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
        <h2 id="__contributors-guide_building">Building</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
@@ -244,7 +272,7 @@ table.CodeRay td.code>pre{padding:0}
          </ul> 
         </div> 
         <div class="sect2"> 
-         <h3 id="__contributors-guide_">Building the mavenmixins</h3> 
+         <h3 id="__contributors-guide_building-the-mavenmixins">Building the mavenmixins</h3> 
          <div class="paragraph"> 
           <p>These must be built first, because the modules depend upon them.</p> 
          </div> 
