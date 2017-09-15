@@ -344,20 +344,46 @@ popd</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">pushd modules
-sh release.sh $INCODEREL \
-              $INCODENEXT \
-              dan@haywood-associates.co.uk \
-              "this is not really my passphrase"
-popd</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">pushd modules</code></pre> 
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>If the script completes successfully, then push changes and the ta:</p> 
+          <p>Before doing so, update the <code>incode-parent</code> module’s <code>pom.xml</code>, so that it references the (just released) non-SNAPSHOT version of the mavenmixins.</p> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>TODO: should automate this editing, put into the <code>release.sh</code> script instead.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Commit the changes.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Then, release using:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code>git push origin master &amp;&amp; git push origin $INCODEREL</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">sh release.sh $INCODEREL \
+              $INCODENEXT \
+              dan@haywood-associates.co.uk \
+              "this is not really my passphrase"</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>If the script completes successfully, then push changes and the tag:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code>git push origin master &amp;&amp; git push origin $INCODEREL
+popd</code></pre> 
           </div> 
          </div> 
         </div> 
