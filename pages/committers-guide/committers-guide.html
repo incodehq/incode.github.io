@@ -261,7 +261,7 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.0
+           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.1
 export INCODENEXT=1.16.0-SNAPSHOT
 
 env | grep ^INCODE</code></pre> 
@@ -411,7 +411,7 @@ popd</code></pre>
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;parent&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.incode<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>incode-parent<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.15.0<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.15.1<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;relativePath</span><span class="tag">/&gt;</span>
 <span class="tag">&lt;/parent&gt;</span></code></pre> 
              </div> 
@@ -420,7 +420,7 @@ popd</code></pre>
             <div class="listingblock"> 
              <div class="content"> 
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.15.0<span class="tag">&lt;/isis.version&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
     ...
 <span class="tag">&lt;/properties&gt;</span></code></pre> 
              </div> 
@@ -440,11 +440,12 @@ popd</code></pre>
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>And then:</p> 
+          <p>Finally, commit any changes:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">popd</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">popd
+git commit -am "recreates archetype for $INCODEREL"</code></pre> 
           </div> 
          </div> 
         </div> 
@@ -504,7 +505,7 @@ cd $INCODETMP/test-$INCODEART</code></pre>
             <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.0 \
+    -D archetypeVersion=1.15.1 \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
@@ -535,18 +536,20 @@ mvn -pl webapp jetty:run \
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
-            <pre class="CodeRay highlight"><code data-lang="bash">sh ../release-deploy.sh \
+            <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/arch/quickstart
+sh ../release-deploy.sh \
               $INCODENEXT \
               dan@haywood-associates.co.uk \
               "this is not really my passphrase"</code></pre> 
            </div> 
           </div> 
           <div class="paragraph"> 
-           <p>Once done:</p> 
+           <p>This script should automatically commit changes. To finish up, just push:</p> 
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
-            <pre class="CodeRay highlight"><code data-lang="bash">popd</code></pre> 
+            <pre class="CodeRay highlight"><code data-lang="bash">popd
+git push</code></pre> 
            </div> 
           </div> 
          </div> 
