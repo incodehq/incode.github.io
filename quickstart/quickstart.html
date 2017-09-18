@@ -296,7 +296,7 @@ table.CodeRay td.code>pre{padding:0}
           <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.0.1 \
+    -D archetypeVersion=1.15.0.2 \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
@@ -372,12 +372,15 @@ table.CodeRay td.code>pre{padding:0}
          <p>See the Apache Isis documentation for <a href="http://isis.apache.org/guides/dg/dg.html#__dg_ide_intellij_importing-maven-modules">further guidance</a>.</p> 
         </div> 
         <div class="sect2"> 
-         <h3 id="_removing_unneeded_modules">Removing unneeded modules</h3> 
+         <h3 id="_adding_removing_modules">Adding/removing modules</h3> 
          <div class="paragraph"> 
-          <p>By default the <code>DomainAppAppManifest</code> app manifest has dependencies on <em>all</em> of the generic subdomains and SPI services. This means that the database when generated will include tables for the entities of these modules, even if the application doesn’t integrate with them. For example, the <a href="../modules/dom/document/dom-document.html">document module</a> includes tables that map onto the <code>DocumentType</code>, <code>DocumentTemplate</code> and <code>Document</code> entities (among others).</p> 
+          <p>By default the <code>DomainAppAppManifest</code> app manifest has dependencies on <em>all</em> of the <a href="../modules/spi/spi.html">SPI services</a>, <em>all</em> of the <a href="../modules/wkt/wkt.html">wicket components</a>, the (feature) <a href="../modules/ext/togglz/ext-togglz.html">togglz</a> extension module, the <a href="../modules/dom/settings/dom-settings.html">settings</a> subdomain (used by the togglz extension), and the <a href="../modules/mml/paraname8/mml-paraname8.html">paraname8</a> metamodel facet.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>It’s extremely unlikely that your application will need all of the modules in the platform. To exclude the modules that you don’t require, simply delete or comment out of the app manifest. To keep things tidy, you should probably also remove the corresponding <code>&lt;dependency&gt;`s from your application’s `pom.xml</code> files.</p> 
+          <p>To exclude the modules that you don’t require, delete or comment entries in the app manifest. To keep things tidy, you should probably also remove the corresponding <code>&lt;dependency&gt;</code>s from your application’s <code>pom.xml</code> files.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Conversely, the application does <em>not</em> include any of the <a href="../modules/dom.html">generic subdomains</a> nor <a href="../modules/lib.html">libraries</a>. To include these, take a look at the <a href="quickstart-with-example-usage.html">quickstart with example usage</a>, or just read the individual documentation for the required module(s). In many cases all that’s required is to update the <code>pom.xml</code> to reference the required module, and reference its <code>XxxModule</code> class in your app manifest.</p> 
          </div> 
         </div> 
        </div> 
@@ -793,10 +796,20 @@ table.CodeRay td.code>pre{padding:0}
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>will result in a <code>xxx-webapp-1.0-SNAPSHOT.war</code> (where xxx is the project’s <code>artifactId</code>) generated in <code>webapp/target</code>. This can then be deployed to the servlet container in the normal way. For example, if deploying to <a href="http://tomcat.apache.org">Apache Tomcat</a>, just copy to the <code>$TOMCAT_HOME/webapps/</code> directory.</p> 
+          <p>will result in a <code>xxx.war</code> (where xxx is the parent project’s <code>artifactId</code>), generated in <code>webapp/target</code>. This can then be deployed to the servlet container in the normal way. For example, if deploying to <a href="http://tomcat.apache.org">Apache Tomcat</a>, just copy to the <code>$TOMCAT_HOME/webapps/</code> directory.</p> 
          </div> 
-         <div class="paragraph"> 
-          <p>If you want to change the manifest (or any other property), it is possible to override the configuration externally. See the Apache Isis docs for <a href="http://isis.apache.org/guides/ugbtb/ugbtb.html#_ugbtb_deployment_tomcat">further guidance</a>.</p> 
+         <div class="admonitionblock tip"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-tip" title="Tip"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>If you want to change any of the configuration properties (eg the app manifest to run on start up), note that it is possible to override the configuration externally. See the Apache Isis docs for <a href="http://isis.apache.org/guides/ugbtb/ugbtb.html#_ugbtb_deployment_tomcat">further guidance</a>.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
          </div> 
          <div class="paragraph"> 
           <p>The configuration in the Maven <code>pom.xml</code> project files for maven’s war plugin is done using the <em>jettywar</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
@@ -943,7 +956,7 @@ table.CodeRay td.code>pre{padding:0}
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="bash">pushd scripts
-rundocker.sh test/myapp isis-overrides.properties -p 8080:8080
+rundocker.sh mycompany/myapp isis-overrides.properties -p 8080:8080
 popd</code></pre> 
           </div> 
          </div> 
@@ -952,7 +965,7 @@ popd</code></pre>
          </div> 
          <div class="ulist"> 
           <ul> 
-           <li> <p><code>test/myapp</code> is the name of the image to be run</p> </li> 
+           <li> <p><code>mycompany/myapp</code> is the name of the image to be run</p> </li> 
            <li> <p><code>-p 8080:8080</code> is passed through to the <code>docker run</code> command</p> </li> 
           </ul> 
          </div> 
@@ -1089,7 +1102,7 @@ isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionPassword=s3cr3t!</cod
        </div> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>Now we’ve explored how to run the application, let’s explore some of the features already configured in the quickstart.</p> 
+         <p>Now we’ve seen how to run the application, let’s explore some of the features already configured in the quickstart.</p> 
         </div> 
         <div class="sect2"> 
          <h3 id="_quickstart_modules_security">Security</h3>
@@ -1111,10 +1124,12 @@ isis.persistor.datanucleus.impl.javax.jdo.option.ConnectionPassword=s3cr3t!</cod
            WEB-INF/shiro.ini file
           </div> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="ini">incodePlatformSpiSecurityRealm=org.isisaddons.module.security.shiro.IsisModuleSecurityRealm
+           <pre class="CodeRay highlight"><code data-lang="ini">incodePlatformSpiSecurityRealm = \
+    org.isisaddons.module.security.shiro.IsisModuleSecurityRealm
 securityManager.realms = $incodePlatformSpiSecurityRealm
 
-authenticationStrategy=org.isisaddons.module.security.shiro.AuthenticationStrategyForIsisModuleSecurityRealm
+authenticationStrategy = \
+    org.isisaddons.module.security.shiro.AuthenticationStrategyForIsisModuleSecurityRealm
 securityManager.authenticator.authenticationStrategy = $authenticationStrategy</code></pre> 
           </div> 
          </div> 
@@ -1217,7 +1232,7 @@ securityManager.authenticator.authenticationStrategy = $authenticationStrategy</
            DomainAppAppManifestWithFixtures
           </div> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="ini">protected void disableAuditingAndCommandAndPublishGlobally(final Map&lt;String, String&gt; configurationProperties) {
+           <pre class="CodeRay highlight"><code data-lang="ini">protected void disableAuditingAndCommandAndPublishGlobally(Map&lt;String, String&gt; configurationProperties) {
     ...
     configurationProperties.put("isis.services.command.actions","none");
     configurationProperties.put("isis.services.command.properties","none");
@@ -1717,10 +1732,10 @@ isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=\
           <p>This tells DataNucleus to <em>not</em> automatically create the required database schema, so that it is instead created "manually" by Flyway running the provided SQL scripts.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>There are a number of other configuration properties also set in that manifest; thes indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.</p> 
+          <p>There are a number of other configuration properties also set in that manifest; these indicate which schemas FlywayDB should track, and where to locate the migration scripts on the classpath.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>The migration scripts themselves are in the <code>webapp</code> module, in a subpackage of <code>db.migration</code>:</p> 
+          <p>The migration scripts themselves are in the <code>appdefn</code> module, in a subpackage of <code>db.migration</code>:</p> 
          </div> 
          <div class="imageblock"> 
           <div class="content"> 
@@ -1728,7 +1743,16 @@ isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=\
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>Running the app with this manifest against an empty SQL Server database results in FlywayDB automatically creating the database tables:</p> 
+          <p>Before running the app, it may be necessary to manually create the schema for FlywayDB’s own <code>schema_version</code> table:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="sql"><span class="class">CREATE</span> <span class="type">TABLE</span> flyway
+go</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>With this done, the app can be run against an (otherwise) empty SQL Server database. This results in FlywayDB automatically creating the database tables:</p> 
          </div> 
          <div class="imageblock"> 
           <div class="content"> 

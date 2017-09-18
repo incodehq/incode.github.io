@@ -238,7 +238,7 @@ table.CodeRay td.code>pre{padding:0}
        </div> 
       </div> 
       <div class="sect1"> 
-       <h2 id="_release_process">Release process</h2> 
+       <h2 id="_release_to_maven_central">Release to Maven Central</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
          <p>This section describes the steps to release the platform to Maven central. There are four stages:</p> 
@@ -393,7 +393,18 @@ popd</code></pre>
           <p>The quickstart archetype is re-created for each release from the current quickstart application. The generated archetype is then released by deploying up to Maven Central.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>Switch to the quickstart <em>application</em>:</p> 
+          <p>If necessary, setup environment variables:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.1
+export INCODENEXT=1.16.0-SNAPSHOT
+
+env | grep ^INCODE</code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Then, switch to the quickstart <em>application</em>:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
@@ -427,7 +438,7 @@ popd</code></pre>
             </div> </li> 
            <li> <p>Finally, ensure that the optional modules are <strong>commented in</strong>.</p> 
             <div class="paragraph"> 
-             <p>Search for the phrase <em>"Comment in to include example modules"</em></p> 
+             <p>Search for the phrase <em>"Uncomment to include example modules"</em></p> 
             </div> </li> 
           </ul> 
          </div> 
@@ -479,9 +490,13 @@ popd</code></pre>
           <div class="paragraph"> 
            <p>In a <em>different session</em>:</p> 
           </div> 
+          <div class="paragraph"> 
+           <p>First, setup environment variables:</p> 
+          </div> 
           <div class="listingblock"> 
            <div class="content"> 
-            <pre class="CodeRay highlight"><code data-lang="bash">export INCODETMP=/c/tmp    # or as required
+            <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.1
+export INCODETMP=/c/tmp    # or as required
 export INCODEART=quickstart
 env | grep INCODE | sort</code></pre> 
            </div> 
@@ -498,14 +513,22 @@ cd $INCODETMP/test-$INCODEART</code></pre>
            </div> 
           </div> 
           <div class="paragraph"> 
-           <p>then:</p> 
+           <p>also, delete any test artifacts that might be in local cache:</p> 
+          </div> 
+          <div class="listingblock"> 
+           <div class="content"> 
+            <pre class="CodeRay highlight"><code data-lang="bash">rm -rf ~/.m2/repository/com/mycompany</code></pre> 
+           </div> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Then, generate the app:</p> 
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
             <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.1 \
+    -D archetypeVersion=$INCODEREL \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
@@ -526,7 +549,7 @@ mvn -pl webapp jetty:run \
            </div> 
           </div> 
           <div class="paragraph"> 
-           <p>Login using sven/pass. The application generated should be the <a href="../quickstart/quickstart.html">Quickstart app</a>.</p> 
+           <p>Login using sven/pass. The application generated should be the <a href="../../quickstart/quickstart.html">Quickstart app</a>.</p> 
           </div> 
          </div> 
          <div class="sect3"> 
