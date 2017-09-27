@@ -271,7 +271,57 @@ env | grep ^INCODE</code></pre>
         <div class="sect2"> 
          <h3 id="_release_maven_mixins">Release Maven Mixins</h3> 
          <div class="paragraph"> 
-          <p>The <code>release.sh</code> script automates the release process. It performs the following:</p> 
+          <p>The <code>release.sh</code> script automates the release process.</p> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Before running, update the two <code>pom.xml</code> files to reference the correct version of Apache Isis:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>mavenmixin-swagger/pom.xml</code></p> 
+            <div class="paragraph"> 
+             <p>edit <code>&lt;isis.version&gt;</code> property:</p> 
+            </div> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
+    ...
+<span class="tag">&lt;/properties&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+           <li> <p><code>mavenmixin-validate/pom.xml</code></p> 
+            <div class="paragraph"> 
+             <p>likewise, edit <code>&lt;isis.version&gt;</code> property:</p> 
+            </div> 
+            <div class="listingblock"> 
+             <div class="content"> 
+              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
+    ...
+<span class="tag">&lt;/properties&gt;</span></code></pre> 
+             </div> 
+            </div> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Commit these changes.</p> 
+         </div> 
+         <div class="admonitionblock note"> 
+          <table> 
+           <tbody>
+            <tr> 
+             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+             <td class="content"> 
+              <div class="paragraph"> 
+               <p>TODO: should automate this editing, put into the <code>release.sh</code> script instead.</p> 
+              </div> </td> 
+            </tr> 
+           </tbody>
+          </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>The <code>release.sh</code> script itself performs the following:</p> 
          </div> 
          <div class="ulist"> 
           <ul> 
@@ -348,7 +398,19 @@ popd</code></pre>
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>Before doing so, update the <code>incode-parent</code> module’s <code>pom.xml</code>, so that it references the (just released) non-SNAPSHOT version of the mavenmixins.</p> 
+          <p>Before doing so, update the <code>incode-parent</code> module’s <code>pom.xml</code>, so that it references the correct version of Apache Isis and also the (just released) non-SNAPSHOT version of the mavenmixins:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
+    <span class="tag">&lt;incode-mavenmixin.version&gt;</span>1.15.1.1<span class="tag">&lt;/incode-mavenmixin.version&gt;</span>
+    ...
+<span class="tag">&lt;/properties&gt;</span></code></pre> 
+          </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Commit these changes.</p> 
          </div> 
          <div class="admonitionblock note"> 
           <table> 
@@ -575,6 +637,27 @@ sh ../release-deploy.sh \
 git push</code></pre> 
            </div> 
           </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_update_the_website">Update the website</h3> 
+         <div class="paragraph"> 
+          <p>Update the website, in particular:</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>running the archetype</p> 
+            <div class="ulist"> 
+             <ul> 
+              <li> <p>home page</p> </li> 
+              <li> <p>quickstart page</p> </li> 
+             </ul> 
+            </div> </li> 
+           <li> <p>change log</p> </li> 
+          </ul> 
+         </div> 
+         <div class="paragraph"> 
+          <p>and republish.</p> 
          </div> 
         </div> 
        </div> 

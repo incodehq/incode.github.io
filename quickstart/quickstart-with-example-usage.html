@@ -256,7 +256,7 @@ table.CodeRay td.code>pre{padding:0}
        <h2 id="__quickstart-with-example-usage_including-the-example-modules">Including the Example Modules</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>To include the modules that demonstrate usage of the platform modules, just uncomment the relevant blocks surrounded by these words:</p> 
+         <p>To include the modules that demonstrate usage of the platform modules, just uncomment the blocks surrounded by these words:</p> 
         </div> 
         <div class="listingblock"> 
          <div class="content"> 
@@ -272,7 +272,17 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
         </div> 
         <div class="paragraph"> 
-         <p>You should find there are three such blocks in the various <code>pom.xml</code> files.</p> 
+         <p>The files that need updating are:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><code>pom.xml</code></p> </li> 
+          <li> <p><code>webapp/pom.xml</code></p> </li> 
+          <li> <p><code>appdefn/src/main/java/domainapp/appdefn/DomainAppAppManifestWithFlywayEnabledForSqlServer.java</code></p> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>We recommend you <a href="quickstart.html#_quickstart_running_ide">load the application into an IDE</a> to easily do this search-and-replace.</p> 
         </div> 
         <div class="paragraph"> 
          <p>If you’ve included (uncommented) these example usage modules, then you will be able to run the application with an specific `AppManifest`s to demonstrate the usage of each. These are documented in the sections <a href="#__quickstart-with-example-usage_modules">below</a>.</p> 
