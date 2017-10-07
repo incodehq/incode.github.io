@@ -352,7 +352,7 @@ table.CodeRay td.code>pre{padding:0}
           <li> <p>It’s quite common to factor out base/abstract classes to remove boilerplate, or to hold utility classes. The <code>quickstart-module-base</code> module is an ideal place for this, intended as a base module that all business modules will depend upon. It is also where the example <a href="../modules/ext/togglz/ext-togglz.html">togglz</a> feature toggle <code>enum</code> class resides.</p> </li> 
           <li> <p>The <code>quickstart-appdefn</code> module holds the application’s implementation of the <a href="http://isis.apache.org/guides/rgcms/rgcms.html#_rgcms_classes_AppManifest-bootstrapping">AppManifest</a> interface, which defines the modules that make up the application. The quickstart’s implementation is <code>domainapp.appdefn.DomainAppAppManifest</code>.<br></p> 
            <div class="paragraph"> 
-            <p>It’s also a useful place to define fixtures for demoing prototypes to the business, aw well as supporting services that might be needed to help configure modules. The quickstart includes implementations of services for both the <a href="../modules/spi/security/spi-security.html">security spi</a> module and the <a href="../modules/ext/security/ext-togglz.html">togglz</a> (feature toggle) module.</p> 
+            <p>It’s also a useful place to define fixtures for demoing prototypes to the business, as well as supporting services that might be needed to help configure modules. The quickstart includes implementations of services for both the <a href="../modules/spi/security/spi-security.html">security spi</a> module and the <a href="../modules/ext/security/ext-togglz.html">togglz</a> (feature toggle) module.</p> 
            </div> </li> 
           <li> <p>Finally, the <code>quickstart-webapp</code> module is what packages up the application as a <code>.war</code> file (the <code>WEB-INF/web.xml</code> shown in the diagram actually lives in this module). There’s very little Java code in this module: the most significant class is <code>DomainAppWicketApplication</code> (extends <code>IsisWicketApplication</code>), required by the <a href="http://isis.apache.org/guides/ugvw/ugvw.html">Wicket viewer</a>.</p> </li> 
          </ul> 
@@ -590,7 +590,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>In the quickstart app, the plugin is configured to run in the <code>appdefn</code> module (so providing a single spec for the entire app). The configuration is done using the <em>isis-swagger</em> mavenmixin, discussed <a href="#_quickstart_maven-mixins">below</a>.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>Generating the swagger spec does require bootstrapping the application, so will lengthen the overall build time. If reuired, the swagger generation can be skipped using <code>-Dskip.isis-swagger</code>.</p> 
+          <p>Generating the swagger spec does require bootstrapping the application, so will lengthen the overall build time. If required, the swagger generation can be skipped using <code>-Dskip.isis-swagger</code>.</p> 
          </div> 
          <div class="paragraph"> 
           <p>When run, it generates swagger files in <code>target/generated-resources/isis-swagger</code>, relative to module that configures the plugin.</p> 
@@ -1174,7 +1174,7 @@ securityManager.authenticator.authenticationStrategy = $authenticationStrategy</
           </ul>
          </div> 
          <div class="paragraph"> 
-          <p>The <a href="../modules/ext/sessionlogger/ext-sessionlogger.html">session logger</a> module records each user session as the user logs in or logs out (or is timed out automatically).</p> 
+          <p>The <a href="../modules/spi/sessionlogger/spi-sessionlogger.html">session logger</a> module records each user session as the user logs in or logs out (or is timed out automatically).</p> 
          </div> 
          <div class="paragraph"> 
           <p>The session logger menu items are on the <em>Activity</em> menu:</p> 
@@ -1431,7 +1431,7 @@ isis.services.PublisherServiceUsingActiveMq.memberInteractionsQueue=\
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>Using the <a href="http:http://hawt.io">hawt.io</a> console we can monitor the messages sent to the ActiveMQ message. Download the hawt.io JAR file and start using:</p> 
+          <p>Using the <a href="http://hawt.io">hawt.io</a> console we can monitor the messages sent to the ActiveMQ message. Download the hawt.io JAR file and start using:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 

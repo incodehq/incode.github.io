@@ -1200,7 +1200,7 @@ isisModuleSecurityRealm.delegateAuthenticationRealm=$someOtherRealm</code></pre>
         <div class="sect2"> 
          <h3 id="_bootstrapping">Bootstrapping</h3> 
          <div class="paragraph"> 
-          <p>In the <code>AppManifest</code>, update its <code>getModules()</code> method and <code>getAdditionalServices()</code> method, eg:</p> 
+          <p>If implementing <code>AppManifest</code> interface directly, then update its <code>getModules()</code> method and <code>getAdditionalServices()</code> method, eg:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
@@ -1233,6 +1233,26 @@ isisModuleSecurityRealm.delegateAuthenticationRealm=$someOtherRealm</code></pre>
             </tr> 
            </tbody>
           </table> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Or, if using 1.15.x or later, you can subclass from <code>AppManifestAbstract</code> and use the <code>AppManifestAbstract.Builder</code>, by calling <code>withModules()</code> and <code>withAdditionalServices()</code>, eg:</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">MyAppManifest</span> <span class="directive">extends</span> AppManifestAbstract {
+
+    <span class="directive">public</span> <span class="directive">static</span> <span class="directive">final</span> Builder BUILDER = Builder.forModules(
+            ...
+            org.isisaddons.module.security.SecurityModule.class,
+    )
+    .withAdditionalServices(
+            org.isisaddons.module.security.dom.password.PasswordEncryptionServiceUsingJBcrypt.class
+           ,org.isisaddons.module.security.dom.permission.PermissionsEvaluationServiceAllowBeatsVeto.class
+    )
+
+    ...
+}</code></pre> 
+          </div> 
          </div> 
          <div class="paragraph"> 
           <p>There is further discussion of the <code>PasswordEncryptionService</code> and <code>PermissionsEvaluationService</code> below.</p> 
