@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -233,7 +231,7 @@ table.CodeRay td.code>pre{padding:0}
        <h2 id="_build_process">Build process</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>To build the platform, see the <a href="contributors-guide.html">contributors' guide</a>.</p> 
+         <p>To build the platform, see the <a href="../contributors-guide/contributors-guide.html">contributors' guide</a>.</p> 
         </div> 
        </div> 
       </div> 
@@ -261,8 +259,8 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.1
-export INCODENEXT=1.16.0-SNAPSHOT
+           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.16.0
+export INCODENEXT=2.0.0-M1-SNAPSHOT
 
 env | grep ^INCODE</code></pre> 
           </div> 
@@ -285,7 +283,7 @@ env | grep ^INCODE</code></pre>
             <div class="listingblock"> 
              <div class="content"> 
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.16.0<span class="tag">&lt;/isis.version&gt;</span>
     ...
 <span class="tag">&lt;/properties&gt;</span></code></pre> 
              </div> 
@@ -297,7 +295,7 @@ env | grep ^INCODE</code></pre>
             <div class="listingblock"> 
              <div class="content"> 
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.16.0<span class="tag">&lt;/isis.version&gt;</span>
     ...
 <span class="tag">&lt;/properties&gt;</span></code></pre> 
              </div> 
@@ -403,8 +401,8 @@ popd</code></pre>
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
-    <span class="tag">&lt;incode-mavenmixin.version&gt;</span>1.15.1.1<span class="tag">&lt;/incode-mavenmixin.version&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.16.0<span class="tag">&lt;/isis.version&gt;</span>
+    <span class="tag">&lt;incode-mavenmixin.version&gt;</span>1.16.0<span class="tag">&lt;/incode-mavenmixin.version&gt;</span>
     ...
 <span class="tag">&lt;/properties&gt;</span></code></pre> 
           </div> 
@@ -459,8 +457,8 @@ popd</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.1
-export INCODENEXT=1.16.0-SNAPSHOT
+           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.16.0
+export INCODENEXT=2.0.0-M1-SNAPSHOT
 
 env | grep ^INCODE</code></pre> 
           </div> 
@@ -484,7 +482,7 @@ env | grep ^INCODE</code></pre>
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;parent&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.incode<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>incode-parent<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.15.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.16.0<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;relativePath</span><span class="tag">/&gt;</span>
 <span class="tag">&lt;/parent&gt;</span></code></pre> 
              </div> 
@@ -493,14 +491,10 @@ env | grep ^INCODE</code></pre>
             <div class="listingblock"> 
              <div class="content"> 
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.15.1<span class="tag">&lt;/isis.version&gt;</span>
+    <span class="tag">&lt;isis.version&gt;</span>1.16.0<span class="tag">&lt;/isis.version&gt;</span>
     ...
 <span class="tag">&lt;/properties&gt;</span></code></pre> 
              </div> 
-            </div> </li> 
-           <li> <p>Finally, ensure that the optional modules are <strong>commented in</strong>.</p> 
-            <div class="paragraph"> 
-             <p>Search for the phrase <em>"Uncomment to include example modules"</em></p> 
             </div> </li> 
           </ul> 
          </div> 
@@ -557,7 +551,7 @@ popd</code></pre>
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
-            <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.15.1
+            <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.16.0
 export INCODETMP=/c/tmp    # or as required
 export INCODEART=quickstart
 env | grep INCODE | sort</code></pre> 
@@ -782,7 +776,7 @@ popd</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">sh preview-html.sh</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">sh preview-pdf.sh</code></pre> 
           </div> 
          </div> 
         </div> 

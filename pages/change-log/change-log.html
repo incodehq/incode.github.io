@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -268,6 +266,50 @@ table.CodeRay td.code>pre{padding:0}
           </tr> 
          </thead> 
          <tbody> 
+          <tr> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>1.16.0</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Y</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Y</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Y</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>1.16.0</p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-left valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p>Updates to Apache Isis 1.16.0.</p> 
+             </div> 
+             <div class="paragraph"> 
+              <p>Generic subdomains renamed as "example subdomains"</p> 
+             </div> 
+             <div class="paragraph"> 
+              <p>Quickstart archetype simplified (removed spring and extended example appdefn/dom)</p> 
+             </div>
+            </div></td> 
+          </tr> 
           <tr> 
            <td class="tableblock halign-center valign-top">
             <div>
@@ -438,7 +480,7 @@ table.CodeRay td.code>pre{padding:0}
            <td class="tableblock halign-left valign-top">
             <div>
              <div class="paragraph"> 
-              <p>First release as a single platform.</p> 
+              <p>First release as a single platform, against Apache Isis 1.15.0.</p> 
              </div> 
              <div class="paragraph"> 
               <p>Includes all the modules previously available via <a href="http://www.isisaddons.org">Isis Addons</a> and <a href="http://catalog.incode.org">Incode Catalog</a>, mavenmixins (for isis:validate and isis:swagger).</p> 
@@ -473,248 +515,6 @@ table.CodeRay td.code>pre{padding:0}
           <li> <p>1.13.2 - updated Isis 1.13.2, also includes mavenmixin-docker, and removes the versions for isisaddons and incodehq modules (to avoid a circular dependency)</p> </li> 
           <li> <p>1.13.1 - initial version against Isis 1.13.1</p> </li> 
          </ul> 
-        </div> 
-       </div> 
-      </div> 
-      <div class="sect1"> 
-       <h2 id="dom">Generic Subdomains</h2> 
-       <div class="sectionbody"> 
-        <div class="sect2"> 
-         <h3 id="_dom_alias">Alias Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0; removed the <code>Aliasable</code> interface (to completely decouple the "aliased" domain object from this module); removed dependency on poly module, instead using the (broadly equivalent) new <code>SubtypeProvider</code> SPI; combined <code>Alias</code> and <code>AliasLink</code> into a single entity; added in the ability to override the title, icon and CSS of <code>Alias</code> objects; using <code>.layout.xml</code> for layouts.</p> </li> 
-           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
-           <li> <p><code>1.11.1</code> - released against Isis 1.11.1.</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_classification">Classification Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.13.1</code> - released against Isis 1.13.1, closes <a href="https://github.com/incodehq/incode-module-classification/issues/1">#1</a>.</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_commchannel">Communication Channel Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0; removed the <code>CommunicationChannelOwner</code> interface and changed implementation to remove dependency on the <a href="http://github.com/isisaddons/isis-module-poly">Isis addons' poly</a> module; also uses <code>.layout.xml</code> for layouts</p> </li> 
-           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
-           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
-           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_communications">Communications Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p>`1.14.7 - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/17">#17</a> (Document_sendByEmail mixin throws exception instead of disabling if no template)</p> </li> 
-           <li> <p>`1.14.6 - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/16">#16</a> (communication subject name)</p> </li> 
-           <li> <p><code>1.14.5</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/15">#15</a> (renames <code>Communication#queuedAt</code> to <code>createdAt</code>, always populated so no longer nullable)</p> 
-            <div class="admonitionblock note"> 
-             <table> 
-              <tbody>
-               <tr> 
-                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-                <td class="content"> 
-                 <div class="paragraph"> 
-                  <p>This release is not backwardly compatible with previous release, and requires a schema DB migration.</p> 
-                 </div> </td> 
-               </tr> 
-              </tbody>
-             </table> 
-            </div> </li> 
-           <li> <p><code>1.14.4</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/14">#14</a> (findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween query)</p> </li> 
-           <li> <p><code>1.14.3</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/8">#8</a> (extend cc2,cc3,bcc2); <a href="https://github.com/incodehq/incode-module-communications/issues/9">#9</a> (use <a href="https://github.com/incodehq/incode-module-document">document</a> module SPI); <a href="https://github.com/incodehq/incode-module-communications/issues/10">#10</a> (find/recent docs for channel); <a href="https://github.com/incodehq/incode-module-communications/issues/11">#11</a> (mixin names); <a href="https://github.com/incodehq/incode-module-communications/issues/12">#12</a> (primary doc); <a href="https://github.com/incodehq/incode-module-communications/issues/13">#13</a> (find/recent docs for channel owner); references <a href="https://github.com/incodehq/incode-module-document">document</a> module v1.14.6</p> </li> 
-           <li> <p><code>1.14.2</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/7">#7</a> (<code>DocumentCommunicationSupport</code>); references <a href="https://github.com/incodehq/incode-module-document">document</a> module v1.14.3</p> 
-            <div class="admonitionblock note"> 
-             <table> 
-              <tbody>
-               <tr> 
-                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-                <td class="content"> 
-                 <div class="paragraph"> 
-                  <p>This release is not backwardly compatible with previous release.</p> 
-                 </div> </td> 
-               </tr> 
-              </tbody>
-             </table> 
-            </div> </li> 
-           <li> <p><code>1.14.1</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/1">#1</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/2">#2</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/3">#3</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/4">#4</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/5">#5</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/6">#6</a>; references <a href="https://github.com/incodehq/incode-module-document">document</a> module v1.14.2</p> </li> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.2, extracted from Estatio codebase</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_country">Country Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.1</code> - fixes <a href="https://github.com/incodehq/incode-module-country/issues/1">#1</a>, <a href="https://github.com/incodehq/incode-module-country/issues/2">#2</a>, <a href="https://github.com/incodehq/incode-module-country/issues/3">#3</a></p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_docfragment">Document Fragment Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.3</code> - fixes <a href="https://github.com/incodehq/incode-module-docfragment/issues/5">#5</a> - changeTemplateText action</p> </li> 
-           <li> <p><code>1.13.2</code> - fixes <a href="https://github.com/incodehq/incode-module-docfragment/issues/2">#2</a>, <a href="https://github.com/incodehq/incode-module-docfragment/issues/3">#3</a>, <a href="https://github.com/incodehq/incode-module-docfragment/issues/4">#4</a>. Note that there is a minor breakage in backward compatibility (<code>ApplicationTenancyService</code> no longer defines the <code>atPaths()</code> method.</p> </li> 
-           <li> <p><code>1.13.1</code> - fixes <a href="https://github.com/incodehq/incode-module-docfragment/issues/1">#1</a> (update to use <a href="https://github.com/incodehq/incode-module-fixturesupport">fixturesupport</a> 1.13.1)</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.2</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_document">Document Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.9</code> - , <a href="https://github.com/incodehq/incode-module-document/issues/27">#26</a> (JAXB support)</p> </li> 
-           <li> <p><code>1.14.8</code> - , <a href="https://github.com/incodehq/incode-module-document/issues/25">#25</a> (DocumentService), <a href="https://github.com/incodehq/incode-module-document/issues/26">#26</a> (find docs with no paperclips)</p> </li> 
-           <li> <p><code>1.14.7</code> - <a href="https://github.com/incodehq/incode-module-document/issues/24">#24</a> (remove SQL Server-specific mapping for clobChars)</p> </li> 
-           <li> <p><code>1.14.6</code> - <a href="https://github.com/incodehq/incode-module-document/issues/21">#21</a> (remove attachments), <a href="https://github.com/incodehq/incode-module-document/issues/22">#22</a> (<code>PaperclipForDocument.attachedToId</code> column), <a href="https://github.com/incodehq/incode-module-document/issues/23">#23</a> (<code>_supports</code> mixin)</p> 
-            <div class="admonitionblock note"> 
-             <table> 
-              <tbody>
-               <tr> 
-                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-                <td class="content"> 
-                 <div class="paragraph"> 
-                  <p>This release is not backwardly compatible with previous release (change to <code>SupportingDocumentEvaluator</code>) and also requires a database migration (the <code>PaperclipForDocument</code> table’s <code>communicationId</code> column has been renamed to be called <code>attachedToId</code>).</p> 
-                 </div> </td> 
-               </tr> 
-              </tbody>
-             </table> 
-            </div> </li> 
-           <li> <p><code>1.14.5</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/20">#20</a> (<code>SupportingDocumentEvaluator</code>).</p> </li> 
-           <li> <p><code>1.14.4</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/19">#19</a> (<code>AttachmentAdvisor</code>).<br></p> 
-            <div class="admonitionblock note"> 
-             <table> 
-              <tbody>
-               <tr> 
-                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-                <td class="content"> 
-                 <div class="paragraph"> 
-                  <p>This release is not backwardly compatible with previous release.</p> 
-                 </div> </td> 
-               </tr> 
-              </tbody>
-             </table> 
-            </div> </li> 
-           <li> <p><code>1.14.3</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/18">#18</a></p> </li> 
-           <li> <p><code>1.14.2</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/14">#14</a>, <a href="https://github.com/incodehq/incode-module-document/issues/15">#15</a>, <a href="https://github.com/incodehq/incode-module-document/issues/16">#16</a>, <a href="https://github.com/incodehq/incode-module-document/issues/17">#17</a></p> </li> 
-           <li> <p><code>1.14.1</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/13">#13</a></p> </li> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.12</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/12">#12</a> (remove <code>Paperclip_delete()</code> action).</p> </li> 
-           <li> <p><code>1.13.11</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/9">#9</a>, <a href="https://github.com/incodehq/incode-module-document/issues/10">#10</a>, <a href="https://github.com/incodehq/incode-module-document/issues/11">#11</a>.</p> </li> 
-           <li> <p><code>1.13.10</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/3">#3</a>, <a href="https://github.com/incodehq/incode-module-document/issues/4">#4</a>, <a href="https://github.com/incodehq/incode-module-document/issues/5">#5</a>, <a href="https://github.com/incodehq/incode-module-document/issues/6">#6</a>, <a href="https://github.com/incodehq/incode-module-document/issues/7">#7</a>, <a href="https://github.com/incodehq/incode-module-document/issues/8">#8</a>. <br></p> 
-            <div class="admonitionblock note"> 
-             <table> 
-              <tbody>
-               <tr> 
-                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-                <td class="content"> 
-                 <div class="paragraph"> 
-                  <p>This release is not backwardly compatible with previous release</p> 
-                 </div> </td> 
-               </tr> 
-              </tbody>
-             </table> 
-            </div> </li> 
-           <li> <p><code>1.13.6</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/2">#2</a></p> </li> 
-           <li> <p><code>1.13.5</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/1">#1</a>, with various additional extensions to functionality. <br></p> 
-            <div class="admonitionblock note"> 
-             <table> 
-              <tbody>
-               <tr> 
-                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-                <td class="content"> 
-                 <div class="paragraph"> 
-                  <p>This release is not backwardly compatible with previous release</p> 
-                 </div> </td> 
-               </tr> 
-              </tbody>
-             </table> 
-            </div> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_note">Note Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0; removed the <code>Notable</code> interface and changed implementation to remove dependency on the <a href="http://github.com/isisaddons/isis-module-poly">Isis addons' poly</a>; also uses <code>.layout.xml</code> for layouts</p> </li> 
-           <li> <p><code>1.12.1</code> - released against Isis 1.12.1, fixes #4.</p> </li> 
-           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
-           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
-           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
-           <li> <p><code>1.9.0</code> - released against Isis 1.9.0</p> </li> 
-          </ul> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_settings">Settings Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
-           <li> <p><code>1.12.1</code> - released against Isis 1.12.1</p> </li> 
-           <li> <p><code>1.12.0</code> - (no release)</p> </li> 
-           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
-           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
-           <li> <p><code>1.9.0</code> - released against Isis 1.9.0</p> </li> 
-           <li> <p><code>1.8.0</code> - released against Isis 1.8.0. Services are automatically registered; their UI can be suppressed using subscriptions.</p> </li> 
-           <li> <p><code>1.7.0</code> - released against Isis 1.7.0</p> </li> 
-           <li> <p><code>1.6.0</code> - re-released as part of isisaddons, with classes under package <code>org.isisaddons.module.settings</code></p> </li> 
-          </ul> 
-         </div> 
-         <div class="sect3"> 
-          <h4 id="_relationship_to_apache_isis_core">Relationship to Apache Isis Core</h4> 
-          <div class="paragraph"> 
-           <p>Apache Isis Core 1.6.0 included the <code>org.apache.isis.module:isis-module-settings:1.6.0</code> Maven artifact (and its submodules, <code>isis-module-settings-applib</code> and <code>isis-module-settings-impl-jdo</code>. This module is a direct copy of that code, with the following changes:</p> 
-          </div> 
-          <div class="ulist"> 
-           <ul> 
-            <li> <p>package names have been altered from <code>org.apache.isis</code> to <code>org.isisaddons.module.settings</code></p> </li> 
-            <li> <p>the <code>persistent-unit</code> (in the JDO manifest) has changed from <code>isis-module-settings</code> to <code>org-isisaddons-module-settings-dom</code></p> </li> 
-            <li> <p>for simplicity, the applib and impl submodules have been combined into a single module</p> </li> 
-           </ul> 
-          </div> 
-          <div class="paragraph"> 
-           <p>Otherwise the functionality is identical; warts and all!</p> 
-          </div> 
-          <div class="paragraph"> 
-           <p>Isis 1.7.0 no longer ships with <code>org.apache.isis.module:isis-module-settings</code>; instead use this addon module.</p> 
-          </div> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_dom_tags">Tags Subdomain</h3> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
-           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
-           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
-           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
-           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
-           <li> <p><code>1.9.0</code> - released against Isis 1.9.0</p> </li> 
-           <li> <p><code>1.8.0</code> - released against Isis 1.8.0</p> </li> 
-           <li> <p><code>1.7.0</code> - released against Isis 1.7.0</p> </li> 
-           <li> <p><code>1.6.0</code> - first release, with classes under package <code>org.isisaddons.module.tags</code></p> </li> 
-          </ul> 
-         </div> 
         </div> 
        </div> 
       </div> 
@@ -1056,7 +856,7 @@ go</code></pre>
           </div> 
          </div> 
          <div class="sect3"> 
-          <h4 id="_relationship_to_apache_isis_core_2">Relationship to Apache Isis Core</h4> 
+          <h4 id="_relationship_to_apache_isis_core">Relationship to Apache Isis Core</h4> 
           <div class="paragraph"> 
            <p>Apache Isis Core 1.6.0 included the <code>org.apache.isis.module:isis-module-audit-jdo:1.6.0</code> Maven artifact. This module is a direct copy of that code, with the following changes:</p> 
           </div> 
@@ -1095,7 +895,7 @@ go</code></pre>
           </ul> 
          </div> 
          <div class="sect3"> 
-          <h4 id="_relationship_to_apache_isis_core_3">Relationship to Apache Isis Core</h4> 
+          <h4 id="_relationship_to_apache_isis_core_2">Relationship to Apache Isis Core</h4> 
           <div class="paragraph"> 
            <p>Isis Core 1.6.0 included the <code>org.apache.isis.module:isis-module-command-jdo:1.6.0</code> Maven artifact. This module is a direct copy of that code, with the following changes:</p> 
           </div> 
@@ -1258,6 +1058,248 @@ go</code></pre>
            <li> <p><code>1.8.0</code> - released against Isis 1.8.0</p> </li> 
            <li> <p><code>1.7.0</code> - released against Isis 1.7.0</p> </li> 
            <li> <p><code>1.6.0</code> - re-released as part of isisaddons, changed package names for API to <code>org.isisaddons.wicket.wickedcharts</code></p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="dom">Example Subdomains</h2> 
+       <div class="sectionbody"> 
+        <div class="sect2"> 
+         <h3 id="_dom_alias">Alias Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0; removed the <code>Aliasable</code> interface (to completely decouple the "aliased" domain object from this module); removed dependency on poly module, instead using the (broadly equivalent) new <code>SubtypeProvider</code> SPI; combined <code>Alias</code> and <code>AliasLink</code> into a single entity; added in the ability to override the title, icon and CSS of <code>Alias</code> objects; using <code>.layout.xml</code> for layouts.</p> </li> 
+           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
+           <li> <p><code>1.11.1</code> - released against Isis 1.11.1.</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_classification">Classification Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.13.1</code> - released against Isis 1.13.1, closes <a href="https://github.com/incodehq/incode-module-classification/issues/1">#1</a>.</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_commchannel">Communication Channel Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0; removed the <code>CommunicationChannelOwner</code> interface and changed implementation to remove dependency on the <a href="http://github.com/isisaddons/isis-module-poly">Isis addons' poly</a> module; also uses <code>.layout.xml</code> for layouts</p> </li> 
+           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
+           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
+           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_communications">Communications Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>`1.14.7 - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/17">#17</a> (Document_sendByEmail mixin throws exception instead of disabling if no template)</p> </li> 
+           <li> <p>`1.14.6 - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/16">#16</a> (communication subject name)</p> </li> 
+           <li> <p><code>1.14.5</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/15">#15</a> (renames <code>Communication#queuedAt</code> to <code>createdAt</code>, always populated so no longer nullable)</p> 
+            <div class="admonitionblock note"> 
+             <table> 
+              <tbody>
+               <tr> 
+                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+                <td class="content"> 
+                 <div class="paragraph"> 
+                  <p>This release is not backwardly compatible with previous release, and requires a schema DB migration.</p> 
+                 </div> </td> 
+               </tr> 
+              </tbody>
+             </table> 
+            </div> </li> 
+           <li> <p><code>1.14.4</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/14">#14</a> (findByCommunicationChannelAndPendingOrQueuedBetweenOrSentBetween query)</p> </li> 
+           <li> <p><code>1.14.3</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/8">#8</a> (extend cc2,cc3,bcc2); <a href="https://github.com/incodehq/incode-module-communications/issues/9">#9</a> (use <a href="https://github.com/incodehq/incode-module-document">document</a> module SPI); <a href="https://github.com/incodehq/incode-module-communications/issues/10">#10</a> (find/recent docs for channel); <a href="https://github.com/incodehq/incode-module-communications/issues/11">#11</a> (mixin names); <a href="https://github.com/incodehq/incode-module-communications/issues/12">#12</a> (primary doc); <a href="https://github.com/incodehq/incode-module-communications/issues/13">#13</a> (find/recent docs for channel owner); references <a href="https://github.com/incodehq/incode-module-document">document</a> module v1.14.6</p> </li> 
+           <li> <p><code>1.14.2</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/7">#7</a> (<code>DocumentCommunicationSupport</code>); references <a href="https://github.com/incodehq/incode-module-document">document</a> module v1.14.3</p> 
+            <div class="admonitionblock note"> 
+             <table> 
+              <tbody>
+               <tr> 
+                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+                <td class="content"> 
+                 <div class="paragraph"> 
+                  <p>This release is not backwardly compatible with previous release.</p> 
+                 </div> </td> 
+               </tr> 
+              </tbody>
+             </table> 
+            </div> </li> 
+           <li> <p><code>1.14.1</code> - fixes <a href="https://github.com/incodehq/incode-module-communications/issues/1">#1</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/2">#2</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/3">#3</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/4">#4</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/5">#5</a>, <a href="https://github.com/incodehq/incode-module-communications/issues/6">#6</a>; references <a href="https://github.com/incodehq/incode-module-document">document</a> module v1.14.2</p> </li> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.2, extracted from Estatio codebase</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_country">Country Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.1</code> - fixes <a href="https://github.com/incodehq/incode-module-country/issues/1">#1</a>, <a href="https://github.com/incodehq/incode-module-country/issues/2">#2</a>, <a href="https://github.com/incodehq/incode-module-country/issues/3">#3</a></p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_docfragment">Document Fragment Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.3</code> - fixes <a href="https://github.com/incodehq/incode-module-docfragment/issues/5">#5</a> - changeTemplateText action</p> </li> 
+           <li> <p><code>1.13.2</code> - fixes <a href="https://github.com/incodehq/incode-module-docfragment/issues/2">#2</a>, <a href="https://github.com/incodehq/incode-module-docfragment/issues/3">#3</a>, <a href="https://github.com/incodehq/incode-module-docfragment/issues/4">#4</a>. Note that there is a minor breakage in backward compatibility (<code>ApplicationTenancyService</code> no longer defines the <code>atPaths()</code> method.</p> </li> 
+           <li> <p><code>1.13.1</code> - fixes <a href="https://github.com/incodehq/incode-module-docfragment/issues/1">#1</a> (update to use <a href="https://github.com/incodehq/incode-module-fixturesupport">fixturesupport</a> 1.13.1)</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.2</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_document">Document Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.9</code> - , <a href="https://github.com/incodehq/incode-module-document/issues/27">#26</a> (JAXB support)</p> </li> 
+           <li> <p><code>1.14.8</code> - , <a href="https://github.com/incodehq/incode-module-document/issues/25">#25</a> (DocumentService), <a href="https://github.com/incodehq/incode-module-document/issues/26">#26</a> (find docs with no paperclips)</p> </li> 
+           <li> <p><code>1.14.7</code> - <a href="https://github.com/incodehq/incode-module-document/issues/24">#24</a> (remove SQL Server-specific mapping for clobChars)</p> </li> 
+           <li> <p><code>1.14.6</code> - <a href="https://github.com/incodehq/incode-module-document/issues/21">#21</a> (remove attachments), <a href="https://github.com/incodehq/incode-module-document/issues/22">#22</a> (<code>PaperclipForDocument.attachedToId</code> column), <a href="https://github.com/incodehq/incode-module-document/issues/23">#23</a> (<code>_supports</code> mixin)</p> 
+            <div class="admonitionblock note"> 
+             <table> 
+              <tbody>
+               <tr> 
+                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+                <td class="content"> 
+                 <div class="paragraph"> 
+                  <p>This release is not backwardly compatible with previous release (change to <code>SupportingDocumentEvaluator</code>) and also requires a database migration (the <code>PaperclipForDocument</code> table’s <code>communicationId</code> column has been renamed to be called <code>attachedToId</code>).</p> 
+                 </div> </td> 
+               </tr> 
+              </tbody>
+             </table> 
+            </div> </li> 
+           <li> <p><code>1.14.5</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/20">#20</a> (<code>SupportingDocumentEvaluator</code>).</p> </li> 
+           <li> <p><code>1.14.4</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/19">#19</a> (<code>AttachmentAdvisor</code>).<br></p> 
+            <div class="admonitionblock note"> 
+             <table> 
+              <tbody>
+               <tr> 
+                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+                <td class="content"> 
+                 <div class="paragraph"> 
+                  <p>This release is not backwardly compatible with previous release.</p> 
+                 </div> </td> 
+               </tr> 
+              </tbody>
+             </table> 
+            </div> </li> 
+           <li> <p><code>1.14.3</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/18">#18</a></p> </li> 
+           <li> <p><code>1.14.2</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/14">#14</a>, <a href="https://github.com/incodehq/incode-module-document/issues/15">#15</a>, <a href="https://github.com/incodehq/incode-module-document/issues/16">#16</a>, <a href="https://github.com/incodehq/incode-module-document/issues/17">#17</a></p> </li> 
+           <li> <p><code>1.14.1</code> - fixes <a href="https://github.com/incodehq/incode-module-document/issues/13">#13</a></p> </li> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.12</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/12">#12</a> (remove <code>Paperclip_delete()</code> action).</p> </li> 
+           <li> <p><code>1.13.11</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/9">#9</a>, <a href="https://github.com/incodehq/incode-module-document/issues/10">#10</a>, <a href="https://github.com/incodehq/incode-module-document/issues/11">#11</a>.</p> </li> 
+           <li> <p><code>1.13.10</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/3">#3</a>, <a href="https://github.com/incodehq/incode-module-document/issues/4">#4</a>, <a href="https://github.com/incodehq/incode-module-document/issues/5">#5</a>, <a href="https://github.com/incodehq/incode-module-document/issues/6">#6</a>, <a href="https://github.com/incodehq/incode-module-document/issues/7">#7</a>, <a href="https://github.com/incodehq/incode-module-document/issues/8">#8</a>. <br></p> 
+            <div class="admonitionblock note"> 
+             <table> 
+              <tbody>
+               <tr> 
+                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+                <td class="content"> 
+                 <div class="paragraph"> 
+                  <p>This release is not backwardly compatible with previous release</p> 
+                 </div> </td> 
+               </tr> 
+              </tbody>
+             </table> 
+            </div> </li> 
+           <li> <p><code>1.13.6</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/2">#2</a></p> </li> 
+           <li> <p><code>1.13.5</code> - released against Isis 1.13.0. Fixes <a href="https://github.com/incodehq/incode-module-document/issues/1">#1</a>, with various additional extensions to functionality. <br></p> 
+            <div class="admonitionblock note"> 
+             <table> 
+              <tbody>
+               <tr> 
+                <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+                <td class="content"> 
+                 <div class="paragraph"> 
+                  <p>This release is not backwardly compatible with previous release</p> 
+                 </div> </td> 
+               </tr> 
+              </tbody>
+             </table> 
+            </div> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_note">Note Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0; removed the <code>Notable</code> interface and changed implementation to remove dependency on the <a href="http://github.com/isisaddons/isis-module-poly">Isis addons' poly</a>; also uses <code>.layout.xml</code> for layouts</p> </li> 
+           <li> <p><code>1.12.1</code> - released against Isis 1.12.1, fixes #4.</p> </li> 
+           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
+           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
+           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
+           <li> <p><code>1.9.0</code> - released against Isis 1.9.0</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_settings">Settings Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
+           <li> <p><code>1.12.1</code> - released against Isis 1.12.1</p> </li> 
+           <li> <p><code>1.12.0</code> - (no release)</p> </li> 
+           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
+           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
+           <li> <p><code>1.9.0</code> - released against Isis 1.9.0</p> </li> 
+           <li> <p><code>1.8.0</code> - released against Isis 1.8.0. Services are automatically registered; their UI can be suppressed using subscriptions.</p> </li> 
+           <li> <p><code>1.7.0</code> - released against Isis 1.7.0</p> </li> 
+           <li> <p><code>1.6.0</code> - re-released as part of isisaddons, with classes under package <code>org.isisaddons.module.settings</code></p> </li> 
+          </ul> 
+         </div> 
+         <div class="sect3"> 
+          <h4 id="_relationship_to_apache_isis_core_3">Relationship to Apache Isis Core</h4> 
+          <div class="paragraph"> 
+           <p>Apache Isis Core 1.6.0 included the <code>org.apache.isis.module:isis-module-settings:1.6.0</code> Maven artifact (and its submodules, <code>isis-module-settings-applib</code> and <code>isis-module-settings-impl-jdo</code>. This module is a direct copy of that code, with the following changes:</p> 
+          </div> 
+          <div class="ulist"> 
+           <ul> 
+            <li> <p>package names have been altered from <code>org.apache.isis</code> to <code>org.isisaddons.module.settings</code></p> </li> 
+            <li> <p>the <code>persistent-unit</code> (in the JDO manifest) has changed from <code>isis-module-settings</code> to <code>org-isisaddons-module-settings-dom</code></p> </li> 
+            <li> <p>for simplicity, the applib and impl submodules have been combined into a single module</p> </li> 
+           </ul> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Otherwise the functionality is identical; warts and all!</p> 
+          </div> 
+          <div class="paragraph"> 
+           <p>Isis 1.7.0 no longer ships with <code>org.apache.isis.module:isis-module-settings</code>; instead use this addon module.</p> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_dom_tags">Tags Subdomain</h3> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p><code>1.14.0</code> - released against Isis 1.14.0</p> </li> 
+           <li> <p><code>1.13.0</code> - released against Isis 1.13.0</p> </li> 
+           <li> <p><code>1.12.0</code> - released against Isis 1.12.0</p> </li> 
+           <li> <p><code>1.11.0</code> - released against Isis 1.11.0</p> </li> 
+           <li> <p><code>1.10.0</code> - released against Isis 1.10.0</p> </li> 
+           <li> <p><code>1.9.0</code> - released against Isis 1.9.0</p> </li> 
+           <li> <p><code>1.8.0</code> - released against Isis 1.8.0</p> </li> 
+           <li> <p><code>1.7.0</code> - released against Isis 1.7.0</p> </li> 
+           <li> <p><code>1.6.0</code> - first release, with classes under package <code>org.isisaddons.module.tags</code></p> </li> 
           </ul> 
          </div> 
         </div> 

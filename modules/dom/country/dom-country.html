@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -249,8 +247,8 @@ table.CodeRay td.code>pre{padding:0}
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
-    <span class="tag">&lt;groupId&gt;</span>org.incode.module.country<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>incode-module-country-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.incode.example.country<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>incode-example-country-dom<span class="tag">&lt;/artifactId&gt;</span>
     <span class="tag">&lt;version&gt;</span>1.14.0<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre> 
           </div> 
@@ -259,7 +257,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|incode-module-country-dom">Maven Central Repo</a>.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide/contributors-guide.html">contributors guide</a>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -273,7 +271,7 @@ table.CodeRay td.code>pre{padding:0}
 <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
     <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
             ...
-            org.incode.module.country.dom.CountryModule.class,
+            org.incode.example.country.dom.CountryModule.class,
     );
 }</code></pre> 
           </div> 

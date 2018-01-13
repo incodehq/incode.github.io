@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="./quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="./quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="./quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="./modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="./modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="./modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="./modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="./modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="./modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="./modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -241,7 +239,7 @@ table.CodeRay td.code>pre{padding:0}
           <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=1.15.1.1 \
+    -D archetypeVersion=1.16.0 \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
@@ -253,21 +251,6 @@ table.CodeRay td.code>pre{padding:0}
         </div> 
         <div class="paragraph"> 
          <p>The application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform, with <a href="modules/spi/audit/spi-audit.html">auditing</a>, <a href="modules/spi/command/spi-command.html">command</a> profiling, message <a href="modules/spi/publishmq/spi-publishmq.html">publishing</a>, <a href="modules/spi/security/spi-security.html">security</a>, <a href="modules/ext/flywaydb/ext-flywaydb.html">flywaydb</a>, <a href="modules/ext/quartz/ext-quartz.html">quartz</a> scheduler and (feature) <a href="modules/ext/togglz/ext-togglz.html">togglz</a> enabled by default. The application also configures the <em>Jolokia</em> servlet to allow consoles such as <em>hawt.io</em> to monitor the internal state of the webapp.</p> 
-        </div> 
-        <div class="paragraph"> 
-         <p>The generated application also includes example code to:</p> 
-        </div> 
-        <div class="ulist"> 
-         <ul> 
-          <li> <p><a href="quickstart/quickstart-with-embedded-camel.html">bootstrap</a> a <em>Spring Framework</em> context alongside the Apache Isis framework.</p> 
-           <div class="paragraph"> 
-            <p>This is configured to host an embedded <em>Apache Camel</em> instance to consume published messages.</p> 
-           </div> </li> 
-          <li> <p><a href="quickstart/quickstart-with-example-usage.html">demonstrate usage</a> of the various modules within the Incode Platform.</p> </li> 
-         </ul> 
-        </div> 
-        <div class="paragraph"> 
-         <p>These can be easily included or excluded just by commenting in/out small sections of code.</p> 
         </div> 
        </div> 
       </div> 
@@ -293,11 +276,10 @@ table.CodeRay td.code>pre{padding:0}
          <thead> 
           <tr> 
            <th class="tableblock halign-center valign-middle" colspan="2"><a href="modules/lib/lib.html"><em>Libraries</em></a></th> 
-           <th class="tableblock halign-center valign-middle"><a href="modules/dom/dom.html"><em>Generic Subdomains</em></a></th> 
            <th class="tableblock halign-center valign-middle"><a href="modules/spi/spi.html"><em>SPI<br> Implementations</em></a></th> 
            <th class="tableblock halign-center valign-middle"><a href="modules/wkt/wkt.html"><em>Wicket Components</em></a></th> 
-           <th class="tableblock halign-center valign-middle"><a href="modules/mml/mml.html"><em>Metamodel Facets</em></a></th> 
            <th class="tableblock halign-center valign-middle"><a href="modules/ext/ext.html"><em>Extensions</em></a></th> 
+           <th class="tableblock halign-center valign-middle" colspan="2"><a href="modules/dom/dom.html"><em>Example<br> Subdomains &amp; Libraries</em></a></th> 
           </tr> 
          </thead> 
          <tfoot> 
@@ -306,15 +288,6 @@ table.CodeRay td.code>pre{padding:0}
             <div>
              <div class="paragraph"> 
               <p><a href="modules/lib/base/lib-base.html">Base</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/lib/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker DocRendering</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">Stringinterpolator DoRendering</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/lib/docrendering-xdocreport/lib-docrendering-xdocreport.html">Xdocreport DocRendering</a></p> 
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/docx/lib-docx.html">Docx (MS Word)</a></p> 
@@ -330,13 +303,13 @@ table.CodeRay td.code>pre{padding:0}
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/freemarker/lib-freemarker.html">FreeMarker</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/lib/integtestsupport/lib-integtestsupport.html">IntegTesting Support</a></p> 
              </div>
             </div></td> 
            <td class="tableblock halign-center valign-top">
             <div>
-             <div class="paragraph"> 
-              <p><a href="modules/lib/integtestsupport/lib-integtestsupport.html">Integ Testing Support</a></p> 
-             </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/pdfbox/lib-pdfbox.html">PDFBox</a></p> 
              </div> 
@@ -354,39 +327,6 @@ table.CodeRay td.code>pre{padding:0}
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/xdocreport/lib-xdocreport.html">XDocReport</a></p> 
-             </div>
-            </div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div>
-             <div class="paragraph"> 
-              <p><a href="modules/dom/alias/dom-alias.html">Alias</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/classification/dom-classification.html">Classification</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/commchannel/dom-commchannel.html">Comm Channel</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/communications/dom-communications.html">Communications</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/country/dom-country.html">Country</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/docfragment/dom-docfragment.html">Doc Fragment</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/document/dom-document.html">Document</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/note/dom-note.html">Note</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/settings/dom-settings.html">Settings</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/tags/dom-tags.html">Tags</a></p> 
              </div>
             </div></td> 
            <td class="tableblock halign-center valign-top">
@@ -431,12 +371,6 @@ table.CodeRay td.code>pre{padding:0}
            <td class="tableblock halign-center valign-top">
             <div>
              <div class="paragraph"> 
-              <p><a href="modules/mml/paraname8/mml-paraname8.html">Paraname8</a></p> 
-             </div>
-            </div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div>
-             <div class="paragraph"> 
               <p><a href="modules/ext/flywaydb/ext-flywaydb.html">FlywayDB</a></p> 
              </div> 
              <div class="paragraph"> 
@@ -446,26 +380,53 @@ table.CodeRay td.code>pre{padding:0}
               <p><a href="modules/ext/togglz/ext-togglz.html">Togglz</a></p> 
              </div>
             </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><a href="modules/dom/alias/dom-alias.html">Alias</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/classification/dom-classification.html">Classification</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/commchannel/dom-commchannel.html">Comm Channel</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/communications/dom-communications.html">Communications</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/country/dom-country.html">Country</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/docfragment/dom-docfragment.html">Doc Fragment</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker DocRendering</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><a href="modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">Stringinterpolator DoRendering</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.html">Xdocreport DocRendering</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/document/dom-document.html">Document</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/note/dom-note.html">Note</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/settings/dom-settings.html">Settings</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/dom/tags/dom-tags.html">Tags</a></p> 
+             </div>
+            </div></td> 
           </tr> 
          </tfoot> 
-         <tbody> 
-          <tr> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div></div></td> 
-          </tr> 
-         </tbody> 
         </table> 
        </div> 
       </div> 

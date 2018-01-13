@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -233,12 +231,12 @@ table.CodeRay td.code>pre{padding:0}
         </div> 
         <div class="ulist"> 
          <ul> 
-          <li> <p><a href="http://freemarker.org/">Apache Freemarker</a> (using the <a href="../../lib/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker DocRendering library</a> module)</p> </li> 
-          <li> <p><a href="../../lib/stringinterpolator/lib-stringinterpolator.html">stringinterpolator</a> module to interpolate and download a URL (using the <a href="../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">StringInterpolator DocRendering</a> module).<br></p> 
+          <li> <p><a href="http://freemarker.org/">Apache Freemarker</a> (using the <a href="../../dom/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker DocRendering library</a> module)</p> </li> 
+          <li> <p><a href="../../lib/stringinterpolator/lib-stringinterpolator.html">stringinterpolator</a> module to interpolate and download a URL (using the <a href="../../dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">StringInterpolator DocRendering</a> module).<br></p> 
            <div class="paragraph"> 
             <p>This can be used to integrate with pre-existing reporting servers (for example Microsoft’s <a href="https://msdn.microsoft.com/en-us/library/ms159106.aspx">SQL Server Reporting Services</a>).</p> 
            </div> </li> 
-          <li> <p><a href="https://github.com/opensagres/xdocreport">XDocReport</a> (using the <a href="../../lib/docrendering-xdocreport/docrendering-xdocreport.html">XDocReport DocRendering</a> module).</p> </li> 
+          <li> <p><a href="https://github.com/opensagres/xdocreport">XDocReport</a> (using the <a href="../../dom/docrendering-xdocreport/docrendering-xdocreport.html">XDocReport DocRendering</a> module).</p> </li> 
          </ul> 
         </div> 
         <div class="paragraph"> 
@@ -293,7 +291,7 @@ table.CodeRay td.code>pre{padding:0}
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>Four example <code>DocumentType</code>s are set up, showcasing the four <code>RenderingStrategy</code>s provided by the <a href="../../lib/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker docrendering library</a>, <a href="../../lib/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">StringInterpolator docrendering library</a> and <a href="../../lib/docrendering-xdocreport/lib-docrendering-xdocreport.html">XDocReport docrendering library</a> modules:</p> 
+          <p>Four example <code>DocumentType</code>s are set up, showcasing the four <code>RenderingStrategy</code>s provided by the <a href="../../dom/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker docrendering library</a>, <a href="../../dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">StringInterpolator docrendering library</a> and <a href="../../dom/docrendering-xdocreport/lib-docrendering-xdocreport.html">XDocReport docrendering library</a> modules:</p> 
          </div> 
          <div class="imageblock"> 
           <div class="content"> 
@@ -425,7 +423,7 @@ table.CodeRay td.code>pre{padding:0}
              <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
              <td class="content"> 
               <div class="paragraph"> 
-               <p>While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in <a href="../../lib/docrendering-xdocreport/lib-docrendering-xdocreport.html">XDocReport docrendering library</a> module) allows only Freemarker to be used.</p> 
+               <p>While XDocReport itself as a technology supports both Freemarker and Velocity, the integration here (in <a href="../../dom/docrendering-xdocreport/lib-docrendering-xdocreport.html">XDocReport docrendering library</a> module) allows only Freemarker to be used.</p> 
               </div> </td> 
             </tr> 
            </tbody>
@@ -753,9 +751,9 @@ table.CodeRay td.code>pre{padding:0}
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
-    <span class="tag">&lt;groupId&gt;</span>org.incode.module.document<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>incode-module-document-dom<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.15.1.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.incode.example.document<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>incode-example-document-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.16.0<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre> 
           </div> 
          </div> 
@@ -763,7 +761,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|incode-module-document-dom">Maven Central Repo</a>.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide/contributors-guide.html">contributors guide</a>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -777,7 +775,7 @@ table.CodeRay td.code>pre{padding:0}
 <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
     <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
             ...
-            org.incode.module.document.dom.DocumentModule.class,
+            org.incode.example.document.dom.DocumentModule.class,
     );
 }</code></pre> 
           </div> 

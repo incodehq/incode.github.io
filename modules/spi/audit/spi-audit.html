@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -332,7 +330,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|isis-module-audit-dom">Maven Central Repo</a>.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide/contributors-guide.html">contributors guide</a>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -436,7 +434,7 @@ table.CodeRay td.code>pre{padding:0}
           <li> <p><code>transactionId</code> is a unique identifier (a GUID) of the transaction in which this audit entry was persisted.</p> </li> 
           <li> <p><code>timestamp</code> is the timestamp for the transaction</p> </li> 
           <li> <p><code>targetClass</code> holds the class of the audited object, eg <code>com.mycompany.myapp.Customer</code></p> </li> 
-          <li> <p><code>targetStr</code> stores a serialized form of the <code>Bookmark</code>, in other words a provides a mechanism to look up the audited object, eg <code>CUS:1234</code> to identify customer with id 1234. ("CUS" corresponds to the <code>@ObjectType</code> annotation/facet).</p> </li> 
+          <li> <p><code>targetStr</code> stores a serialized form of the <code>Bookmark</code>, in other words a provides a mechanism to look up the audited object, eg <code>CUS:1234</code> to identify customer with id 1234. ("CUS" corresponds to the <code>@DomainObject(objectType=…​)</code> annotation attribute).</p> </li> 
           <li> <p><code>memberIdentifier</code> is the fully-qualified class and property Id, similar to the way that Javadoc words, eg <code>com.mycompany.myapp.Customer#firstName</code></p> </li> 
           <li> <p><code>propertyId</code> is the property identifier, eg <code>firstName</code></p> </li> 
           <li> <p><code>preValue</code> holds a string representation of the property’s value prior to it being changed. If the object has been created then it holds the value "[NEW]". If the string is too long, it will be truncated with ellipses '…'.</p> </li> 

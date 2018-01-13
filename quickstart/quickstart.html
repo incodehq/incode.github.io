@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -233,18 +231,6 @@ table.CodeRay td.code>pre{padding:0}
         </div> 
         <div class="paragraph"> 
          <p>The application generated from the archetype is also preconfigured with the dependencies for all of the modules available in the Incode Platform, with <a href="../modules/spi/audit/spi-audit.html">auditing</a>, <a href="../modules/spi/command/spi-command.html">command</a> profiling, <a href="../modules/spi/security/spi-security.html">security</a>, <a href="../modules/ext/flywaydb/ext-flywaydb.html">flywaydb</a> and (feature) <a href="../modules/ext/togglz/ext-togglz.html">togglz</a> enabled by default. The application also configures the <em>Quartz scheduler</em> for background scheduling, and the <em>Jolokia</em> servlet, allowing consoles such as <em>hawt.io</em> to monitor the internal state of the webapp.</p> 
-        </div> 
-        <div class="paragraph"> 
-         <p>The generated application also includes example code to:</p> 
-        </div> 
-        <div class="ulist"> 
-         <ul> 
-          <li> <p><a href="quickstart-with-embedded-camel.html">bootstrap</a> a <em>Spring Framework</em> context alongside the Apache Isis framework, hosting embedded <em>Apache Camel</em> and <em>Apache ActiveMQ</em> instances</p> </li> 
-          <li> <p><a href="quickstart-with-example-usage.html">demonstrate usage</a> of the various modules within the Incode Platform.</p> </li> 
-         </ul> 
-        </div> 
-        <div class="paragraph"> 
-         <p>These can be easily included or excluded just by commenting in/out small sections of code.</p> 
         </div> 
        </div> 
       </div> 
@@ -380,7 +366,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>To exclude the modules that you don’t require, delete or comment entries in the app manifest. To keep things tidy, you should probably also remove the corresponding <code>&lt;dependency&gt;</code>s from your application’s <code>pom.xml</code> files.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>Conversely, the application does <em>not</em> include any of the <a href="../modules/dom.html">generic subdomains</a> nor <a href="../modules/lib.html">libraries</a>. To include these, take a look at the <a href="quickstart-with-example-usage.html">quickstart with example usage</a>, or just read the individual documentation for the required module(s). In many cases all that’s required is to update the <code>pom.xml</code> to reference the required module, and reference its <code>XxxModule</code> class in your app manifest.</p> 
+          <p>Conversely, the application does <em>not</em> include any of the <a href="../modules/dom.html">example subdomains</a> nor <a href="../modules/lib.html">libraries</a>. To include these, take a look at the <a href="quickstart-with-example-usage.html">quickstart with example usage</a>, or just read the individual documentation for the required module(s). In many cases all that’s required is to update the <code>pom.xml</code> to reference the required module, and reference its <code>XxxModule</code> class in your app manifest.</p> 
          </div> 
         </div> 
        </div> 
@@ -891,9 +877,11 @@ table.CodeRay td.code>pre{padding:0}
            <li> <p>to package the webapp as a Docker image:</p> 
             <div class="listingblock"> 
              <div class="content"> 
-              <pre class="CodeRay highlight"><code data-lang="bash">mvn install \
-    -Dmavenmixin-docker -Ddocker-plugin.imageName=mycompany/myapp \
-    -DskipTests -Dskip.isis-vaidate -Dskip.isis-swagger</code></pre> 
+              <pre class="CodeRay highlight"><code data-lang="bash">mvn -pl webapp \
+    -o \
+    -Dmavenmixin-docker \
+    -Ddocker-plugin.imageName=mycompany/myapp \
+    docker:build</code></pre> 
              </div> 
             </div> 
             <div class="paragraph"> 

@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -269,34 +267,7 @@ table.CodeRay td.code>pre{padding:0}
         <div class="sect2"> 
          <h3 id="_update_location_using_service">Update location using service</h3> 
          <div class="paragraph"> 
-          <p>The previous screenshot shows the todo item also provides an "update location" action:</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> Gmap3WicketToDoItem updateLocation(
-        <span class="annotation">@ParameterLayout</span>(named=<span class="string"><span class="delimiter">"</span><span class="content">Address</span><span class="delimiter">"</span></span>)
-        <span class="directive">final</span> <span class="predefined-type">String</span> address) {
-    <span class="directive">final</span> Location location = <span class="local-variable">this</span>.locationLookupService.lookup(address);
-    setLocation(location);
-    <span class="keyword">return</span> <span class="local-variable">this</span>;
-}</code></pre> 
-          </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>When invoked:</p> 
-         </div> 
-         <div class="imageblock"> 
-          <div class="content"> 
-           <a class="image" href="images/040-update-location-invoke.png"><img src="images/040-update-location-invoke.png" alt="040 update location invoke" width="600px"></a> 
-          </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>... it updates the location:</p> 
-         </div> 
-         <div class="imageblock"> 
-          <div class="content"> 
-           <a class="image" href="images/050-location-updated.png"><img src="images/050-location-updated.png" alt="050 location updated" width="600px"></a> 
-          </div> 
+          <p>This module previously provided a "LocationLookupService". This has been removed, since the underlying gmap3 geocoding service requires an .apiKey. A similar <code>GeocodingService</code>, providing a superset of functionality, is available in <a href="../../dom/commchannel/dom-commchannel.html">commchannel module</a> (though this may move into its own library in the future, see <a href="https://github.com/incodehq/incode-platform/issues/57">#57</a>).</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -356,7 +327,7 @@ table.CodeRay td.code>pre{padding:0}
     <span class="directive">private</span> Location location;
 
     <span class="annotation">@MemberOrder</span>(name=<span class="string"><span class="delimiter">"</span><span class="content">Detail</span><span class="delimiter">"</span></span>, sequence = <span class="string"><span class="delimiter">"</span><span class="content">10</span><span class="delimiter">"</span></span>)
-    <span class="annotation">@Optional</span>
+    <span class="annotation">@Nullable</span>
     <span class="directive">public</span> Location getLocation() {
         <span class="keyword">return</span> location;
     }
@@ -368,40 +339,6 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
          <div class="paragraph"> 
           <p>You should then find that any collections of entities that have <code>Locatable</code> properties (either returned from an action, or as a parented collection) will be rendered in a map.</p> 
-         </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="__code_locationlookupservice_code"><code>LocationLookupService</code></h3> 
-         <div class="paragraph"> 
-          <p>By injecting the provided <code>LocationLookupService</code> domain service, you can write an action to lookup <code>Location</code>s.</p> 
-         </div> 
-         <div class="paragraph"> 
-          <p>For example:</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> lookupLocation(
-        <span class="annotation">@ParameterLayout</span>(named=<span class="string"><span class="delimiter">"</span><span class="content">Description</span><span class="delimiter">"</span></span>)
-        <span class="directive">final</span> <span class="predefined-type">String</span> description) {
-    setLocation(locationLookupService.lookup(description));
-}</code></pre> 
-          </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>To use this the <code>LocationLookupService</code> needs to be registered; see below.</p> 
-         </div> 
-         <div class="admonitionblock note"> 
-          <table> 
-           <tbody>
-            <tr> 
-             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-             <td class="content"> 
-              <div class="paragraph"> 
-               <p>Alternatively, the <code>Location</code> can also be specified directly as a string. The format is <code>mmm.mmm;nnn.nnn</code>, where <code>mmm.mmm</code> is the latitude, and <code>nnn.nnn</code> is the longitude</p> 
-              </div> </td> 
-            </tr> 
-           </tbody>
-          </table> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -464,7 +401,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|isis-wicket-gmap3-cpt">Maven Central Repo</a>.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide/contributors-guide.html">contributors guide</a>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -479,13 +416,10 @@ table.CodeRay td.code>pre{padding:0}
     <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
             ...
             org.isisaddons.wicket.gmap3.cpt.applib.Gmap3ApplibModule.class,
-            org.isisaddons.wicket.gmap3.cpt.service.Gmap3ServiceModule.class,
+            ...
     );
 }</code></pre> 
           </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>This will register the <code>LocationLookupService</code>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -502,6 +436,19 @@ table.CodeRay td.code>pre{padding:0}
            <div class="content"> 
             <pre class="CodeRay highlight"><code data-lang="ini">isis.viewer.wicket.gmap3.apiKey=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-XXXXXX</code></pre> 
            </div> 
+          </div> 
+          <div class="admonitionblock note"> 
+           <table> 
+            <tbody>
+             <tr> 
+              <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
+              <td class="content"> 
+               <div class="paragraph"> 
+                <p>The <a href="../../dom/commchannel/dom-commchannel.html">commchannel</a> module also requires the same configuration, though under a different configuration property.</p> 
+               </div> </td> 
+             </tr> 
+            </tbody>
+           </table> 
           </div> 
          </div> 
         </div> 

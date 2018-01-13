@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -241,13 +239,14 @@ adocs/
 └── template/          # HTML template/styling for website
 ex/
 ├── app/
-│   └── quickstart/    # quickstart application
+│   ├── quickstart/    # quickstart application
+│   └── extended/      # extended quickstart, with example subdomain modules
 └── arch/
     └── quickstart/    # quickstart archetype
 mavenmixins/
 modules/               # modules making up the platform
 ├── pom.xml            # org.incode:incode-parent
-├── dom/               # generic subdomains
+├── dom/               # example subdomains
 ├── ext/               # extensions
 ├── lib/               # libraries
 ├── mml/               # metamodel facets
@@ -278,7 +277,8 @@ modules/               # modules making up the platform
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">cd mavenmixins
+mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o</code></pre> 
           </div> 
          </div> 
         </div> 
@@ -289,7 +289,8 @@ modules/               # modules making up the platform
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install -o</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">cd modules
+mvn clean install -o</code></pre> 
           </div> 
          </div> 
          <div class="paragraph"> 
@@ -306,6 +307,18 @@ modules/               # modules making up the platform
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate -Dskip.isis-swagger</code></pre> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_building_quickstart_app">Building Quickstart App</h3> 
+         <div class="paragraph"> 
+          <p>Finally, build the example quickstart app</p> 
+         </div> 
+         <div class="listingblock"> 
+          <div class="content"> 
+           <pre class="CodeRay highlight"><code data-lang="bash">cd ex/app/quickstart
+mvn clean install -o</code></pre> 
           </div> 
          </div> 
         </div> 

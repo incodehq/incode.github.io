@@ -156,10 +156,6 @@ table.CodeRay td.code>pre{padding:0}
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quickstart<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
         <li><a href="../../../quickstart/quickstart.html">Quickstart App</a></li> 
-        <li role="separator" class="divider"></li> 
-        <li class="dropdown-header">Optional Examples</li> 
-        <li><a href="../../../quickstart/quickstart-with-embedded-camel.html">With Embedded Camel</a></li> 
-        <li><a href="../../../quickstart/quickstart-with-example-usage.html">With Example Usage</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Modules<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -167,11 +163,13 @@ table.CodeRay td.code>pre{padding:0}
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
-        <li><a href="../../../modules/dom/dom.html">Generic Subdomains</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
         <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples</li> 
+        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
@@ -309,8 +307,8 @@ table.CodeRay td.code>pre{padding:0}
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
-    <span class="tag">&lt;groupId&gt;</span>org.incode.module.docrendering<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>incode-module-docrendering-xdocreport-dom<span class="tag">&lt;/artifactId&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.incode.example.docrendering<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>incode-example-docrendering-xdocreport-dom<span class="tag">&lt;/artifactId&gt;</span>
     <span class="tag">&lt;version&gt;</span>1.15.1.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre> 
           </div> 
@@ -319,7 +317,7 @@ table.CodeRay td.code>pre{padding:0}
           <p>Check for later releases by searching <a href="http://search.maven.org/#search|ga|1|incode-module-docrendering-xdocreport-dom">Maven Central Repo</a>.</p> 
          </div> 
          <div class="paragraph"> 
-          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide.html">contributors guide</a>.</p> 
+          <p>For instructions on how to use the latest <code>-SNAPSHOT</code>, see the <a href="../../../pages/contributors-guide/contributors-guide.html">contributors guide</a>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
@@ -333,7 +331,7 @@ table.CodeRay td.code>pre{padding:0}
 <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
     <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
             ...
-            org.incode.module.docrendering.xdocreport.dom.XdocReportDocRenderingModule.class,
+            org.incode.example.docrendering.xdocreport.dom.XdocReportDocRenderingModule.class,
     );
 }</code></pre> 
           </div> 
@@ -354,7 +352,7 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/lib/docrendering-xdocreport/impl -D excludeTransitive=true</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn dependency:list -o -pl modules/dom/docrendering-xdocreport/impl -D excludeTransitive=true</code></pre> 
           </div> 
          </div> 
          <div class="paragraph"> 
@@ -367,7 +365,7 @@ table.CodeRay td.code>pre{padding:0}
           <ul> 
            <li> <p><a href="../../lib/base/lib-base.html">base library</a> module</p> </li> 
            <li> <p><a href="../../lib/xdocreport/lib-xdocreport.html">freemarker library</a> module</p> </li> 
-           <li> <p><a href="../../dom/document/dom-document.html">document generic subdomain</a> module</p> </li> 
+           <li> <p><a href="../../dom/document/dom-document.html">document example subdomain</a> module</p> </li> 
           </ul> 
          </div> 
         </div> 
