@@ -8,7 +8,7 @@
   <meta http-equiv="cache-control" content="no-cache"> 
   <meta http-equiv="pragma" content="no-cache"> 
   <meta http-equiv="expires" content="-1"> 
-  <title>Command SPI Implementation</title> 
+  <title>Command SPI Implementation + Replay</title> 
   <link rel="icon" type="image/png" href="../../../images/incode-favicon.png"> 
   <!--
         Based on DataNucleus' template,
@@ -175,6 +175,7 @@ table.CodeRay td.code>pre{padding:0}
        <ul class="dropdown-menu"> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
@@ -208,7 +209,7 @@ table.CodeRay td.code>pre{padding:0}
      </div> 
      <span class="pdf-link"><a href="spi-command.pdf"><img src="../../../images/PDF-50.png"></a></span> 
      <div class="page-title"> 
-      <h1>Command SPI Implementation</h1> 
+      <h1>Command SPI Implementation + Replay</h1> 
      </div> 
      <div id="doc-content">
       <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
@@ -234,6 +235,9 @@ table.CodeRay td.code>pre{padding:0}
         </div> 
         <div class="paragraph"> 
          <p>In addition, this module also provides an implementation of the <code>BackgroundCommandService</code> API. This enables commands to be persisted but the action not invoked. A scheduler can then be used to pick up the scheduled background commands and invoke them at some later time. The module provides a subclass of the <code>BackgroundCommandExecution</code> class (in Isis core) to make it easy to write such scheduler jobs.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>As of <code>1.16.1</code> this module also provides a companion "replay" library. This allows commands on a master server to be replayed against a slave. One use case for this is for regression testing or A/B testing of two different versions of an application (eg after a system upgrade, or after a refactoring of business logic). For more details, see the <a href="spi-command-replay.html">replay library</a> page.</p> 
         </div> 
        </div> 
       </div> 
@@ -437,7 +441,7 @@ table.CodeRay td.code>pre{padding:0}
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.command<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>isis-module-command-dom<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.15.1.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.16.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre> 
           </div> 
          </div> 
@@ -459,7 +463,7 @@ table.CodeRay td.code>pre{padding:0}
 <span class="directive">public</span> <span class="predefined-type">List</span>&lt;<span class="predefined-type">Class</span>&lt;?&gt;&gt; getModules() {
     <span class="keyword">return</span> <span class="predefined-type">Arrays</span>.asList(
             ...
-            org.isisaddons.module.command.CommandModule.class,
+            org.isisaddons.module.command.dom.CommandDomModule.class,
     );
 }</code></pre> 
           </div> 
@@ -563,15 +567,37 @@ table.CodeRay td.code>pre{padding:0}
        <h2 id="_supporting_services_and_mixins">Supporting Services and Mixins</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>As well as the <code>CommandService</code> and <code>BackgroundCommandService</code> implementations, the module also a number of other domain services/mixins. These include:</p> 
+         <p>As well as the <code>CommandService</code> and <code>BackgroundCommandService</code> implementations, the module also a number of other domain services and mixins.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The domain services are:</p> 
         </div> 
         <div class="ulist"> 
          <ul> 
           <li> <p><code>CommandServiceJdoRepository</code> provides the ability to search for persisted (foreground) <code>Command`s. None of its actions are visible in the user interface (they are all `@Programmatic</code>) and so this service is automatically registered.</p> </li> 
-          <li> <p>In 1.8.x, the <code>CommandServiceMenu</code> provides actions to search for `Command`s, underneath an 'Activity' menu on the secondary menu bar.</p> </li> 
-          <li> <p><code>BackgroundCommandServiceJdoRepository</code> provides the ability to search for persisted (background) <code>Command`s. None of its actions are visible in the user interface (they are all `@Programmatic</code>) and so this service is automatically registered.</p> </li> 
+          <li> <p>(As of <code>1.8.x</code>) the <code>CommandServiceMenu</code> provides actions to search for `Command`s, underneath an 'Activity' menu on the secondary menu bar.</p> </li> 
+          <li> <p><code>BackgroundCommandServiceJdoRepository</code> provides the ability to search for persisted (background) <code>Command`s and <a href="spi-command-replay.html">replayable</a> commands. None of its actions are visible in the user interface (they are all `@Programmatic</code>) and so this service is automatically registered.</p> </li> 
+          <li> <p>(As of <code>1.16.1</code>) the <code>CommandReplayOnMasterService</code> and <code>CommandReplayOnSlaveService</code> menu services provide actions to support the <a href="spi-command-replay.html">replay</a> library.</p> 
+           <div class="ulist"> 
+            <ul> 
+             <li> <p><code>CommandReplayOnMasterService</code> provides actions to find and to manually download <code>Command</code>s since a specified transaction Id (ie as determined from the slave)</p> </li> 
+             <li> <p><code>CommandReplayOnSlaveService</code> provides actions to find the most recently replicated <code>Command</code> on the slave (the so-called "high water mark") and to manually upload <code>Command</code>s obtained from the master</p> </li> 
+            </ul> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The mixins are:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
           <li> <p><code>HasTransactionId_command</code> mixin provides the <code>command</code> action to the <code>HasTransactionId</code> interface. This will therefore display all commands that occurred in a given transaction, in other words whenever a command, or also (if configured) a published event or an audit entry is displayed.</p> </li> 
           <li> <p><code>CommandJdo_childCommands</code> mixin provides the <code>childCommands</code> contributed collection, while <code>CommandJdo_siblingCommands</code> mixin provides the <code>siblingCommands</code> contributed collection</p> </li> 
+          <li> <p><code>CommandJdo_retry</code> mixin allows commands to be resubmitted.</p> </li> 
+          <li> <p><code>CommandJdo_exclude</code> mixin allows failing replayable commands to be ignored.</p> 
+           <div class="paragraph"> 
+            <p>Once any replayable command hits an exception, no further replayable commands are run. This mixin is intended to allow the administrator to choose to skip/ignore any such command.</p> 
+           </div> </li> 
          </ul> 
         </div> 
         <div class="paragraph"> 
@@ -591,7 +617,7 @@ table.CodeRay td.code>pre{padding:0}
          <p>where <code>SomeObject</code> is the class of the target domain class.</p> 
         </div> 
         <div class="paragraph"> 
-         <p>(As of 1.8.x and later) these various services are automatically registered, meaning that any UI functionality they provide will appear in the user interface. If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:</p> 
+         <p>(As of <code>1.8.x</code> and later) these various services are automatically registered, meaning that any UI functionality they provide will appear in the user interface. If this is not required, then either use security permissions or write a vetoing subscriber on the event bus to hide this functionality, eg:</p> 
         </div> 
         <div class="listingblock"> 
          <div class="content"> 

@@ -175,6 +175,7 @@ table.CodeRay td.code>pre{padding:0}
        <ul class="dropdown-menu"> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
+        <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
@@ -244,7 +245,7 @@ table.CodeRay td.code>pre{padding:0}
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.quartz<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>isis-module-quartz-dom<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.16.0<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.16.1<span class="tag">&lt;/version&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre> 
           </div> 
          </div> 
@@ -307,9 +308,9 @@ org.quartz.plugin.jobInitializer.failOnFileNotFound = true</code></pre>
 
     <span class="tag">&lt;schedule&gt;</span>
         <span class="tag">&lt;job&gt;</span>
-            <span class="tag">&lt;name&gt;</span>RunBackgroundJobs<span class="tag">&lt;/name&gt;</span>
-            <span class="tag">&lt;group&gt;</span>DemoApp<span class="tag">&lt;/group&gt;</span>
-            <span class="tag">&lt;description&gt;</span>Runs all background jobs<span class="tag">&lt;/description&gt;</span>
+            <span class="tag">&lt;name&gt;</span>RunBackgroundCommandsJob<span class="tag">&lt;/name&gt;</span>
+            <span class="tag">&lt;group&gt;</span>CommandModule<span class="tag">&lt;/group&gt;</span>
+            <span class="tag">&lt;description&gt;</span>Runs all background commands<span class="tag">&lt;/description&gt;</span>
             <span class="tag">&lt;job-class&gt;</span>org.isisaddons.module.quartz.dom.jobs.RunBackgroundCommandsJob<span class="tag">&lt;/job-class&gt;</span>
             <span class="tag">&lt;job-data-map&gt;</span>
                 <span class="tag">&lt;entry&gt;</span>
@@ -326,8 +327,8 @@ org.quartz.plugin.jobInitializer.failOnFileNotFound = true</code></pre>
         <span class="tag">&lt;trigger&gt;</span>
             <span class="tag">&lt;cron&gt;</span>
                 <span class="tag">&lt;name&gt;</span>RunBackgroundJobsEvery10Seconds<span class="tag">&lt;/name&gt;</span>
-                <span class="tag">&lt;job-name&gt;</span>RunBackgroundJobs<span class="tag">&lt;/job-name&gt;</span>
-                <span class="tag">&lt;job-group&gt;</span>DemoApp<span class="tag">&lt;/job-group&gt;</span>
+                <span class="tag">&lt;job-name&gt;</span>RunBackgroundCommandsJob<span class="tag">&lt;/job-name&gt;</span>
+                <span class="tag">&lt;job-group&gt;</span>CommandModule<span class="tag">&lt;/job-group&gt;</span>
                 <span class="tag">&lt;cron-expression&gt;</span>0/10 * * * * ?<span class="tag">&lt;/cron-expression&gt;</span>
             <span class="tag">&lt;/cron&gt;</span>
         <span class="tag">&lt;/trigger&gt;</span>
