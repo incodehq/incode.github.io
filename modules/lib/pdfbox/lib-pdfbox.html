@@ -318,8 +318,10 @@ table.CodeRay td.code>pre{padding:0}
 <span class="directive">public</span> <span class="type">class</span> <span class="class">PdfBoxService</span> {
 
     <span class="directive">public</span> <span class="type">byte</span><span class="type">[]</span> merge(<span class="type">byte</span><span class="type">[]</span>... pdfByteArrays) <span class="directive">throws</span> <span class="exception">IOException</span> { }     <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="directive">public</span> <span class="type">byte</span><span class="type">[]</span> merge(<span class="predefined-type">List</span>&lt;<span class="predefined-type">File</span>&gt; fileList) <span class="directive">throws</span> <span class="exception">IOException</span> { ... }     <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="directive">public</span> <span class="type">byte</span><span class="type">[]</span> merge(<span class="predefined-type">File</span>... files) <span class="directive">throws</span> <span class="exception">IOException</span> { ... }
 
-    <span class="directive">public</span> <span class="type">void</span> merge(                                                      <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="directive">public</span> <span class="type">void</span> merge(                                                      <i class="conum" data-value="3"></i><b>(3)</b>
             <span class="predefined-type">OutputStream</span> outputStream,
             <span class="predefined-type">InputStream</span>... inputStreams
         ) <span class="directive">throws</span> <span class="exception">IOException</span> { }
@@ -335,6 +337,10 @@ table.CodeRay td.code>pre{padding:0}
            </tr> 
            <tr> 
             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+            <td>merge a list of files (to avoid memory issues)</td> 
+           </tr> 
+           <tr> 
+            <td><i class="conum" data-value="3"></i><b>3</b></td> 
             <td>merge an arbitrary number of PDFs, represented as an input stream, to an output stream</td> 
            </tr> 
           </tbody>

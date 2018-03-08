@@ -353,7 +353,7 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
         </div> 
         <div class="paragraph"> 
-         <p>And finally the <code>HttpServletResponseProvider</code> defines the following API:</p> 
+         <p>The <code>HttpServletResponseProvider</code> defines the following API:</p> 
         </div> 
         <div class="listingblock"> 
          <div class="content"> 
@@ -361,6 +361,30 @@ table.CodeRay td.code>pre{padding:0}
     <span class="directive">public</span> HttpServletResponse getHttpServletResponse() { ... }
 }</code></pre> 
          </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>And finally, the <code>HttpSessionProvider</code> defines the following API:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@DomainService</span>(nature = NatureOfService.DOMAIN)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">HttpSessionProvider</span> {
+    <span class="directive">public</span> Optional&lt;HttpSession&gt; getHttpSession() { ... }
+    <span class="directive">public</span> &lt;T&gt; Optional&lt;T&gt; getAttribute(<span class="predefined-type">String</span> key, <span class="predefined-type">Class</span>&lt;T&gt; clazz) { ... } <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="directive">public</span> &lt;T&gt; <span class="type">void</span> setAttribute( <span class="predefined-type">String</span> key, T value) { ... }
+    <span class="directive">public</span> <span class="type">void</span> removeAttribute(<span class="predefined-type">String</span> key) { ... }
+}</code></pre> 
+         </div> 
+        </div> 
+        <div class="colist arabic"> 
+         <table> 
+          <tbody>
+           <tr> 
+            <td><i class="conum" data-value="1"></i><b>1</b></td> 
+            <td>obtains an attribute (previous set) by key, cast to the specified class</td> 
+           </tr> 
+          </tbody>
+         </table> 
         </div> 
         <div class="paragraph"> 
          <p>These actions are all programmatic and do not appear in the UI.</p> 
