@@ -436,9 +436,11 @@ table.CodeRay td.code>pre{padding:0}
           </tr> 
          </tfoot> 
         </table> 
-        <div class="paragraph"> 
-         <p>[[parent pom]] == Parent POM</p> 
-        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="parent-pom">Parent POM</h2> 
+       <div class="sectionbody"> 
         <div class="paragraph"> 
          <p>The <code>org.incode:incode-parent</code> parent POM declares all of the platform modules. It can either be inherited from, or added as a dependency:</p> 
         </div> 
@@ -458,7 +460,7 @@ table.CodeRay td.code>pre{padding:0}
        </div> 
       </div> 
       <div class="sect1"> 
-       <h2 id="_interim_releases">Interim Releases</h2> 
+       <h2 id="interim-releases">Interim Releases</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
          <p>Interim releases of the modules are available at <a href="https://repo.incode.cloud" class="bare">https://repo.incode.cloud</a>. To use interim releases, add this profile:</p> 
@@ -507,7 +509,7 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
         </div> 
         <div class="paragraph"> 
-         <p>Alternatively, use <code><a href="https://github.com/incodehq/incode-build">org.incode:incode-build</a></code> as the parent for your projects; it already declares this Maven repository.</p> 
+         <p>Alternatively, inherit from either <code>org.incode:incode-parent</code> or from <em>its</em> parent, <code><a href="https://github.com/incodehq/incode-build">org.incode:incode-build</a></code>; the latter declares this Maven repository.</p> 
         </div> 
        </div> 
       </div> 
