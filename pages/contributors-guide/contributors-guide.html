@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="../../modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="../../modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="../../pages/license.html">License</a></li> 
         <li><a href="../../pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -233,26 +248,24 @@ table.CodeRay td.code>pre{padding:0}
        <div class="sectionbody"> 
         <div class="listingblock"> 
          <div class="content"> 
-          <pre>_mothballed/           # unused from previous demo apps (eg fake SOAP external system)
-adocs/
+          <pre>adocs/
 ├── documentation/     # docs and website source
-├── search/            # node.js scripts to generate searchable index
+├── search/            # node.js scripts to generate search index
 └── template/          # HTML template/styling for website
-ex/
+archetype/
 ├── app/
-│   ├── quickstart/    # quickstart application
-│   └── extended/      # extended quickstart, with example subdomain modules
+│   └── quickstart/    # quickstart application
 └── arch/
     └── quickstart/    # quickstart archetype
-mavenmixins/
 modules/               # modules making up the platform
 ├── pom.xml            # org.incode:incode-parent
-├── dom/               # example subdomains
+├── dom/               # subdomains
 ├── ext/               # extensions
 ├── lib/               # libraries
 ├── mml/               # metamodel facets
 ├── spi/               # Core framework SPI (hook) implementations
-└── wkt/               # Wicket viewer components</pre> 
+└── wkt/               # Wicket viewer components
+platformapp/           # webapp used to test/develop the platform</pre> 
          </div> 
         </div> 
        </div> 
@@ -261,67 +274,26 @@ modules/               # modules making up the platform
        <h2 id="__contributors-guide_building">Building</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>The platform must be built in the following order:</p> 
+         <p>The platform is built simply from the root directory:</p> 
         </div> 
-        <div class="ulist"> 
-         <ul> 
-          <li> <p><code>mavenmixins/</code> - maven mixins, which is depended on by:</p> </li> 
-          <li> <p><code>modules/</code> - modules, which is depended on by:</p> </li> 
-          <li> <p><code>ex/app/quickstart/</code> - quickstart example app, which is used as the template for:</p> </li> 
-          <li> <p><code>ex/app/archetype/</code> - quickstart archetype</p> </li> 
-         </ul> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="__contributors-guide_building-the-mavenmixins">Building the mavenmixins</h3> 
-         <div class="paragraph"> 
-          <p>These must be built first, because the modules depend upon them.</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">cd mavenmixins
-mvn clean install -Dskip.isis-validate -Dskip.isis-swagger -o</code></pre> 
-          </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install</code></pre> 
          </div> 
         </div> 
-        <div class="sect2"> 
-         <h3 id="_building_modules">Building Modules</h3> 
-         <div class="paragraph"> 
-          <p>To build all modules, use:</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">cd modules
-mvn clean install -o</code></pre> 
-          </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>Running in parallel requires disabling the Apache Isis Maven plugin (it is currently not thread-safe):</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install -o -T1C -Dskip.isis-validate -Dskip.isis-swagger</code></pre> 
-          </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>To build an individual module, use:</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install  -D dom-alias -Dskip.default -o -Dskip.isis-validate -Dskip.isis-swagger</code></pre> 
-          </div> 
-         </div> 
+        <div class="paragraph"> 
+         <p>This builds the <code>modules</code>, <code>platformapp</code> and <code>quickstart</code> app.</p> 
         </div> 
-        <div class="sect2"> 
-         <h3 id="_building_quickstart_app">Building Quickstart App</h3> 
-         <div class="paragraph"> 
-          <p>Finally, build the example quickstart app</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">cd ex/app/quickstart
-mvn clean install -o</code></pre> 
-          </div> 
-         </div> 
+        <div class="paragraph"> 
+         <p>The <code>quickstart</code> archetype (reverse engineered from the <code>quickstart</code> application) is built through a separate process.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_testing_developing">Testing &amp; Developing</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Load the <code>platformapp</code></p> 
         </div> 
        </div> 
       </div> 

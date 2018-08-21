@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="./modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="./modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="./modules/ext/ext.html">Extensions</a></li> 
         <li><a href="./modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="./modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="./modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="./modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="./modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="./modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="./modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="./pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="./pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="./pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="./pages/license.html">License</a></li> 
         <li><a href="./pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -225,7 +240,13 @@ table.CodeRay td.code>pre{padding:0}
          <p><br></p> 
         </div> 
         <div class="paragraph"> 
-         <p>The Incode Platform provides a number of <em>modules</em> for use with the <a href="http://isis.apache.org">Apache Isis</a> framework. The platform also provides a <em>"quickstart"</em> app which can be used to quickly set up your own pre-configured applications.</p> 
+         <p>The Incode Platform provides a number of <em>modules</em> for use with the <a href="http://isis.apache.org">Apache Isis</a> framework. These are all released as ready-to-use binaries.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The platform also provides a <em>"quickstart"</em> Maven archetype which can be used to quickly set up your own pre-configured applications.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>There are also a number of companion/supporting websites, accessible from the "Other Resources" menu, above.</p> 
         </div> 
        </div> 
       </div> 
@@ -276,15 +297,34 @@ table.CodeRay td.code>pre{padding:0}
          </colgroup> 
          <thead> 
           <tr> 
+           <th class="tableblock halign-center valign-middle"><a href="modules/dom/dom.html"><em>(Sub)domains</em></a></th> 
+           <th class="tableblock halign-center valign-middle"><a href="modules/ext/ext.html"><em>Extensions</em></a></th> 
            <th class="tableblock halign-center valign-middle" colspan="2"><a href="modules/lib/lib.html"><em>Libraries</em></a></th> 
+           <th class="tableblock halign-center valign-middle"><a href="modules/wkt/mml.html"><em>Metamodel<br> Facets</em></a></th> 
            <th class="tableblock halign-center valign-middle"><a href="modules/spi/spi.html"><em>SPI<br> Implementations</em></a></th> 
            <th class="tableblock halign-center valign-middle"><a href="modules/wkt/wkt.html"><em>Wicket Components</em></a></th> 
-           <th class="tableblock halign-center valign-middle"><a href="modules/ext/ext.html"><em>Extensions</em></a></th> 
-           <th class="tableblock halign-center valign-middle" colspan="2"><a href="modules/dom/dom.html"><em>Example<br> Subdomains &amp; Libraries</em></a></th> 
           </tr> 
          </thead> 
          <tfoot> 
           <tr> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><a href="modules/dom/settings/dom-settings.html">Settings</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
+              <p><a href="modules/ext/flywaydb/ext-flywaydb.html">FlywayDB</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/ext/quartz/ext-quartz.html">Quartz</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/ext/togglz/ext-togglz.html">Togglz</a></p> 
+             </div>
+            </div></td> 
            <td class="tableblock halign-center valign-top">
             <div>
              <div class="paragraph"> 
@@ -310,9 +350,6 @@ table.CodeRay td.code>pre{padding:0}
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/jaxrsclient/lib-jaxrsclient.html">JAX-RS Client</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/lib/slack/lib-slack.html">Slack</a></p> 
              </div>
             </div></td> 
            <td class="tableblock halign-center valign-top">
@@ -325,6 +362,9 @@ table.CodeRay td.code>pre{padding:0}
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/servletapi/lib-servletapi.html">Servlet API</a></p> 
+             </div> 
+             <div class="paragraph"> 
+              <p><a href="modules/lib/slack/lib-slack.html">Slack</a></p> 
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/lib/stringinterpolator/lib-stringinterpolator.html">StringInterpolator (OGNL)</a></p> 
@@ -342,10 +382,16 @@ table.CodeRay td.code>pre{padding:0}
            <td class="tableblock halign-center valign-top">
             <div>
              <div class="paragraph"> 
+              <p><a href="modules/mml/paraname8/mml-paraname8.html">Paraname8</a></p> 
+             </div>
+            </div></td> 
+           <td class="tableblock halign-center valign-top">
+            <div>
+             <div class="paragraph"> 
               <p><a href="modules/spi/audit/spi-audit.html">Audit</a></p> 
              </div> 
              <div class="paragraph"> 
-              <p><a href="modules/spi/command/spi-command.html">Command + Replay</a></p> 
+              <p><a href="modules/spi/command/spi-command.html">Command Replay</a></p> 
              </div> 
              <div class="paragraph"> 
               <p><a href="modules/spi/errorrptjira/spi-errorrptjira.html">Error Report (JIRA)</a></p> 
@@ -387,66 +433,82 @@ table.CodeRay td.code>pre{padding:0}
               <p><a href="modules/wkt/wickedcharts/wkt-wickedcharts.html">Wickedcharts</a></p> 
              </div>
             </div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div>
-             <div class="paragraph"> 
-              <p><a href="modules/ext/flywaydb/ext-flywaydb.html">FlywayDB</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/ext/quartz/ext-quartz.html">Quartz</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/ext/togglz/ext-togglz.html">Togglz</a></p> 
-             </div>
-            </div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div>
-             <div class="paragraph"> 
-              <p><a href="modules/dom/alias/dom-alias.html">Alias</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/classification/dom-classification.html">Classification</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/commchannel/dom-commchannel.html">Comm Channel</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/communications/dom-communications.html">Communications</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/country/dom-country.html">Country</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/docfragment/dom-docfragment.html">Doc Fragment</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker DocRendering</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">StringInterpolator DocRendering</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/docrendering-xdocreport/lib-docrendering-xdocreport.html">XdocReport DocRendering</a></p> 
-             </div>
-            </div></td> 
-           <td class="tableblock halign-center valign-top">
-            <div>
-             <div class="paragraph"> 
-              <p><a href="modules/dom/document/dom-document.html">Document</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/note/dom-note.html">Note</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/settings/dom-settings.html">Settings</a></p> 
-             </div> 
-             <div class="paragraph"> 
-              <p><a href="modules/dom/tags/dom-tags.html">Tags</a></p> 
-             </div>
-            </div></td> 
           </tr> 
          </tfoot> 
         </table> 
+        <div class="paragraph"> 
+         <p>[[parent pom]] == Parent POM</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>The <code>org.incode:incode-parent</code> parent POM declares all of the platform modules. It can either be inherited from, or added as a dependency:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependencyManagement&gt;</span>
+    <span class="tag">&lt;dependencies&gt;</span>
+        <span class="tag">&lt;group&gt;</span>org.incode<span class="tag">&lt;/group&gt;</span>
+        <span class="tag">&lt;artifactId&gt;</span>incode-parent<span class="tag">&lt;/artifactId&gt;</span>
+        <span class="tag">&lt;version&gt;</span>1.6.2<span class="tag">&lt;/version&gt;</span>               <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="tag">&lt;scope&gt;</span>import<span class="tag">&lt;/scope&gt;</span>
+        <span class="tag">&lt;type&gt;</span>pom<span class="tag">&lt;/type&gt;</span>
+    <span class="tag">&lt;/dependencies&gt;</span>
+<span class="tag">&lt;/dependencyManagement&gt;</span></code></pre> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_interim_releases">Interim Releases</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>Interim releases of the modules are available at <a href="https://repo.incode.cloud" class="bare">https://repo.incode.cloud</a>. To use interim releases, add this profile:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;profile&gt;</span>
+    <span class="tag">&lt;id&gt;</span>incode-cloud-maven<span class="tag">&lt;/id&gt;</span>
+    <span class="tag">&lt;activation&gt;</span>
+        <span class="tag">&lt;property&gt;</span>
+            <span class="tag">&lt;name&gt;</span>!skip.incode-cloud-maven<span class="tag">&lt;/name&gt;</span>
+        <span class="tag">&lt;/property&gt;</span>
+    <span class="tag">&lt;/activation&gt;</span>
+    <span class="tag">&lt;repositories&gt;</span>
+        <span class="tag">&lt;repository&gt;</span>
+            <span class="tag">&lt;id&gt;</span>incode-cloud-maven<span class="tag">&lt;/id&gt;</span>
+            <span class="tag">&lt;url&gt;</span>https://repo.incode.cloud/repository/maven/<span class="tag">&lt;/url&gt;</span>
+            <span class="tag">&lt;name&gt;</span>Incode Cloud (maven)<span class="tag">&lt;/name&gt;</span>
+            <span class="tag">&lt;releases&gt;</span>
+                <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;updatePolicy&gt;</span>always<span class="tag">&lt;/updatePolicy&gt;</span>
+                <span class="tag">&lt;checksumPolicy&gt;</span>fail<span class="tag">&lt;/checksumPolicy&gt;</span>
+            <span class="tag">&lt;/releases&gt;</span>
+            <span class="tag">&lt;snapshots&gt;</span>
+                <span class="tag">&lt;enabled&gt;</span>false<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;updatePolicy&gt;</span>always<span class="tag">&lt;/updatePolicy&gt;</span>
+                <span class="tag">&lt;checksumPolicy&gt;</span>fail<span class="tag">&lt;/checksumPolicy&gt;</span>
+            <span class="tag">&lt;/snapshots&gt;</span>
+            <span class="tag">&lt;layout&gt;</span>default<span class="tag">&lt;/layout&gt;</span>
+        <span class="tag">&lt;/repository&gt;</span>
+    <span class="tag">&lt;/repositories&gt;</span>
+    <span class="tag">&lt;pluginRepositories&gt;</span>
+        <span class="tag">&lt;pluginRepository&gt;</span>
+            <span class="tag">&lt;id&gt;</span>incode-cloud-maven<span class="tag">&lt;/id&gt;</span>
+            <span class="tag">&lt;name&gt;</span>Incode Cloud (maven)<span class="tag">&lt;/name&gt;</span>
+            <span class="tag">&lt;releases&gt;</span>
+                <span class="tag">&lt;enabled&gt;</span>true<span class="tag">&lt;/enabled&gt;</span>
+                <span class="tag">&lt;updatePolicy&gt;</span>never<span class="tag">&lt;/updatePolicy&gt;</span>
+                <span class="tag">&lt;checksumPolicy&gt;</span>fail<span class="tag">&lt;/checksumPolicy&gt;</span>
+            <span class="tag">&lt;/releases&gt;</span>
+            <span class="tag">&lt;url&gt;</span>https://repo.incode.cloud/repository/maven/<span class="tag">&lt;/url&gt;</span>
+            <span class="tag">&lt;layout&gt;</span>default<span class="tag">&lt;/layout&gt;</span>
+        <span class="tag">&lt;/pluginRepository&gt;</span>
+    <span class="tag">&lt;/pluginRepositories&gt;</span>
+<span class="tag">&lt;/profile&gt;</span></code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Alternatively, use <code><a href="https://github.com/incodehq/incode-build">org.incode:incode-build</a></code> as the parent for your projects; it already declares this Maven repository.</p> 
+        </div> 
        </div> 
       </div> 
      </div> 

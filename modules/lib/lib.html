@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="../../modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="../../modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="../../pages/license.html">License</a></li> 
         <li><a href="../../pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -227,18 +242,14 @@ table.CodeRay td.code>pre{padding:0}
       </div> 
       <table class="tableblock frame-all grid-all spread"> 
        <colgroup> 
-        <col style="width: 25%;"> 
-        <col style="width: 37.5%;"> 
-        <col style="width: 12.5%;"> 
-        <col style="width: 12.5%;"> 
-        <col style="width: 12.5%;"> 
+        <col style="width: 33.3333%;"> 
+        <col style="width: 50%;"> 
+        <col style="width: 16.6667%;"> 
        </colgroup> 
        <thead> 
         <tr> 
          <th class="tableblock halign-center valign-bottom">Module</th> 
          <th class="tableblock halign-center valign-bottom">Description</th> 
-         <th class="tableblock halign-center valign-bottom">Implements<br> (SPI)</th> 
-         <th class="tableblock halign-center valign-bottom">Requires<br> (API)</th> 
          <th class="tableblock halign-center valign-bottom">(direct)<br> 3rd party dependencies</th> 
         </tr> 
        </thead> 
@@ -254,114 +265,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Base library of utility classes.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="docrendering-freemarker/lib-docrendering-freemarker.html">Freemarker Document Rendering Library</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Implements the <em>Document</em> module’s <code>Renderer</code> interface using Freemarker.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="../dom/document/dom-document.html">Document subdomain</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="freemarker/lib-freemarker.html">Freemarker library</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="docrendering-stringinterpolator/lib-docrendering-stringinterpolator.html">Stringinterpolator Document Rendering Library</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Implements the <em>Document</em> module’s <code>Renderer</code> interface using StringInterpolator (ognl).</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="../../dom/document/dom-document.html">Document subdomain</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="stringinterpolator/lib-stringinterpolator.html">StringInterpolator library</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="docrendering-xdocreport/lib-docrendering-xdocreport.html">Xdocreport Document Rendering Library</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Implements the <em>Document</em> module’s <code>Renderer</code> interface using Xdocreport (ognl).</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="../../dom/document/dom-document.html">Document subdomain</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="xdocreport/lib-xdocreport.html">Xdocreport library</a></p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -387,18 +290,6 @@ table.CodeRay td.code>pre{padding:0}
          <td class="tableblock halign-left valign-top">
           <div>
            <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
             <p><a href="https://www.docx4java.org/trac/docx4j">docx4j</a>, <a href="http://www.jdom.org/">jdom2</a></p> 
            </div>
           </div></td> 
@@ -419,18 +310,6 @@ table.CodeRay td.code>pre{padding:0}
          <td class="tableblock halign-left valign-top">
           <div>
            <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
             <p><a href="https://poi.apache.org/">Apache POI</a></p> 
            </div>
           </div></td> 
@@ -446,18 +325,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides a domain service that generates fake random data. The random values generated can then be used within unit and integration tests.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -486,18 +353,6 @@ table.CodeRay td.code>pre{padding:0}
             <p>(none)</p> 
            </div>
           </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
         </tr> 
         <tr> 
          <td class="tableblock halign-left valign-top">
@@ -510,18 +365,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides a wrapper around the <em>Freemarker</em> templating engine</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -550,18 +393,6 @@ table.CodeRay td.code>pre{padding:0}
             <p>(none)</p> 
            </div>
           </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
         </tr> 
         <tr> 
          <td class="tableblock halign-left valign-top">
@@ -574,18 +405,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides a wrapper around the JAX-RS Client API (as implemented by Apache CXF).</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -611,18 +430,6 @@ table.CodeRay td.code>pre{padding:0}
          <td class="tableblock halign-left valign-top">
           <div>
            <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
             <p><a href="https://pdfbox.apache.org">Apache PDFBox</a></p> 
            </div>
           </div></td> 
@@ -638,18 +445,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides a set of helpers to support the definition of polymorphic associations; that is: relationships from one persistent entity to another by means of a (Java) interface.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -677,18 +472,6 @@ table.CodeRay td.code>pre{padding:0}
             <p>(none)</p> 
            </div>
           </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
         </tr> 
         <tr> 
          <td class="tableblock halign-left valign-top">
@@ -701,18 +484,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides the ability to post to a Slack channel.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -733,18 +504,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides a mechanism to interpolate string templates with either Isis system properties or values obtained from a domain object, using <em>OGNL</em> library.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -773,18 +532,6 @@ table.CodeRay td.code>pre{padding:0}
             <p>(none)</p> 
            </div>
           </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
         </tr> 
         <tr> 
          <td class="tableblock halign-left valign-top">
@@ -797,18 +544,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Provides a wrapper around <em>XDocReport</em>, an API to merge XML documents into MS Office (<code>.docx</code>) or OpenOffice (<code>.odt</code>) files, optionally converting into another format (notably PDF).</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">
@@ -829,18 +564,6 @@ table.CodeRay td.code>pre{padding:0}
           <div>
            <div class="paragraph"> 
             <p>Zips up a collection of files.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
            </div>
           </div></td> 
          <td class="tableblock halign-left valign-top">

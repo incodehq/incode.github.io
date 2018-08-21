@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="../../modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="../../modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="../../pages/license.html">License</a></li> 
         <li><a href="../../pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -229,10 +244,65 @@ table.CodeRay td.code>pre{padding:0}
        </div> 
       </div> 
       <div class="sect1"> 
-       <h2 id="_build_process">Build process</h2> 
+       <h2 id="build-process">Build process</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>To build the platform, see the <a href="../contributors-guide/contributors-guide.html">contributors' guide</a>.</p> 
+         <p>As described in the <a href="../contributors-guide/contributors-guide.html">contributors' guide</a>, to build the platform simply use:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code data-lang="bash">mvn clean install</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>from the root directory.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>If developing new versions of the platform, use the <code>platformapp</code> webapp project. This can be run from the IDE in the usual way:</p> 
+        </div> 
+        <div class="imageblock"> 
+         <div class="content"> 
+          <a class="image" href="images/platformapp-run-configuration.png/"><img src="images/platformapp-run-configuration.png" alt="platformapp run configuration" width="800px"></a> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>That is:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p>use <code>org.incode.platform.appdefn.PlatformAppAppManifest</code></p> 
+           <div class="paragraph"> 
+            <p>as the app manifest implementation</p> 
+           </div> </li> 
+          <li> <p>use <code>mvn -Denhance datanucleus:enhance</code> in the root directory</p> 
+           <div class="paragraph"> 
+            <p>to enhance JDO entities prior to running the app.</p> 
+           </div> </li> 
+         </ul> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Integration tests for individual modules can be run from the IDE; each modules integration tests resides in its own Maven module.</p> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="interim-releases">Interim Releases</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>As noted in the <a href="../index.html">home page</a>, interim releases of the Incode Platform source are available at <a href="https://repo.incode.cloud">repo.incode.cloud</a>.</p> 
+        </div> 
+        <div class="paragraph"> 
+         <p>To trigger new releases, all that is required is to set up gitlab repo as an alternate remote in <code>.git/config</code>:</p> 
+        </div> 
+        <div class="listingblock"> 
+         <div class="content"> 
+          <pre class="CodeRay highlight"><code>[remote "gitlab"]
+    url = https://gitlab.com/incodehq-public/incode-platform.git
+    fetch = +refs/heads/*:refs/remotes/gitlab/*</code></pre> 
+         </div> 
+        </div> 
+        <div class="paragraph"> 
+         <p>Pushing to this remote will trigger a CI build that will automatically upload a new release to <code>repo.incode.cloud</code>.</p> 
         </div> 
        </div> 
       </div> 
@@ -240,156 +310,79 @@ table.CodeRay td.code>pre{padding:0}
        <h2 id="_release_to_maven_central">Release to Maven Central</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
-         <p>This section describes the steps to release the platform to Maven central. There are four stages:</p> 
+         <p>This section describes the steps to release the platform to Maven central. There are four step:</p> 
         </div> 
         <div class="ulist"> 
          <ul> 
-          <li> <p>release the maven mixins</p> </li> 
           <li> <p>release the modules</p> </li> 
           <li> <p>recreate the quickstart archetype (referencing the just-released modules)</p> </li> 
           <li> <p>release the quickstart archetype</p> </li> 
          </ul> 
         </div> 
         <div class="paragraph"> 
-         <p>The release process uses Sonatype’s OSS support (see <a href="http://central.sonatype.org/pages/apache-maven.html">user guide</a>); our thanks to them for providing this service.</p> 
+         <p>The release process uses Sonatype’s OSS support (see the "<a href="https://central.sonatype.org/pages/producers.html">producers</a>" user guide and associated subdocuments). Our thanks to them for providing this service.</p> 
         </div> 
         <div class="sect2"> 
-         <h3 id="_prereqs">Prereqs</h3> 
+         <h3 id="_one_off_prereqs">One-off Prereqs</h3> 
          <div class="paragraph"> 
-          <p>First, set the <code>$INCODEREL</code> environment variable to the release. Generally speaking this should correspond to the version of Apache Isis.</p> 
+          <p>Apply for access to release <code>org.incode</code>.</p> 
+         </div> 
+         <div class="ulist"> 
+          <ul> 
+           <li> <p>create an account on <a href="https://issues.sonatype.org">issues.sonatype.org</a></p> </li> 
+           <li> <p>create a ticket requesting permissions to release <code>incode.org</code></p> 
+            <div class="paragraph"> 
+             <p>Use <a href="https://issues.sonatype.org/browse/OSSRH-28156">OSSRH-28156</a> as a template. Also of interest might be the original requests for <code>incode.org</code> (<a href="https://issues.sonatype.org/browse/OSSRH-18045">OSSRH-18045</a> and <code>isisaddons.org</code> (<a href="https://issues.sonatype.org/browse/OSSRH-10641">OSSRH=10641</a>).</p> 
+            </div> </li> 
+           <li> <p>create a GPG key-pair and upload the public key to a public server</p> 
+            <div class="paragraph"> 
+             <p>Full details of how to do this can be found in Sonatype’s <a href="https://central.sonatype.org/pages/working-with-pgp-signatures.html">working-with-pgp-signatures</a> guide.</p> 
+            </div> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <div class="sect2"> 
+         <h3 id="_pre_release_prereqs">Pre-release Prereqs</h3> 
+         <div class="paragraph"> 
+          <p>Set the following environment variables:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.16.3
-export INCODENEXT=1.16.4-SNAPSHOT
+           <pre class="CodeRay highlight"><code data-lang="bash">export INCODE_REL=1.16.3                                    # <i class="conum" data-value="1"></i><b>(1)</b>
+export INCODE_NEXT=1.16.4-SNAPSHOT                          # <i class="conum" data-value="2"></i><b>(2)</b>
+export INCODE_KEYID=dan@haywood-associates.co.uk            # <i class="conum" data-value="3"></i><b>(3)</b>
+export INCODE_KEYPASS="this is not really my passphrase"    # <i class="conum" data-value="4"></i><b>(4)</b>
 
 env | grep ^INCODE</code></pre> 
           </div> 
          </div> 
-        </div> 
-        <div class="sect2"> 
-         <h3 id="_release_maven_mixins">Release Maven Mixins</h3> 
-         <div class="paragraph"> 
-          <p>The <code>release.sh</code> script automates the release process.</p> 
-         </div> 
-         <div class="paragraph"> 
-          <p>Before running, update the two <code>pom.xml</code> files to reference the correct version of Apache Isis:</p> 
-         </div> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>mavenmixin-swagger/pom.xml</code></p> 
-            <div class="paragraph"> 
-             <p>edit <code>&lt;isis.version&gt;</code> property:</p> 
-            </div> 
-            <div class="listingblock"> 
-             <div class="content"> 
-              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.16.3<span class="tag">&lt;/isis.version&gt;</span>
-    ...
-<span class="tag">&lt;/properties&gt;</span></code></pre> 
-             </div> 
-            </div> </li> 
-           <li> <p><code>mavenmixin-validate/pom.xml</code></p> 
-            <div class="paragraph"> 
-             <p>likewise, edit <code>&lt;isis.version&gt;</code> property:</p> 
-            </div> 
-            <div class="listingblock"> 
-             <div class="content"> 
-              <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
-    <span class="tag">&lt;isis.version&gt;</span>1.16.3<span class="tag">&lt;/isis.version&gt;</span>
-    ...
-<span class="tag">&lt;/properties&gt;</span></code></pre> 
-             </div> 
-            </div> </li> 
-          </ul> 
-         </div> 
-         <div class="paragraph"> 
-          <p>Commit these changes.</p> 
-         </div> 
-         <div class="admonitionblock note"> 
+         <div class="colist arabic"> 
           <table> 
            <tbody>
             <tr> 
-             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-             <td class="content"> 
-              <div class="paragraph"> 
-               <p>TODO: should automate this editing, put into the <code>release.sh</code> script instead.</p> 
-              </div> </td> 
+             <td><i class="conum" data-value="1"></i><b>1</b></td> 
+             <td>the version to be released. Generally speaking this should correspond to the version of Apache Isis.</td> 
             </tr> 
-           </tbody>
-          </table> 
-         </div> 
-         <div class="paragraph"> 
-          <p>The <code>release.sh</code> script itself performs the following:</p> 
-         </div> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p>performs a sanity check (<code>mvn clean install -o</code>) that everything builds ok</p> </li> 
-           <li> <p>bumps the <code>pom.xml</code> to a specified release version, and tag</p> </li> 
-           <li> <p>performs a double check (<code>mvn clean install -o</code>) that everything still builds ok</p> </li> 
-           <li> <p>releases the code using <code>mvn clean deploy</code></p> </li> 
-           <li> <p>bumps the <code>pom.xml</code> to a specified release version</p> </li> 
-          </ul> 
-         </div> 
-         <div class="paragraph"> 
-          <p>For example:</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">pushd mavenmixins
-sh release.sh $INCODEREL \
-              $INCODENEXT \
-              dan@haywood-associates.co.uk \
-              "this is not really my passphrase"
-popd</code></pre> 
-          </div> 
-         </div> 
-         <div class="paragraph"> 
-          <p>where</p> 
-         </div> 
-         <div class="ulist"> 
-          <ul> 
-           <li> <p><code>$1</code> is the release version</p> </li> 
-           <li> <p><code>$2</code> is the snapshot version</p> </li> 
-           <li> <p><code>$3</code> is the email of the secret key (<code>~/.gnupg/secring.gpg</code>) to use for signing</p> </li> 
-           <li> <p><code>$4</code> is the corresponding passphrase for that secret key.</p> </li> 
-          </ul> 
-         </div> 
-         <div class="paragraph"> 
-          <p>Other ways of specifying the key and passphrase are available, see the `pgp-maven-plugin’s <a href="http://kohsuke.org/pgp-maven-plugin/secretkey.html">documentation</a>).</p> 
-         </div> 
-         <div class="paragraph"> 
-          <p>If the script completes successfully, then push changes:</p> 
-         </div> 
-         <div class="listingblock"> 
-          <div class="content"> 
-           <pre class="CodeRay highlight"><code>git push origin master</code></pre> 
-          </div> 
-         </div> 
-         <div class="admonitionblock note"> 
-          <table> 
-           <tbody>
             <tr> 
-             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-             <td class="content"> 
-              <div class="paragraph"> 
-               <p>The mavenmixins' <code>release.sh</code> does <em>not</em> tag the repo; this is left until the modules have also been released.</p> 
-              </div> </td> 
+             <td><i class="conum" data-value="2"></i><b>2</b></td> 
+             <td>for the next development version</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="3"></i><b>3</b></td> 
+             <td>key id used when creating the GPG key pair</td> 
+            </tr> 
+            <tr> 
+             <td><i class="conum" data-value="4"></i><b>4</b></td> 
+             <td>corresponding pass phrase</td> 
             </tr> 
            </tbody>
           </table> 
-         </div> 
-         <div class="paragraph"> 
-          <p>If the script fails to complete, then identify the cause, perform a <code>git reset --hard</code> to start over and fix the issue before trying again. Note that in the parent <code>pom.xml</code>, the <code>nexus-staging-maven-plugin</code> has the <code>autoReleaseAfterClose</code> setting set to <code>true</code> (to automatically stage, close and the release the repo). You may want to set this to <code>false</code> if debugging an issue.</p> 
-         </div> 
-         <div class="paragraph"> 
-          <p>According to Sonatype’s guide, it takes about 10 minutes to sync, but up to 2 hours to update <a href="http://search.maven.org">search</a>.</p> 
          </div> 
         </div> 
         <div class="sect2"> 
          <h3 id="_release_modules">Release Modules</h3> 
          <div class="paragraph"> 
-          <p>The modules are released using their own <code>release.sh</code> script. This is very similar to that of the mavenmixins; the only substantive difference is that it also tags the repo with the release version.</p> 
+          <p>Switch to the <code>modules</code> directory:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
@@ -397,13 +390,12 @@ popd</code></pre>
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>Before doing so, update the <code>incode-parent</code> module’s <code>pom.xml</code>, so that it references the correct version of Apache Isis and also the (just released) non-SNAPSHOT version of the mavenmixins:</p> 
+          <p>If necessary, update the <code>incode-parent</code> module (in <code>modules/pom.xml</code>), so that it references the correct version of Apache Isis.</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;properties&gt;</span>
     <span class="tag">&lt;isis.version&gt;</span>1.16.3<span class="tag">&lt;/isis.version&gt;</span>
-    <span class="tag">&lt;incode-mavenmixin.version&gt;</span>1.16.3<span class="tag">&lt;/incode-mavenmixin.version&gt;</span>
     ...
 <span class="tag">&lt;/properties&gt;</span></code></pre> 
           </div> 
@@ -411,31 +403,21 @@ popd</code></pre>
          <div class="paragraph"> 
           <p>Commit these changes.</p> 
          </div> 
-         <div class="admonitionblock note"> 
-          <table> 
-           <tbody>
-            <tr> 
-             <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-             <td class="content"> 
-              <div class="paragraph"> 
-               <p>TODO: should automate this editing, put into the <code>release.sh</code> script instead.</p> 
-              </div> </td> 
-            </tr> 
-           </tbody>
-          </table> 
-         </div> 
          <div class="paragraph"> 
-          <p>Commit the changes.</p> 
-         </div> 
-         <div class="paragraph"> 
-          <p>Then, release using:</p> 
+          <p>Then, release and tag using:</p> 
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">sh release.sh $INCODEREL \
-              $INCODENEXT \
-              dan@haywood-associates.co.uk \
-              "this is not really my passphrase"</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">mvn clean deploy               \
+    -Ddeploy                   \
+    -Dskip.default-modules     \
+    -Drelease=$INCODE_REL      \
+    -Dskip.isis-swagger        \
+    -Dskip.isis-validate       \
+    -Dpgp.secretkey=keyring:id=$INCODE_KEYID \
+    -Dpgp.passphrase="literal:$INCODE_KEYPASS"
+
+git tag $INCODE_REL</code></pre> 
           </div> 
          </div> 
          <div class="paragraph"> 
@@ -443,7 +425,7 @@ popd</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code>git push origin master &amp;&amp; git push origin $INCODEREL
+           <pre class="CodeRay highlight"><code>git push origin master &amp;&amp; git push origin $INCODE_REL
 popd</code></pre> 
           </div> 
          </div> 
@@ -458,8 +440,8 @@ popd</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.16.3
-export INCODENEXT=1.16.4-SNAPSHOT
+           <pre class="CodeRay highlight"><code data-lang="bash">export INCODE_REL=1.16.3
+export INCODE_NEXT=1.16.4-SNAPSHOT
 
 env | grep ^INCODE</code></pre> 
           </div> 
@@ -469,7 +451,7 @@ env | grep ^INCODE</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/app/quickstart</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">pushd archetype/app/quickstart</code></pre> 
           </div> 
          </div> 
          <div class="paragraph"> 
@@ -477,13 +459,16 @@ env | grep ^INCODE</code></pre>
          </div> 
          <div class="ulist"> 
           <ul> 
-           <li> <p>Confirm that the parent <code>pom.xml</code> of the quickstart application inherits from the release version of <code>org.incode:incode-parent</code>. For example:</p> 
+           <li> <p>Confirm that the parent <code>pom.xml</code> of the quickstart application inherits from the release version of <code>org.incode:incode-parent</code>.</p> 
+            <div class="paragraph"> 
+             <p>For example:</p> 
+            </div> 
             <div class="listingblock"> 
              <div class="content"> 
               <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;parent&gt;</span>
     <span class="tag">&lt;groupId&gt;</span>org.incode<span class="tag">&lt;/groupId&gt;</span>
     <span class="tag">&lt;artifactId&gt;</span>incode-parent<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.16.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;version&gt;</span>1.16.3<span class="tag">&lt;/version&gt;</span>
     <span class="tag">&lt;relativePath</span><span class="tag">/&gt;</span>
 <span class="tag">&lt;/parent&gt;</span></code></pre> 
              </div> 
@@ -504,7 +489,7 @@ env | grep ^INCODE</code></pre>
          </div> 
          <div class="listingblock"> 
           <div class="content"> 
-           <pre class="CodeRay highlight"><code data-lang="bash">sh ../../arch/recreate-archetype.sh $INCODEREL</code></pre> 
+           <pre class="CodeRay highlight"><code data-lang="bash">sh ../../arch/recreate-archetype.sh $INCODE_REL</code></pre> 
           </div> 
          </div> 
          <div class="paragraph"> 
@@ -513,7 +498,7 @@ env | grep ^INCODE</code></pre>
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="bash">popd
-git commit -am "recreates archetype for $INCODEREL"</code></pre> 
+git commit -am "recreates archetype for $INCODE_REL"</code></pre> 
           </div> 
          </div> 
         </div> 
@@ -537,7 +522,7 @@ git commit -am "recreates archetype for $INCODEREL"</code></pre>
           <div class="listingblock"> 
            <div class="content"> 
             <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/arch/quickstart
-sh ../release-prepare.sh $INCODEREL
+sh ../release-prepare.sh $INCODE_REL
 popd</code></pre> 
            </div> 
           </div> 
@@ -552,9 +537,9 @@ popd</code></pre>
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
-            <pre class="CodeRay highlight"><code data-lang="bash">export INCODEREL=1.16.3
-export INCODETMP=/c/tmp    # or as required
-export INCODEART=quickstart
+            <pre class="CodeRay highlight"><code data-lang="bash">export INCODE_REL=1.16.3
+export INCODE_TMP=/c/tmp    # or as required
+export INCODE_ART=quickstart
 env | grep INCODE | sort</code></pre> 
            </div> 
           </div> 
@@ -563,10 +548,10 @@ env | grep INCODE | sort</code></pre>
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
-            <pre class="CodeRay highlight"><code data-lang="bash">rm -rf $INCODETMP/test-$INCODEART
+            <pre class="CodeRay highlight"><code data-lang="bash">rm -rf $INCODE_TMP/test-$INCODEART
 
-mkdir $INCODETMP/test-$INCODEART
-cd $INCODETMP/test-$INCODEART</code></pre> 
+mkdir $INCODE_TMP/test-$INCODEART
+cd $INCODE_TMP/test-$INCODEART</code></pre> 
            </div> 
           </div> 
           <div class="paragraph"> 
@@ -585,7 +570,7 @@ cd $INCODETMP/test-$INCODEART</code></pre>
             <pre class="CodeRay highlight"><code data-lang="bash">mvn archetype:generate  \
     -D archetypeGroupId=org.incode.platform.archetype \
     -D archetypeArtifactId=quickstart-archetype \
-    -D archetypeVersion=$INCODEREL \
+    -D archetypeVersion=$INCODE_REL \
     -D groupId=com.mycompany \
     -D artifactId=myapp \
     -D version=1.0-SNAPSHOT \
@@ -612,15 +597,15 @@ mvn -pl webapp jetty:run \
          <div class="sect3"> 
           <h4 id="_deploying_the_archetype">Deploying the archetype</h4> 
           <div class="paragraph"> 
-           <p>Back in the original session (in the <code>ex/arch/quickstart</code> directory), the archetype is released (deployed to Maven Central) using:</p> 
+           <p>Back in the original session (in the <code>archetype/arch/quickstart</code> directory), the archetype is released (deployed to Maven Central) using:</p> 
           </div> 
           <div class="listingblock"> 
            <div class="content"> 
             <pre class="CodeRay highlight"><code data-lang="bash">pushd ex/arch/quickstart
-sh ../release-deploy.sh \
-              $INCODENEXT \
-              dan@haywood-associates.co.uk \
-              "this is not really my passphrase"</code></pre> 
+sh ../release-deploy.sh    \
+              $INCODE_NEXT \
+              $INCODE_KEYID \
+              "$INCODE_KEYPASS"</code></pre> 
            </div> 
           </div> 
           <div class="paragraph"> 
@@ -637,7 +622,7 @@ git push</code></pre>
         <div class="sect2"> 
          <h3 id="_update_the_website">Update the website</h3> 
          <div class="paragraph"> 
-          <p>Update the website, in particular:</p> 
+          <p>Update the website where required. In particular, update:</p> 
          </div> 
          <div class="ulist"> 
           <ul> 
@@ -652,63 +637,13 @@ git push</code></pre>
           </ul> 
          </div> 
          <div class="paragraph"> 
-          <p>and republish.</p> 
+          <p>and republish (as described <a href="#docs-and-website">below</a>).</p> 
          </div> 
         </div> 
        </div> 
       </div> 
       <div class="sect1"> 
-       <h2 id="_release_an_interim_build">Release an Interim Build</h2> 
-       <div class="sectionbody"> 
-        <div class="paragraph"> 
-         <p>If you have commit access to this project (or a fork of your own) then you can create interim releases using the <code>interim-release.sh</code> script.</p> 
-        </div> 
-        <div class="paragraph"> 
-         <p>The idea is that this will - in a new branch - update the artifacts with a timestamped version (eg <code>1.15.0.20170927-0738</code>). It then pushes the branch (and a tag) to the specified remote.</p> 
-        </div> 
-        <div class="paragraph"> 
-         <p>A CI server such as Jenkins can monitor the branches matching the wildcard <code>origin/interim/*</code> and create a build. These artifacts can then be published to a snapshot repository.</p> 
-        </div> 
-        <div class="paragraph"> 
-         <p>For example:</p> 
-        </div> 
-        <div class="listingblock"> 
-         <div class="content"> 
-          <pre class="CodeRay highlight"><code data-lang="bash">pushd modules
-sh interim-release.sh $INCODEREL origin
-popd</code></pre> 
-         </div> 
-        </div> 
-        <div class="paragraph"> 
-         <p>where</p> 
-        </div> 
-        <div class="ulist"> 
-         <ul> 
-          <li> <p><code>origin</code> is the name of the remote to which you have permissions to write to.</p> </li> 
-         </ul> 
-        </div> 
-       </div> 
-      </div> 
-      <div class="sect1"> 
-       <h2 id="_release_snapshot">Release Snapshot</h2> 
-       <div class="sectionbody"> 
-        <div class="paragraph"> 
-         <p>To deploy a snapshot (to Sonatype’s snapshot repo), use:</p> 
-        </div> 
-        <div class="listingblock"> 
-         <div class="content"> 
-          <pre class="CodeRay highlight"><code>pushd modules
-mvn clean deploy
-popd</code></pre> 
-         </div> 
-        </div> 
-        <div class="paragraph"> 
-         <p>The artifacts should be available in Sonatype’s <a href="https://oss.sonatype.org/content/repositories/snapshots">Snapshot Repo</a>.</p> 
-        </div> 
-       </div> 
-      </div> 
-      <div class="sect1"> 
-       <h2 id="_docs_website">Docs &amp; website</h2> 
+       <h2 id="docs-and-website">Docs &amp; website</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
          <p>The website resides in the <code>adocs</code> directory:</p> 
@@ -721,7 +656,7 @@ popd</code></pre>
          </ul> 
         </div> 
         <div class="paragraph"> 
-         <p>The website is published to the <a href="https://github.com/incodehq/incodehq.github.io">incodehq/incodehq.github.io</a> github repository; a <code>CNAME</code> file (in the root directory) maps this to <a href="http://platform.catalog.org" class="bare">http://platform.catalog.org</a>.</p> 
+         <p>The website is published to the <code><a href="https://github.com/incodehq/incodehq.github.io">incodehq/incodehq.github.io</a></code> github repository; a <code>CNAME</code> file (in the root directory) maps this to <code><a href="https://platform.catalog.org" class="bare">https://platform.catalog.org</a></code>.</p> 
         </div> 
         <div class="paragraph"> 
          <p>To publish, this repository must also be cloned to your local computer. The scripts assume that the <code>incode-platform</code> repository (ie this repo) and the <code>incodehq.github.io</code> repository cloned at the same level, eg:</p> 
@@ -792,7 +727,7 @@ popd</code></pre>
           </div> 
          </div> 
          <div class="paragraph"> 
-          <p>This will remove all files in the <code>incodeh.github.io</code> directory and replace with the latest build.</p> 
+          <p>This will remove all files in the <code>incodehq.github.io</code> directory and replace with the latest build.</p> 
          </div> 
          <div class="paragraph"> 
           <p>To check everything is ok:</p> 
@@ -800,8 +735,11 @@ popd</code></pre>
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="bash">pushd ../../../incodehq.github.io
-sh preview.sh</code></pre> 
+sh preview-html.sh</code></pre> 
           </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>(or use <code>preview.sh</code> to also generate the PDFs).</p> 
          </div> 
          <div class="paragraph"> 
           <p>If all looks ok, then just push the changes:</p> 

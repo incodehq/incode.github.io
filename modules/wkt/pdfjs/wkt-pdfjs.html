@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="../../../pages/license.html">License</a></li> 
         <li><a href="../../../pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -345,7 +360,7 @@ table.CodeRay td.code>pre{padding:0}
          <p>Often a user may need to browse through many documents at a time, for example to process a number of scanned documents. To fit their particular screen, they may want to adjust the zoom level and/or height of the panel. It would however be very tiresome of the next document viewed reset to the defaults specified in the <code>@PdfJsViewer</code>.</p> 
         </div> 
         <div class="paragraph"> 
-         <p>Related, support a user views a first document and navigate to some other page. She then moves on to second document, and then goes back to the first document once more. It would again be annoying if she had start back at page 1 and navigate once more to the page they were previously at.</p> 
+         <p>Related, suppose a user views a first document and navigate to some other page. She then moves on to second document, and then goes back to the first document once more. It would again be annoying if she had start back at page 1 and navigate once more to the page they were previously at.</p> 
         </div> 
         <div class="paragraph"> 
          <p>To support these two use cases the component therefore provides an optional SPI service. Implementations of this SPI service can provide hints (<code>Advice</code>) which override the defaults of the <code>@PdfJsViewer</code> annotation.</p> 
@@ -418,9 +433,8 @@ table.CodeRay td.code>pre{padding:0}
          <div class="listingblock"> 
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="xml"><span class="tag">&lt;dependency&gt;</span>
-    <span class="tag">&lt;groupId&gt;</span>com.eurocommercialproperties.pdfjsdemo<span class="tag">&lt;/groupId&gt;</span>
-    <span class="tag">&lt;artifactId&gt;</span>ecp-wicket-pdfjs-cpt<span class="tag">&lt;/artifactId&gt;</span>
-    <span class="tag">&lt;version&gt;</span>1.16.1<span class="tag">&lt;/version&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>org.isisaddons.wicket.pdfjs<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>isis-wicket-pdfjs-cpt<span class="tag">&lt;/artifactId&gt;</span>
 <span class="tag">&lt;/dependency&gt;</span></code></pre> 
           </div> 
          </div> 
@@ -450,7 +464,7 @@ table.CodeRay td.code>pre{padding:0}
          </div> 
         </div> 
         <div class="sect2"> 
-         <h3 id="_configuration_proeprties">Configuration Proeprties</h3> 
+         <h3 id="_configuration_properties">Configuration Properties</h3> 
          <div class="paragraph"> 
           <p>Set up the facet factory in <code>isis.properties</code> (or in the <code>AppManifest#getConfigurationProperties()</code>):</p> 
          </div> 
@@ -462,6 +476,9 @@ table.CodeRay td.code>pre{padding:0}
            <pre class="CodeRay highlight"><code data-lang="ini">isis.reflector.facets.include=\
     org.isisaddons.wicket.pdfjs.cpt.applib.PdfJsViewerFacetFromAnnotationFactory</code></pre> 
           </div> 
+         </div> 
+         <div class="paragraph"> 
+          <p>Alternatively, this can be specified in the <code>AppManifest</code>.</p> 
          </div> 
         </div> 
        </div> 

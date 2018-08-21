@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="../../../modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="../../../modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
         <li><a href="../../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../../modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="../../../modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="../../../modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="../../../modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="../../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="../../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="../../../pages/license.html">License</a></li> 
         <li><a href="../../../pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -393,7 +408,7 @@ table.CodeRay td.code>pre{padding:0}
         <span class="tag">&lt;dependency&gt;</span>
             <span class="tag">&lt;groupId&gt;</span>org.isisaddons.module.publishmq<span class="tag">&lt;/groupId&gt;</span>
             <span class="tag">&lt;artifactId&gt;</span>isis-module-publishmq-dom<span class="tag">&lt;/artifactId&gt;</span>
-            <span class="tag">&lt;version&gt;</span>1.16.1<span class="tag">&lt;/version&gt;</span>
+            <span class="tag">&lt;version&gt;</span>${incode-platform.version}<span class="tag">&lt;/version&gt;</span>
             <span class="tag">&lt;type&gt;</span>pom<span class="tag">&lt;/type&gt;</span>
             <span class="tag">&lt;scope&gt;</span>import<span class="tag">&lt;/scope&gt;</span>
         <span class="tag">&lt;/dependency&gt;</span>
@@ -401,6 +416,9 @@ table.CodeRay td.code>pre{padding:0}
     <span class="tag">&lt;/dependencies&gt;</span>
 <span class="tag">&lt;/dependencyManagement&gt;</span></code></pre> 
              </div> 
+            </div> 
+            <div class="paragraph"> 
+             <p>where <code>incode-platform.version</code> property is set appropriately for the version</p> 
             </div> </li> 
            <li> <p>by adding the <code>-dom-servicespi</code> dependency in your project’s <code>dom</code> module’s <code>pom.xml</code>:<br></p> 
             <div class="listingblock"> 
@@ -567,6 +585,23 @@ updateExternalSystemAdapter.endpointAddress=http://localhost:8080/soap/ExternalS
        </div> 
       </div> 
       <div class="sect1"> 
+       <h2 id="_database_migrations">Database Migrations</h2> 
+       <div class="sectionbody"> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="https://github.com/incodehq/incode-platform/issues/88">#88</a> - add sequence to StatusMessage.</p> 
+           <div class="paragraph"> 
+            <p>Search for <code>issue-88-add-sequence-to-StatusMessage-pk.sql</code> in this repo.</p> 
+           </div> </li> 
+          <li> <p><a href="https://github.com/incodehq/incode-platform/issues/89">#89</a> - change order of PublishedEvent pk</p> 
+           <div class="paragraph"> 
+            <p>Search for <code>issue-89-change-order-of-PublishedEvent-pk.sql</code> in this repo.</p> 
+           </div> </li> 
+         </ul> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
        <h2 id="_known_issues">Known issues</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
@@ -575,21 +610,7 @@ updateExternalSystemAdapter.endpointAddress=http://localhost:8080/soap/ExternalS
        </div> 
       </div> 
       <div class="sect1"> 
-       <h2 id="_dependencies">Dependencies</h2> 
-       <div class="sectionbody"> 
-        <div class="paragraph"> 
-         <p>In addition to Apache Isis, this module also depends upon:</p> 
-        </div> 
-        <div class="ulist"> 
-         <ul> 
-          <li> <p><a href="http://activemq.apache.org">ActiveMQ</a></p> </li> 
-          <li> <p>(optional) <a href="http://camel.apache.org">Camel</a><br></p> </li> 
-         </ul> 
-        </div> 
-       </div> 
-      </div> 
-      <div class="sect1"> 
-       <h2 id="_dependencies_2">Dependencies</h2> 
+       <h2 id="_submodules">Submodules</h2> 
        <div class="sectionbody"> 
         <div class="paragraph"> 
          <p>The publishmq module actually consists of four distinct submodules, which can be used to some extend independently.</p> 
@@ -737,6 +758,20 @@ com.fasterxml.jackson.core:jackson-databind:jar:2.8.0</code></pre>
            <li> <p><a href="https://github.com/FasterXML/jackson/">Jackson</a></p> </li> 
           </ul> 
          </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="sect1"> 
+       <h2 id="_dependencies">Dependencies</h2> 
+       <div class="sectionbody"> 
+        <div class="paragraph"> 
+         <p>In addition to Apache Isis, this module also depends upon:</p> 
+        </div> 
+        <div class="ulist"> 
+         <ul> 
+          <li> <p><a href="http://activemq.apache.org">ActiveMQ</a></p> </li> 
+          <li> <p>(optional) <a href="http://camel.apache.org">Camel</a><br></p> </li> 
+         </ul> 
         </div> 
        </div> 
       </div> 

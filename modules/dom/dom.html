@@ -8,7 +8,7 @@
   <meta http-equiv="cache-control" content="no-cache"> 
   <meta http-equiv="pragma" content="no-cache"> 
   <meta http-equiv="expires" content="-1"> 
-  <title>Example Subdomains</title> 
+  <title>Subdomains</title> 
   <link rel="icon" type="image/png" href="../../images/incode-favicon.png"> 
   <!--
         Based on DataNucleus' template,
@@ -162,26 +162,41 @@ table.CodeRay td.code>pre{padding:0}
         <li><a href="../../modules/incode-parent.html">Parent POM</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Modules</li> 
+        <li><a href="../../modules/dom/dom.html">(Sub)domains</a></li> 
+        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li><a href="../../modules/lib/lib.html">Libraries</a></li> 
+        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
         <li><a href="../../modules/spi/spi.html">SPI Implementations</a></li> 
         <li><a href="../../modules/wkt/wkt.html">Wicket Components</a></li> 
-        <li><a href="../../modules/mml/mml.html">MetaModel Facets</a></li> 
-        <li><a href="../../modules/ext/ext.html">Extensions</a></li> 
         <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Examples</li> 
-        <li><a href="../../modules/dom/dom.html">Example Subdomains</a></li> 
+       </ul> </li> 
+      <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Other Resources<span class="caret"></span></a> 
+       <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Build &amp; Maven-mixins</li> 
+        <li><a href="https://github.com/incodehq/incode-build">Incode Build</a></li> 
+        <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Examples (to fork)</li> 
+        <li><a href="https://github.com/incodehq/incode-camel">Incode Camel</a></li> 
+        <li><a href="https://github.com/incodehq/incode-examples">Incode (Sub)domain Examples</a></li> 
        </ul> </li> 
       <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Support<span class="caret"></span></a> 
        <ul class="dropdown-menu"> 
+        <li class="dropdown-header">Source code</li> 
         <li class="dropdown-header">Source code</li> 
         <li><a href="https://github.com/incodehq/incode-platform">Github</a></li> 
         <li><a href="https://github.com/incodehq/incode-platform/issues">Issue Tracker</a></li> 
         <li><a href="../../pages/change-log/change-log.html">Change Log</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">CI &amp; Binaries</li> 
+        <li><a href="https://gitlab.com/incodehq-public/incode-platform">Gitlab Mirror (CI)</a></li> 
+        <li><a href="https://repo.incode.cloud">repo.incode.cloud (Nexus Repo)</a></li> 
+        <li role="separator" class="divider"></li> 
         <li class="dropdown-header">Guides</li> 
         <li><a href="../../pages/contributors-guide/contributors-guide.html">Contributors guide</a></li> 
         <li><a href="../../pages/committers-guide/committers-guide.html">Committers guide</a></li> 
         <li role="separator" class="divider"></li> 
+        <li class="dropdown-header">Other</li> 
         <li><a href="../../pages/license.html">License</a></li> 
         <li><a href="../../pages/thanks.html">Thanks</a></li> 
        </ul> </li> 
@@ -209,7 +224,7 @@ table.CodeRay td.code>pre{padding:0}
      </div> 
      <span class="pdf-link"><a href="dom.pdf"><img src="../../images/PDF-50.png"></a></span> 
      <div class="page-title"> 
-      <h1>Example Subdomains</h1> 
+      <h1>Subdomains</h1> 
      </div> 
      <div id="doc-content">
       <div class="btn-group" style="float: right; font-size: small; padding: 6px;  ">
@@ -223,248 +238,23 @@ table.CodeRay td.code>pre{padding:0}
        </ul>
       </div> 
       <div class="paragraph"> 
-       <p>Example subdomain modules provide business functionality reusable in many different contexts, such as communications, documents and application/user settings. All of these modules define their own set of persistent entities and supporting services.</p> 
+       <p>Subdomain modules provide business functionality reusable in many different contexts, such as application/user settings.</p> 
+      </div> 
+      <div class="paragraph"> 
+       <p>They are distinguished from <a href="../lib/lib.html">libraries</a> in that they define their own set of persistent entities and supporting services.</p> 
       </div> 
       <table class="tableblock frame-all grid-all spread"> 
        <colgroup> 
-        <col style="width: 28.5714%;"> 
-        <col style="width: 42.8571%;"> 
-        <col style="width: 14.2857%;"> 
-        <col style="width: 14.2858%;"> 
+        <col style="width: 25%;"> 
+        <col style="width: 75%;"> 
        </colgroup> 
        <thead> 
         <tr> 
          <th class="tableblock halign-center valign-bottom">Module</th> 
          <th class="tableblock halign-center valign-bottom">Description</th> 
-         <th class="tableblock halign-center valign-bottom">Implements<br> (SPI)</th> 
-         <th class="tableblock halign-center valign-bottom">Requires<br> (API)</th> 
         </tr> 
        </thead> 
        <tbody> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="alias/dom-alias.html">Alias</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides the ability to attach <code>Alias</code> objects to arbitrary domain entities, where "alias" means an alternative identifier for the entity.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="classification/dom-classification.html">Classification</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides the ability to classify any (arbitrary) domain entity as belonging to a pre-defined <code>Category</code> within a particular <code>Taxonomy</code>. A given domain entity can only be associated with one <code>Category</code> per <code>Taxonomy</code>, but each <code>Category</code> can optionally have child (sub-) categories.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="commchannel/dom-commchannel.html">Comm Channel</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides the ability to attach communication channel objects (postal address, email or phone/fax number) to arbitrary domain entities. There are <em>no</em> requirements for those objects to implement any interfaces.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="../wkt/gmap3/gmap3.html">gmap3</a> (optional)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="communications/dom-communications.html">Communications</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Defines <code>CommunicationChannel</code>s (email address, postal address or phone/fax number), and also allows (<a href="../../dom/document/dom-document.html">Document</a>'s) <code>Document</code>s to be sent as <code>Communication</code>s either to an email address or to a postal address.</p> 
-           </div> 
-           <div class="admonitionblock note"> 
-            <table> 
-             <tbody>
-              <tr> 
-               <td class="icon"> <i class="fa icon-note" title="Note"></i> </td> 
-               <td class="content"> 
-                <div class="paragraph"> 
-                 <p>This currently does <em>not</em> use the communication channels defined by <a href="commchannel/dom-commchannel.html">Comm Channel</a>. The intention is to unify these modules at some point in the future.</p> 
-                </div> </td> 
-              </tr> 
-             </tbody>
-            </table> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="../../lib/poly/lib-poly.html">Polymorphic association library</a></p> 
-           </div> 
-           <div class="paragraph"> 
-            <p><a href="../document/dom-document.html">Document subdomain</a></p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="country/dom-country.html">Country</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides a <code>Country</code> and a <code>State</code> entity, for use as reference data.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="docfragment/dom-docfragment.html">Doc Fragment</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>A simple wrapper around the <a href="../lib/freemarker/lib-freemarker.html">freemarker library</a> module to interpolate and persist fragments of text with respect to some other domain object.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="document/dom-document.html">Document</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides the ability to create and attach <code>Document</code> objects to arbitrary domain entities from <code>DocumentTemplate</code>s.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="note/dom-note.html">Note</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides the ability to attach <code>Note</code> objects to arbitrary domain entities.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="../wkt/fullcalendar2/fullcalendar2.html">fullcalendar2</a> (optional)</p> 
-           </div>
-          </div></td> 
-        </tr> 
         <tr> 
          <td class="tableblock halign-left valign-top">
           <div>
@@ -475,45 +265,7 @@ table.CodeRay td.code>pre{padding:0}
          <td class="tableblock halign-left valign-top">
           <div>
            <div class="paragraph"> 
-            <p>Provides the ability to persist application- and user- configuration settings.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-        </tr> 
-        <tr> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p><a href="tags/dom-tags.html">Tags</a></p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>Provides the ability to add multiple tags (or labels) to any domain entity.</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
-           </div>
-          </div></td> 
-         <td class="tableblock halign-left valign-top">
-          <div>
-           <div class="paragraph"> 
-            <p>(none)</p> 
+            <p>Provides the ability to persist global (application) settings and per-user settings.</p> 
            </div>
           </div></td> 
         </tr> 
