@@ -410,6 +410,7 @@ env | grep ^INCODE</code></pre>
           <div class="content"> 
            <pre class="CodeRay highlight"><code data-lang="bash">mvn clean deploy               \
     -Ddeploy                   \
+    -Ddeploy-modules           \
     -Dskip.default-modules     \
     -Drelease=$INCODE_REL      \
     -Dskip.isis-swagger        \
